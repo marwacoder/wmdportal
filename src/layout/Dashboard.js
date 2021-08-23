@@ -17,9 +17,9 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReportIcon from '@material-ui/icons/Report';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-
+import Tooltip from '@material-ui/core/Tooltip';
 import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger,
-    MenuItem, IconButton, Toolbar, AppBar,ChevronLeftIcon, ChevronRightIcon,
+    MenuItem, IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon,
     makeStyles, ListItem,Divider, Grid, ListItemText,Zoom,
     SwipeableDrawer,withStyles, Hidden, DashboardIcon, ExitToApp} from '../mui'
 
@@ -468,7 +468,7 @@ const handleRegisteredInstrument = () => {
               
               <Hidden xsDown={true} implementation="css">
                   
-                <Box ml='50%'> 
+                <Box ml='30%'> 
                 <List   className={classes.navLinks}>
                   
                   {menu.map((item, index) => (
@@ -482,13 +482,39 @@ const handleRegisteredInstrument = () => {
                     
                   ))}
          
-             
+        <Box pl={10}>
+        <Tooltip title="Profile">
+        <IconButton
+        
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                
+                color="inherit"
+              >
+                <AccountCircle style={{color: 'white'}}/>
+              </IconButton>
+              </Tooltip>
+        </Box>
+        <Box >
+        <Tooltip title="Logout">
+            <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                
+                color="inherit"
+              >
+                <ExitToApp style={{color: 'white'}}/>
+              </IconButton>
+              </Tooltip>
+         </Box>
 
                   </List>
                   
                 </Box>
                 
-         
+             
                  </Hidden>
 
             </Box>
