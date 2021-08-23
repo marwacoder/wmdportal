@@ -1,17 +1,30 @@
-import React,{Suspense, lazy, useLayoutEffect} from 'react';
+import 'date-fns';
+import React,{Suspense} from 'react';
 import Dashboard from '../src/layout/Dashboard'
 import { createBrowserHistory } from 'history';
 import { createTheme, MuiThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
-import { Switch, Route, Router, Redirect } from 'react-router-dom'
+import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 
 import Nexa from './font/Nexa-Light.otf';
-
+import {Box} from './mui'
 import Spinner from '../src/helpers/Spinner/Spinner'
 
-import { red, grey, green } from '@material-ui/core/colors';
-
-
-
+import { red, grey, green, lime } from '@material-ui/core/colors';
+import Home from './views/Dashboard/Home';
+import Downloads from './views/Dashboard/Downloads';
+import Footer from './views/Dashboard/Footer';
+import Auth from './views/Auth/AuthContainer';
+import FMITI from './views/Dashboard/FMITI';
+import WMD from './views/Dashboard/WMD';
+import ContactUs from './views/Dashboard/ContactUs';
+import NewInstrumentReg from './views/AuthDashboard/NewInstrumentReg';
+import RegisteredInstrument from './helpers/Table'
+import Uploads from './views/AuthDashboard/Uploads'
+import Reports from './views/AuthDashboard/Reports'
+import OutstandingBill from './views/Tables/OutstandingBill'
+import PaidBill from './views/Tables/PaidBill'
+import ApplyApproval from './views/Tables/ApplyApproval'
+import ApplyInstVerification from './views/Tables/ApplyInstVerification'
 
 export const history = createBrowserHistory();
 
@@ -34,10 +47,13 @@ function App() {
   const [darkState, setDarkState] = React.useState(false);
     const darkTheme = darkState ? "dark" : "light";
     const primaryColor = darkState ? grey[800] : green[500];
-    const secondaryColor = darkState ? red[300] : red[900];
+    const secondaryColor = darkState ? red[300] : red[500];
+    const limeColor = darkState ? lime[300] : lime[500];
     const [route, setRoute] = React.useState(false);
     
     
+
+
   
     let theme = createTheme({
       typography: {
@@ -67,6 +83,10 @@ function App() {
         secondary: {
           main: secondaryColor,
           contrastText: '#fff'
+        },
+        limeColor: {
+          main: limeColor,
+          contrastText: '#fff'
         }
   
       },
@@ -87,18 +107,38 @@ function App() {
     
   return (
     <MuiThemeProvider theme={theme}>
-      {/* <Router history={history} >
-        <Switch>
-           <Redirect
+     <Router history={history}>
+        <Dashboard history={history}   darkState={darkState} 
+         />
+  
+        <Switch >
+          <Redirect
         exact
         from="/"
         to="/dashboard"
-          />
+            />
+            <Suspense fallback= {<Spinner/>}>
+            <Box ml={45}>
+          <Route exact path="/dashboard" name="Dashboard" render={props => <Home {...props}/>}/>
+              <Route path='/downloads' name="Downloads" render={props => <Downloads  darkState={darkState} {...props} />} />
+              <Route path='/auth' name="Auth" render={props => <Auth history={history}  darkState={darkState} {...props} />} />
+            <Route path='/fmiti' name="FMITI" render={props => <FMITI {...props} />} />
+            <Route path='/wmd' name="WMD" render={props => <WMD {...props} />} />
+            <Route path='/contactus' name="ContactUs" render={props => <ContactUs {...props} />} />
+            <Route path='/newinstrument' name="NewInstrumentReg" render={props => <NewInstrumentReg {...props} />} />
+            <Route path='/registeredinstrument' name="RegisteredInstrument" render={props => <RegisteredInstrument {...props} />} />
+            <Route path='/uploads' name="Uploads" render={props => <Uploads {...props} />} />
+            <Route path='/reports' name="Reports" render={props => <Reports {...props} />} />
+            <Route path='/outstandingbill' name="OutstandingBill" render={props => <OutstandingBill {...props} />} />
+            <Route path='/paidbill' name="PaidBill" render={props => <PaidBill {...props} />} />
+            <Route path='/applyapproval' name="ApplyApproval" render={props => <ApplyApproval {...props} />} />
+            <Route path='/applyinstverification' name="ApplyInstVerification" render={props => <ApplyInstVerification {...props} />} />
+            </Box>
+            </Suspense>
+          </Switch>
           
-          <Route path="/" name="Home" key="home" component={<Dashboard/>} />
-        </Switch>
-      </Router> */}
-      <Dashboard/>
+        </Router>
+        <Footer/>
     </MuiThemeProvider>
   );
 }

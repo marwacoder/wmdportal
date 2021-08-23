@@ -15,37 +15,37 @@ const styleProps = {
 
  const Home = Loadable({
     loader: () => import('../views/Dashboard/Home'),
-    loading: () => <Spinner {...styleProps} />,
+    loading: () => <Spinner {...styleProps} />
   });
 
 
 
     const AboutUs = Loadable({
-        loader: () => import('../views/Dashboard/aboutUs'),
+        loader: () => import('../views/Dashboard/ContactUs'),
         loading: ()=> <Spinner {...styleProps} />
     });
     const Download = Loadable({
-        laoder: () => import('../views/Dashboard/daownloads'),
+        laoder: () => import('../views/Dashboard/Downloads'),
         loading: ()=> <Spinner {...styleProps} />
     });
     const QuickSearch = Loadable({
-        loader: () => import('../views/Dashboard/quickSearch'),
+        loader: () => import('../views/Dashboard/QuickSearch'),
         loading: ()=> <Spinner {...styleProps} />
     });
     const Help = Loadable({
-        loader:() => import('../views/Dashboard/help'),
+        loader:() => import('../views/Dashboard/Help'),
         loading: ()=> <Spinner {...styleProps} />
     });
 
     
 
 const routes = [
-  { path: "/home", component: Home, title: "welcome", key: "welcome" },
-  { path: "/", exact: true, tittle: "Home", component: Home },
+    { path: "/", exact: true, name: "Home", component: Home },
+    { path: "/dashboard",exact: true, name: "Dashboard", component: Home },
   { path: "/aboutus", component: AboutUs, title: "aboutus", key: "aboutus" },
   { path: "/download", component: Download, title: "download", key: "download" },
   { path: "/quicksearch", component: QuickSearch, title: "quicksearch", key: "quicksearch" },
-  { path: "/help", component: Help, title: "help", key: "help" },
+  { path: "/help", component: Help, title: "help", key: "help" }
 ];
 
 export default routes;

@@ -1,7 +1,7 @@
-import React,{Suspense, lazy, useLayoutEffect} from 'react';
-import {Route, Switch, } from 'react-router-dom'
-import routes from './routes'
-
+import React from 'react';
+import {withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import {  useTheme } from '@material-ui/core/styles';
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
@@ -12,16 +12,21 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import ReportIcon from '@material-ui/icons/Report';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-
-import {Box, List, Menu, MenuIcon, Collapse,  
-    MenuItem, IconButton, Toolbar, AppBar,
-    makeStyles, ListItem,Divider, Grid, ListItemText,
+import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger,
+    MenuItem, IconButton, Toolbar, AppBar,ChevronLeftIcon, ChevronRightIcon,
+    makeStyles, ListItem,Divider, Grid, ListItemText,Zoom,
     SwipeableDrawer,withStyles, Hidden, DashboardIcon, ExitToApp} from '../mui'
 
 import coat from '../assets/Coat_of_arms_of_Nigeria.png'
 import ellipse from '../assets/Ellipse 20.png'
-
+import RegisterCompany from '../views/Dashboard/RegisterdCompany'
+import RegisteredInstrument from '../views/Dashboard/RegisteredInstrument'
 
 const drawerWidth = 320
 
@@ -62,6 +67,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
   },
   title: {
     display: 'none',
@@ -130,12 +139,24 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     
   },
+  appBar: {
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
 }));
 
 
 const menu = [
             { name: 'HOME', link: '/dashboard' },
-            { name: 'DOWNLOADS',link: '/download' },
+            { name: 'DOWNLOADS',link: '/downloads' },
             {
                 name: "ABOUT US", children: [
                     { name: 'FMITI', link: '/fmiti' },
@@ -143,40 +164,62 @@ const menu = [
             ] },
             {
                 name: "QUICK SEARCH", children: [
-                    { name: 'Registered Company', link: '/registerdcompany' },
-                    {name: 'Registered Instrument', link: '/registerdinstrument'}
+                    { name: 'Registered Company' },
+                    {name: 'Registered Instrument'}
             ] },
             { name: 'HELP', children: [
                 { name: 'FAQ', link: '/faq' },
                 {name: 'Contact Us', link: '/contactus'}
         ] },
+        
+        
             
         ]
 
 
+
+        const authDashboard = [
+          { name: 'New Instrument Registration', link: '/newinstrument', icon: <AddCircleIcon/> },
+          { name: 'Registered Instrument(s)',link: '/registeredinstrument', icon: <CloudUploadIcon/>  },
+          { name: 'Uploads',link: '/uploads', icon: <CloudUploadIcon/> },
+          { name: 'Report',link: '/reports', icon: <ReportIcon/>  },
+          { name: 'Invoices' , icon: <ReceiptIcon/>, children: [
+            { name: 'Outstanding Bill',link: '/outstandingbill' },
+            { name: 'Paid Bill',link: '/paidbill' },
+          ]},
+          { name: 'Apply for Pattern Approval Certificate',link: '/applyapproval' , icon: <CheckCircleIcon/> },
+          { name: 'Apply for Instrument Verification',link: '/applyinstverification', icon: <CloudUploadIcon/>  }
+      
+      
+          
+      ]
+
+
         const mobileMenu = [
-            { name: 'HOME',icon: <DashboardIcon/>},
-            { name: 'DOWNLOADS' , icon: <CloudDownloadIcon/>},
+            { name: 'HOME',icon: <DashboardIcon/>, link: '/dashboard'},
+            { name: 'DOWNLOADS' , icon: <CloudDownloadIcon/>,link: '/downloads'},
             {
                 name: "ABOUT US", icon: <InfoIcon/>, children: [
-                    { name: 'FMITI' },
-                    {name: 'WMD'}
+                    { name: 'FMITI', link: '/fmiti' },
+                    {name: 'WMD', link: '/wmd'}
             ] },
             {
                 name: "QUICK SEARCH", icon: <FindInPageIcon/>, children: [
-                    { name: 'Registered Company' },
-                    {name: 'Registered Instrument'}
+                    { name: 'Registered Company', link: '/registerdcompany' },
+                    {name: 'Registered Instrument', link: '/registerdinstrument'}
             ] },
             { name: 'HELP', icon: <HelpOutlineIcon/>, children: [
-                { name: 'FAQ' },
-                {name: 'Contact Us'}
+                { name: 'FAQ', link: '/faq' },
+                {name: 'Contact Us', link: '/contactus'}
         ] },{ name: 'LOGOUT',icon: <ExitToApp/>}
             
         ]
         
         
-export default function PrimarySearchAppBar(props) {
+const Dashboard =(props)=> {
   const classes = useStyles();
+  const [registeredCompany, setRegisteredCompany] =  React.useState(false)
+  const [registeredInstrument, setRegisteredInstrument] =  React.useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selected, setSelected] = React.useState(0);
   const [selectedSub, setSelectedSub] = React.useState(null);
@@ -187,10 +230,18 @@ export default function PrimarySearchAppBar(props) {
   const [openNest, setOpenNest] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const { container, history, location } = props
+  const theme = useTheme();
+  const { container, history } = props
 
   const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   const handleMainMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -198,7 +249,13 @@ export default function PrimarySearchAppBar(props) {
   };
 
 
+  const handleRegisteredCompany = () => {
+    setRegisteredCompany((prev) => !prev)
+}
 
+const handleRegisteredInstrument = () => {
+  setRegisteredInstrument((prev) => !prev)
+}
   
   const handleDrawerToggle = () => {
     setMobileOpen(mobileOpen=> !mobileOpen)
@@ -213,23 +270,66 @@ export default function PrimarySearchAppBar(props) {
 
 
   const handleClick = (item, index) => {
-    
+     
+
     setSelected(index)
+    if(item.name === 'Registered Company') return handleRegisteredCompany()
+    if(item.name === 'Registered Instrument') return handleRegisteredInstrument()
     if (item.children) {
-        openNest === index ?
-            setOpenNest(null) :
-            setOpenNest(index)
-    } else {
-        history.push(item.link);
-        console.log(item)
-    }
-    
+      openNest === index ?
+          setOpenNest(null) :
+          setOpenNest(index)
+  } else {
+      history.push(item.link);
+  }
+       
+
     }
 
     const handleMenuClose = () => {
         setAnchorEl(null);
        
       };
+      const AuthDrawer = (
+        <>
+        <div className={classes.toolbar}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </div>
+        <Divider color="inherit" />
+            <Box mt={2}>
+            <List
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      className={classes.root}
+    >
+        {authDashboard.map((item, index)=> {
+           return <>
+           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={selected === index}  >
+               <ListItemIcon style={{ color: "#4caf50"}}>{item.icon}</ListItemIcon>
+               <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
+               {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
+
+           </ListItem>
+           <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
+               <List component="div" disablePadding>
+                   {
+                       item.children ? item.children.map((item, index) => (
+                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={selected === index}   >
+                               <ListItemIcon style={{ color: "#fff", margin: 0 }}>{item.icon}</ListItemIcon>
+                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
+                           </ListItem>
+                       ))
+                           : null}
+               </List>
+           </Collapse>
+           </>
+        })}
+        </List>
+        </Box>
+          </>
+      );
 
 
       const drawer = (
@@ -274,7 +374,7 @@ export default function PrimarySearchAppBar(props) {
                <List component="div" disablePadding>
                    {
                        item.children ? item.children.map((item, index) => (
-                           <ListItem key={item.name} button className={classes.nested} onClick={() => handleClick(item, index)} selected={selected === index}   >
+                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={selected === index}   >
                                <ListItemIcon style={{ color: "#fff", margin: 0 }}>{item.icon}</ListItemIcon>
                                {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
                            </ListItem>
@@ -315,7 +415,7 @@ export default function PrimarySearchAppBar(props) {
     );
   return (
     <div className={classes.grow}>
-      <AppBar color='transparent' position="static">
+      <AppBar color='transparent' position='relative' className={classes.appBar}>
           <Hidden xsDown>
         <Toolbar>
             <Box mt={2}>
@@ -335,8 +435,21 @@ export default function PrimarySearchAppBar(props) {
         </Toolbar>
         </Hidden>
       </AppBar>
-      <AppBar color="primary" position='static'>
-        <Toolbar>
+      <Box >
+      <AppBar color="primary" position='relative' className={classes.appBar}>
+        <Toolbar >
+        <Box className={classes.sectionDesktop}>
+            <IconButton
+              onClick={handleDrawerOpen}
+            edge="start"
+            aria-controls={menuId}
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="open drawer"
+          >
+            <MenuIcon style={{color:'white'}}/>
+            </IconButton>
+          </Box>
           <Box className={classes.sectionMobile}>
             <IconButton
               onClick={handleDrawerToggle}
@@ -386,7 +499,32 @@ export default function PrimarySearchAppBar(props) {
         </Toolbar>
         
       </AppBar>
-      <Toolbar id="back-to-top-anchor" />
+      </Box>
+      <Box mt={5}/>
+      <div className={classes.sectionDesktop}>
+      <nav className={classes.drawer} aria-label="mailbox folderss">
+      <Hidden xsDown implementation="css">
+                    <SwipeableDrawer
+                            onOpen={handleDrawerOpen}
+                            container={container}
+                            variant="permanent"
+                            anchor={'left'}
+                            open={open}
+                            onClose={handleDrawerOpen}
+                            classes={{
+                                paper: classes.drawerPaper,
+                            }}
+                            ModalProps={{
+                                keepMounted: true, // Better open performance on mobile.
+                            }}
+              >
+                
+                         {AuthDrawer}
+                </SwipeableDrawer>
+                
+        </Hidden>
+      </nav>
+      </div>
 <div className={classes.sectionMobile}>
         <nav className={classes.drawer} aria-label="mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -412,21 +550,56 @@ export default function PrimarySearchAppBar(props) {
                 </SwipeableDrawer>
                 
                     </Hidden>
+
+
+                    <main>
+                      
+                    </main>
                    
           </nav>
-          {/* <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                        {routes.map((route) => {
-                            return route.component ? (
-                                <Route key={route.path} path={route.path} exact={route.exact} name={route.name} render={props => (
-                                    <route.component {...props} />
-                                )} />
-                            ) : (null);
-                        })}
-                </main> */}
+          {renderMenu}
+          <RegisterCompany registeredCompany={registeredCompany} handleRegisteredCompany={handleRegisteredCompany}/>
+          <RegisteredInstrument registeredInstrument={registeredInstrument} handleRegisteredInstrument={handleRegisteredInstrument}/>
         </div>
-     
-     {renderMenu}
     </div>
   );
 }
+
+
+function ScrollTop(props) {
+  const { children, window } = props;
+  const classes = useStyles();
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <div onClick={handleClick} role="presentation" className={classes.root}>
+        {children}
+      </div>
+    </Zoom>
+  );
+}
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+export default withRouter(Dashboard)
