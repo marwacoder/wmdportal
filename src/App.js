@@ -118,7 +118,7 @@ function App() {
         to="/dashboard"
             />
             <Suspense fallback= {<Spinner/>}>
-            <Box ml={45}>
+            <Box ml={40}>
           <Route exact path="/dashboard" name="Dashboard" render={props => <Home {...props}/>}/>
               <Route path='/downloads' name="Downloads" render={props => <Downloads  darkState={darkState} {...props} />} />
               <Route path='/auth' name="Auth" render={props => <Auth history={history}  darkState={darkState} {...props} />} />

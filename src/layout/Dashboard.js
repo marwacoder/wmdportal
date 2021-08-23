@@ -439,7 +439,7 @@ const handleRegisteredInstrument = () => {
       <AppBar color="primary" position='relative' className={classes.appBar}>
         <Toolbar >
         <Box className={classes.sectionDesktop}>
-            <IconButton
+            {/* <IconButton
               onClick={handleDrawerOpen}
             edge="start"
             aria-controls={menuId}
@@ -448,7 +448,7 @@ const handleRegisteredInstrument = () => {
             aria-label="open drawer"
           >
             <MenuIcon style={{color:'white'}}/>
-            </IconButton>
+            </IconButton> */}
           </Box>
           <Box className={classes.sectionMobile}>
             <IconButton
@@ -552,9 +552,7 @@ const handleRegisteredInstrument = () => {
                     </Hidden>
 
 
-                    <main>
-                      
-                    </main>
+                    <main></main>
                    
           </nav>
           {renderMenu}

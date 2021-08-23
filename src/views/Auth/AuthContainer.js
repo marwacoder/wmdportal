@@ -106,7 +106,7 @@ export default function CustomizedDialogs(props) {
                   <DialogActions >
                      
 
-                          <div>{toggleAuth === false ? "Don't have an account?": "Already have an account?" }  <Button onClick={handleToggleAuthForm} color="secondary">{toggleAuth === false ? "Sign Up": "Sign In"}</Button></div>
+                          <div>{toggleAuth === false ? "Don't have an account?": "Already have an account?" }  <Button onClick={handleToggleAuthForm} color="secondary">{toggleAuth === false ? "REGISTER": "Sign In"}</Button></div>
                       
           </DialogActions>
           </Box>
