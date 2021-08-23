@@ -6,7 +6,7 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import {FormControlLabel, Button,makeStyles, Grid, Box, TextField, Paper } from '../../mui';
+import {MenuItem, Button,makeStyles, Grid, Box, TextField, Paper } from '../../mui';
 import Checkbox from '@material-ui/core/Checkbox';
 import { green } from '@material-ui/core/colors';
 
@@ -20,11 +20,52 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   }));
+  
+  
+  const instrument = [
+    {
+      value: 'Instrument Report',
+      label: 'Instrument Report',
+    },
+    {
+      value: 'Invoices Report',
+      label: 'Invoices Report',
+    },
+    {
+      value: 'Instrument Service Report',
+      label: 'Instrument Service Report',
+    },
+    
+  ];
+
+  const bills = [
+    {
+      value: 'Paid Bills',
+      label: 'Paid Bills',
+    },
+    {
+      value: 'Outstanding Bills',
+      label: 'Outstanding Bills',
+    },
+    
+  ];
+  const services = [
+    {
+      value: 'Pattern of Approval',
+      label: 'Pattern of Approval',
+    },
+    {
+      value: 'Instrument Verification',
+      label: 'Instrument Verification',
+    },
+    
+  ];
+
 
 export default function Reports() {
  
     const classes = useStyles();
-
+  const [instrumentReport, setInstrumentReport] = React.useState(null)
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
     const handleDateChange = (date) => {
@@ -34,22 +75,36 @@ export default function Reports() {
 
   return (
     
-    <Box >
+    <Box mx={3}>
         <Paper>
             <Box m={1}>
         <form>
       <Grid container spacing={1} justifyContent='center' alignItems='center'>
-      <Grid item xs={12} sm={1}>
-        <Box>Report Filter</Box>
+      <Grid item xs={12} sm={2}>
+        <Box fontWeight='bold'>Report Filter</Box>
       </Grid>
           <Grid item xs={12} sm={2}>
           <Box mt={3}>
-            <TextField id="filename" size="small"  variant='standard' select  fullWidth/>
+            <TextField id="filename" size="small"  variant='standard' select  fullWidth>
+            {instrument.map((option) => (
+            <MenuItem key={option.value} onClick={option.value === 'Instrument Report' ? 
+            ()=>setInstrumentReport('Registered Instrument'): option.value === 'Invoices Report' ? 
+            ()=>setInstrumentReport(bills): option.value === 'Instrument Service Report' ? 
+            ()=>setInstrumentReport(services): null} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+            </TextField>
             </Box>
           </Grid>
           <Grid item xs={12} sm={2}>
             <Box mt={3}>
-            <TextField id="filename" size="small"  variant='standard' select  fullWidth/>
+            <TextField id="filename" size="small"  variant='standard' select  fullWidth>
+              {Array.isArray(instrumentReport) ? instrumentReport.map((option)=> (
+                <MenuItem key={option.value}  value={option.value}>{option.label}</MenuItem>
+              )):  <MenuItem value={instrumentReport}>{instrumentReport}</MenuItem>}
+           
+            </TextField>
             </Box>
           
           </Grid>
