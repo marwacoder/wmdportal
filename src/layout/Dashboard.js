@@ -293,9 +293,13 @@ const handleRegisteredInstrument = () => {
       const AuthDrawer = (
         <>
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
+          {/* <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
+          </IconButton> */}
+           <Box mt={2} ml={3}>
+            <img style={{width: 100, marginRight: 60, height: 100}} src={coat} alt='coat'/>
+          <img style={{width: 100, height: 100}} src={ellipse} alt='ellipse'/>
+            </Box>
         </div>
         <Divider color="inherit" />
             <Box mt={2}>
@@ -418,12 +422,9 @@ const handleRegisteredInstrument = () => {
       <AppBar color='transparent' position='relative' className={classes.appBar}>
           <Hidden xsDown>
         <Toolbar>
-            <Box mt={2}>
-            <img style={{width: 100, marginRight: 5, height: 100}} src={coat} alt='coat'/>
-          <img style={{width: 100, height: 100}} src={ellipse} alt='ellipse'/>
-            </Box>
+           
          
-          <Box ml={5} >
+          <Box ml={5} mt={3}>
             <Box  fontWeight='bold' fontSize={22}>
                 FEDERAL MINISTRY OF INDUSTRY AND INVESTMENT
             </Box>

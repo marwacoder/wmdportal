@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import {
-    makeStyles, Grid,Box, OutlinedInput, DialogTitle, DialogContent, InputLabel,Button,
+    makeStyles, Grid,Box, OutlinedInput, Divider, DialogContent, InputLabel,Button,
     InputAdornment, FormControl, Paper, Person, Visibility, VisibilityOff
 } from '../../mui';
 
@@ -54,14 +54,12 @@ const classes = useStyles();
 
 
   return (
-      <Box mx={50} mb={10} >
+      <Box mx={30}>
       <Paper>
-      <Box >
-          <DialogTitle id="customized-dialog-title" >
-          <Box ml={2}color="primary">Contact Us</Box>
-        </DialogTitle>
-        
-        <DialogContent dividers>
+      <Box m={2}>
+          
+          <Box fontWeight='bold' pt={3} ml={2}color="primary">Contact Us</Box>
+       
          
                   <form onSubmit={handleSubmit}>
                     
@@ -151,7 +149,7 @@ const classes = useStyles();
                          
                       </div>
           </form>
-          </DialogContent>
+        
           </Box>
               </Paper>
               </Box>
