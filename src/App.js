@@ -46,15 +46,15 @@ function App() {
 
   const [darkState, setDarkState] = React.useState(false);
     const darkTheme = darkState ? "dark" : "light";
-    const primaryColor = darkState ? grey[800] : green[500];
+    const primaryColor = darkState ? grey[800] : '#07121F';
     const secondaryColor = darkState ? red[300] : red[500];
     const limeColor = darkState ? lime[300] : lime[500];
     const [route, setRoute] = React.useState(false);
     
-    
+    const [auth, setAuth] = React.useState(false)
 
 
-  
+  console.log(auth,'ppp')
     let theme = createTheme({
       typography: {
         
@@ -107,8 +107,8 @@ function App() {
     
   return (
     <MuiThemeProvider theme={theme}>
-     <Router history={history}>
-        <Dashboard history={history}   darkState={darkState} 
+     <Router history={history} auth={auth} setAuth={setAuth}>
+        <Dashboard history={history} auth={auth} setAuth={setAuth}  darkState={darkState} 
          />
   
         <Switch >
@@ -118,10 +118,10 @@ function App() {
         to="/dashboard"
             />
             <Suspense fallback= {<Spinner/>}>
-            <Box ml={40}>
-          <Route exact path="/dashboard" name="Dashboard" render={props => <Home {...props}/>}/>
+            <Box ml={45}>
+          <Route exact path="/dashboard" name="Dashboard" render={props => <Home  {...props}/>}/>
               <Route path='/downloads' name="Downloads" render={props => <Downloads  darkState={darkState} {...props} />} />
-              <Route path='/auth' name="Auth" render={props => <Auth history={history}  darkState={darkState} {...props} />} />
+            <Route path='/auth' name="Auth" render={props => <Auth history={history} auth={auth} setAuth={setAuth} darkState={darkState} {...props} />} />
             <Route path='/fmiti' name="FMITI" render={props => <FMITI {...props} />} />
             <Route path='/wmd' name="WMD" render={props => <WMD {...props} />} />
             <Route path='/contactus' name="ContactUs" render={props => <ContactUs {...props} />} />

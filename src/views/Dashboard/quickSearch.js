@@ -288,7 +288,7 @@ export default function QuickSearch() {
 //            return <>
          
 //            <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={selected === index}  >
-//                <ListItemIcon style={{ color: "#4caf50", margin: 0 }}>{item.icon}</ListItemIcon>
+//                <ListItemIcon style={{ color: "#07121F", margin: 0 }}>{item.icon}</ListItemIcon>
 //                <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
 //                {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
 //            </ListItem>

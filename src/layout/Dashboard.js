@@ -62,6 +62,7 @@ const StyledMenu = withStyles({
     },
   }))(MenuItem);
 const useStyles = makeStyles((theme) => ({
+  
   grow: {
     flexGrow: 1,
   },
@@ -79,23 +80,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-
-
-//   search: {
-//     position: 'relative',
-//     borderRadius: theme.shape.borderRadius,
-//     backgroundColor: alpha(theme.palette.common.white, 0.15),
-//     '&:hover': {
-//       backgroundColor: alpha(theme.palette.common.white, 0.25),
-//     },
-//     marginRight: theme.spacing(2),
-//     marginLeft: 0,
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//       marginLeft: theme.spacing(3),
-//       width: 'auto',
-//     },
-//   },
+  
   searchIcon: {
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -151,6 +136,18 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
     },
   },
+  selected: {
+    borderRadius: 5,
+    
+    '&.Mui-selected': {
+      '&:hover': {
+        backgroundColor: "white",
+      },
+        backgroundColor: "white",
+        color: "#07121F",
+        fontWeight: 600
+    }
+  }
 }));
 
 
@@ -223,15 +220,17 @@ const Dashboard =(props)=> {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selected, setSelected] = React.useState(0);
   const [selectedSub, setSelectedSub] = React.useState(null);
+  const [selectedSub1, setSelectedSub1] = React.useState(null);
   const [selectedMob, setSelectedMob] = React.useState(null);
   const [menuItem, setMenItem] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [openNest, setOpenNest] = React.useState(null);
+  const [openNest1, setOpenNest1] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const theme = useTheme();
-  const { container, history } = props
+  const { container, history, location } = props
 
   const [open, setOpen] = React.useState(false);
 
@@ -281,10 +280,9 @@ const handleRegisteredInstrument = () => {
           setOpenNest(index)
   } else {
       history.push(item.link);
-  }
-       
-
-    }
+  } 
+  
+      }
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -296,12 +294,10 @@ const handleRegisteredInstrument = () => {
           {/* <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton> */}
-           <Box mt={2} ml={3}>
-            <img style={{width: 100, marginRight: 60, height: 100}} src={coat} alt='coat'/>
-          <img style={{width: 100, height: 100}} src={ellipse} alt='ellipse'/>
-            </Box>
+          
         </div>
-        <Divider color="inherit" />
+        <Box mt={10}></Box>
+        <Divider color="inherit" mt={5}/>
             <Box mt={2}>
             <List
       component="nav"
@@ -310,8 +306,8 @@ const handleRegisteredInstrument = () => {
     >
         {authDashboard.map((item, index)=> {
            return <>
-           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={selected === index}  >
-               <ListItemIcon style={{ color: "#4caf50"}}>{item.icon}</ListItemIcon>
+           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
+               <ListItemIcon style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
                <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
                {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
 
@@ -320,7 +316,7 @@ const handleRegisteredInstrument = () => {
                <List component="div" disablePadding>
                    {
                        item.children ? item.children.map((item, index) => (
-                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={selected === index}   >
+                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
                                <ListItemIcon style={{ color: "#fff", margin: 0 }}>{item.icon}</ListItemIcon>
                                {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
                            </ListItem>
@@ -369,8 +365,8 @@ const handleRegisteredInstrument = () => {
     >
         {mobileMenu.map((item, index)=> {
            return <>
-           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={selected === index}  >
-               <ListItemIcon style={{ color: "#4caf50", margin: 0 }}>{item.icon}</ListItemIcon>
+           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link} >
+               <ListItemIcon style={{ color: "#07121F", margin: 0 }}>{item.icon}</ListItemIcon>
                <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
                {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
            </ListItem>
@@ -378,7 +374,7 @@ const handleRegisteredInstrument = () => {
                <List component="div" disablePadding>
                    {
                        item.children ? item.children.map((item, index) => (
-                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={selected === index}   >
+                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
                                <ListItemIcon style={{ color: "#fff", margin: 0 }}>{item.icon}</ListItemIcon>
                                {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
                            </ListItem>
@@ -410,7 +406,7 @@ const handleRegisteredInstrument = () => {
      {Array.isArray(menuItem) ? menuItem.map((item, index) => {
       
       return (
-        <StyledMenuItem key={item.name} button onClick={() => handleClick(item, index)} selected={selected === index} >
+        <StyledMenuItem key={item.name} button onClick={() => handleClick(item, index)} selected={location.pathname === item.link} >
             <ListItemText primary={item.name}/>
             </StyledMenuItem>
       );   
@@ -422,17 +418,22 @@ const handleRegisteredInstrument = () => {
       <AppBar color='transparent' position='relative' className={classes.appBar}>
           <Hidden xsDown>
         <Toolbar>
-           
-         
-          <Box ml={5} mt={3}>
-            <Box  fontWeight='bold' fontSize={22}>
-                FEDERAL MINISTRY OF INDUSTRY AND INVESTMENT
-            </Box>
-            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={22}>
-                WEIGHT AND MEASURES DEPARTMENTAL PORTAL
-            </Box>
-          </Box>
           
+        <Box mt={2} ml={2}>
+            <img style={{width: 100,  height: 100}} src={coat} alt='coat'/>
+          
+            </Box>
+          <Box mx={5} textAlign='center'>
+            <Box textAlign='center'  fontWeight='bold' fontSize={22}>
+                FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
+            </Box>
+            <Box fontStyle='Nexa' textAlign='center' fontWeight='bold' fontSize={22}>
+                WEIGHTS AND MEASURES DEPARTMENT PORTAL
+            </Box>
+
+          
+          </Box>
+          <Box ml={2}><img style={{width: 100, height: 100}} src={ellipse} alt='ellipse'/></Box>
         </Toolbar>
         </Hidden>
       </AppBar>
@@ -473,9 +474,9 @@ const handleRegisteredInstrument = () => {
                   
                   {menu.map((item, index) => (
                    <Box  color='white'>
-                      <MenuItem key={item.name}  button onClick={item.children ?   (event)=> {
+                      <MenuItem key={item.name} classes={{ selected: classes.selected }} button onClick={item.children ?   (event)=> {
                           setMenItem(item.children) 
-                          setAnchorEl(event.currentTarget) } : () => handleClick(item, index)} selected={selected === index} >
+                          setAnchorEl(event.currentTarget) } : () => handleClick(item, index)} selected={location.pathname === item.link}  >
                         <ListItemText primary={item.name}/>
                       </MenuItem>
                     </Box>

@@ -43,7 +43,7 @@ const columns = [
                     params.formattedValue === 'Confirmed' ?
                     <Box color='#cddc39'>
                     Pendind
-                  </Box> :<Box  color="#4caf50" fontWeight='bold'>
+                  </Box> :<Box  color="#07121F" fontWeight='bold'>
                     Confirm
                   </Box>
                   ),
