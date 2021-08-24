@@ -118,7 +118,7 @@ function App() {
         <Switch >
         <Redirect
         exact
-        from="/dashboard"
+        from="/"
         to="/dashboard/home"
             />
           <Redirect
