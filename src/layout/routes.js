@@ -4,48 +4,53 @@ import Loadable from "react-loadable";
 
 
 import Spinner from "../helpers/Spinner/Spinner";
+import FMITI from '../views/Dashboard/FMITI';
+import WMD from '../views/Dashboard/WMD';
+import ContactUs from '../views/Dashboard/ContactUs'
+import Home from '../views/Dashboard/Home';
+import Downloads from '../views/Dashboard/Downloads';
+import NewInstrumentReg from '../views/AuthDashboard/NewInstrumentReg';
+import RegisteredInstrument from '../helpers/Table'
+import Uploads from '../views/AuthDashboard/Uploads'
+import Reports from '../views/AuthDashboard/Reports'
+import OutstandingBill from '../views/Tables/OutstandingBill'
+import PaidBill from '../views/Tables/PaidBill'
+import ApplyApproval from '../views/Tables/ApplyApproval'
+import ApplyInstVerification from '../views/Tables/ApplyInstVerification'
 
 const styleProps = {
   color: "#00854D",
   height: 50,
   width: 50,
-  className: "spinner-background-opt",
+  className: "spinner-background-opt"
 };
 
 
- const Home = Loadable({
-    loader: () => import('../views/Dashboard/Home'),
-    loading: () => <Spinner {...styleProps} />
-  });
 
-
-
-    const AboutUs = Loadable({
-        loader: () => import('../views/Dashboard/ContactUs'),
-        loading: ()=> <Spinner {...styleProps} />
-    });
-    const Download = Loadable({
-        laoder: () => import('../views/Dashboard/Downloads'),
-        loading: ()=> <Spinner {...styleProps} />
-    });
-    const QuickSearch = Loadable({
-        loader: () => import('../views/Dashboard/QuickSearch'),
-        loading: ()=> <Spinner {...styleProps} />
-    });
-    const Help = Loadable({
-        loader:() => import('../views/Dashboard/Help'),
-        loading: ()=> <Spinner {...styleProps} />
-    });
-
+export const routes = [
     
-
-const routes = [
-    { path: "/", exact: true, name: "Home", component: Home },
-    { path: "/dashboard",exact: true, name: "Dashboard", component: Home },
-  { path: "/aboutus", component: AboutUs, title: "aboutus", key: "aboutus" },
-  { path: "/download", component: Download, title: "download", key: "download" },
-  { path: "/quicksearch", component: QuickSearch, title: "quicksearch", key: "quicksearch" },
-  { path: "/help", component: Help, title: "help", key: "help" }
+  { path: "/dashboard/home", exact: true, component: Home,  title: "welcome", key: "welcome" },
+  { path: "/dashboard/downloads",  name: "Downloads", component: Downloads },
+  { path: "/dashboard/fmiti",  name: "FMITI", component: FMITI },
+  { path: "/dashboard/wmd",  name: "WMD", component: WMD },
+  { path: "/dashboard/contactus",  name: "ContactUs", component: ContactUs },
+  
+   
 ];
 
-export default routes;
+
+
+export const defaultlayout = [
+
+    { path: "/defaultlayout/newinstrument", exact: true, name: "Newinstrument", component: NewInstrumentReg },
+    { path: "/defaultlayout/registeredinstrument", name: "Registeredinstrument", component: RegisteredInstrument },
+    { path: "/defaultlayout/uploads",  name: "Uploads", component: Uploads },
+    { path: "/defaultlayout/outstandingbill",  name: "OutstandingBill", component: OutstandingBill },
+    { path: "/defaultlayout/paidbill",  name: "PaidBill", component: PaidBill },
+    { path: "/defaultlayout/applyapproval",  name: "ApplyApproval", component: ApplyApproval },
+    { path: "/defaultlayout/applyinstverification",  name: "ApplyInstVerification", component: ApplyInstVerification },
+    { path: "/defaultlayout/reports",  name: "Report", component: Reports },
+ 
+];
+
+ 

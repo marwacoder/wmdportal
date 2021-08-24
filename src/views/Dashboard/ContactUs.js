@@ -54,7 +54,7 @@ const classes = useStyles();
 
 
   return (
-      <Box mx={30}>
+      <Box mx={'30%'}>
       <Paper>
       <Box m={2}>
           

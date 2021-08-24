@@ -26,7 +26,7 @@ export default function Review(props) {
   return (
     <Box  >
         <form>
-      <Grid container spacing={2} justifyContent='center' alignItems='center'>
+      <Grid container spacing={2} justifyContent='flex-start' alignItems='center'>
           <Grid item xs={12} sm={6}> <FormControlLabel
         control={<GreenCheckbox  name="Registered" />}
         label="Use Company Registered Email Address"

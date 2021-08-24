@@ -25,12 +25,9 @@ const useStyles = makeStyles(theme => ({
   
     }));
 const  SignIn =(props) =>{
-const classes = useStyles();
 
-const {setAuth, auth} = props
 
-console.log(auth,'auth')
-   const {handleForgotPassword, history} = props
+   const {handleForgotPassword} = props
     
     const [values, setValues] = React.useState({
     email: "",
@@ -58,10 +55,10 @@ console.log(auth,'auth')
 
 
   return (
-      <Paper elevation={0}>
-                  <form onSubmit={handleSubmit}>
+      <Box width={300}>
+                  <form onSubmit={handleSubmit} noValidate>
                     
-                      <Box my={2}>
+                      <Box mb={2}>
                           <FormControl  variant="outlined" fullWidth>
           <InputLabel htmlFor="outlined-adornment-password">Email</InputLabel>
           <OutlinedInput
@@ -107,13 +104,13 @@ console.log(auth,'auth')
         <div>
                           
                   
-         <div style={{paddingBottom: 10}}> <Button fullWidth onClick={()=> setAuth(true)} color="primary" variant="contained">
+         <div style={{paddingBottom: 10}}> <Button fullWidth  color="primary" variant="contained">
                      <span style={{color: '#fff'}}>Sign In</span> 
                           </Button></div>
                           <Button  color="secondary" onClick={handleForgotPassword}> Forgot Password?</Button>  
                       </div>
           </form>
-              </Paper>
+              </Box>
   );
 }
 

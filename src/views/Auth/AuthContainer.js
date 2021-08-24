@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import {
-  Paper, withStyles, Button, Grid,Box, MuiDialogTitle,MuiDialogActions,
+  Paper, withStyles, Button, Dialog,Box, MuiDialogTitle,MuiDialogActions,
   IconButton, CloseIcon, Typography, makeStyles, MuiDialogContent
 } from '../../mui'
 
@@ -56,27 +56,11 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  textField: {
-    width: '38ch',
-  },
-    }));
+
 export default function CustomizedDialogs(props) {
-    const classes = useStyles();
 
-    const {auth, setAuth, history} = props
+    const {auth, handleCloseAuth} = props
 
-    console.log(auth,history,'iiiuuu')
     
     const [toggleAuth, setToggleAuth] = React.useState(false);
     const [forgotPasswod, setForgotPasswod] = React.useState(false);
@@ -90,19 +74,17 @@ export default function CustomizedDialogs(props) {
       setForgotPasswod((prev) => !prev)
   }
 
+  
 
 
-  return (
-    <Box>
-   
-             
-               <Paper>
+  return (     
      <Box >
-        <DialogTitle id="customized-dialog-title" >
+     <Dialog  open={auth} onClose={handleCloseAuth} aria-labelledby="form-dialog-title">
+        <DialogTitle id="customized-dialog-title" onClose={handleCloseAuth} >
           <Box ml={2}>{toggleAuth === false ? "SignIn" : "SignUp"}</Box>
         </DialogTitle>
         <DialogContent dividers>
-                  <SignIn handleForgotPassword={handleForgotPassword} setAuth={setAuth} auth={auth}/>
+                  <SignIn handleForgotPassword={handleForgotPassword} />
                    <SignUp toggleAuth={toggleAuth} handleToggleAuthForm={handleToggleAuthForm}/>  
                    <ForgotPassword forgotPasswod={forgotPasswod} handleForgotPassword={handleForgotPassword}/>
         </DialogContent>
@@ -114,11 +96,8 @@ export default function CustomizedDialogs(props) {
                       
           </DialogActions>
           </Box>
-
+          </Dialog>
           </Box>
-              </Paper>
-              
-     
-    </Box>
+      
   );
 }

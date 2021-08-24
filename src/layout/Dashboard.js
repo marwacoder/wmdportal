@@ -1,22 +1,18 @@
 import React from 'react';
-import {withRouter } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import {  useTheme } from '@material-ui/core/styles';
-
+import {routes} from './routes'
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import InfoIcon from '@material-ui/icons/Info';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
+
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import ReceiptIcon from '@material-ui/icons/Receipt';
-import ReportIcon from '@material-ui/icons/Report';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+
 import Tooltip from '@material-ui/core/Tooltip';
 import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger,
     MenuItem, IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon,
@@ -27,6 +23,7 @@ import coat from '../assets/Coat_of_arms_of_Nigeria.png'
 import ellipse from '../assets/Ellipse 20.png'
 import RegisterCompany from '../views/Dashboard/RegisterdCompany'
 import RegisteredInstrument from '../views/Dashboard/RegisteredInstrument'
+import SignIn from '../views/Auth/AuthContainer'
 
 const drawerWidth = 320
 
@@ -138,6 +135,7 @@ const useStyles = makeStyles((theme) => ({
   },
   selected: {
     borderRadius: 5,
+    height: 40,
     
     '&.Mui-selected': {
       '&:hover': {
@@ -152,12 +150,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 const menu = [
-            { name: 'HOME', link: '/dashboard' },
-            { name: 'DOWNLOADS',link: '/downloads' },
+            { name: 'HOME', link: '/dashboard/home' },
+            { name: 'DOWNLOADS',link: '/dashboard/downloads' },
             {
                 name: "ABOUT US", children: [
-                    { name: 'FMITI', link: '/fmiti' },
-                    {name: 'WMD', link: '/wmd'}
+                    { name: 'FMITI', link: '/dashboard/fmiti' },
+                    {name: 'WMD', link: '/dashboard/wmd'}
             ] },
             {
                 name: "QUICK SEARCH", children: [
@@ -165,9 +163,11 @@ const menu = [
                     {name: 'Registered Instrument'}
             ] },
             { name: 'HELP', children: [
-                { name: 'FAQ', link: '/faq' },
-                {name: 'Contact Us', link: '/contactus'}
+                { name: 'FAQ', link: '/dashboard/faq' },
+                {name: 'Contact Us', link: '/dashboard/contactus'}
         ] },
+        { name: 'LOGIN', link: '/dashboard/login' },
+
         
         
             
@@ -175,21 +175,6 @@ const menu = [
 
 
 
-        const authDashboard = [
-          { name: 'New Instrument Registration', link: '/newinstrument', icon: <AddCircleIcon/> },
-          { name: 'Registered Instrument(s)',link: '/registeredinstrument', icon: <CloudUploadIcon/>  },
-          { name: 'Uploads',link: '/uploads', icon: <CloudUploadIcon/> },
-          { name: 'Report',link: '/reports', icon: <ReportIcon/>  },
-          { name: 'Invoices' , icon: <ReceiptIcon/>, children: [
-            { name: 'Outstanding Bill',link: '/outstandingbill' },
-            { name: 'Paid Bill',link: '/paidbill' },
-          ]},
-          { name: 'Apply for Pattern Approval Certificate',link: '/applyapproval' , icon: <CheckCircleIcon/> },
-          { name: 'Apply for Instrument Verification',link: '/applyinstverification', icon: <CloudUploadIcon/>  }
-      
-      
-          
-      ]
 
 
         const mobileMenu = [
@@ -221,32 +206,26 @@ const Dashboard =(props)=> {
   const [selected, setSelected] = React.useState(0);
   const [selectedSub, setSelectedSub] = React.useState(null);
   const [selectedSub1, setSelectedSub1] = React.useState(null);
-  const [selectedMob, setSelectedMob] = React.useState(null);
+  const [auth, setAuth] = React.useState(false);
   const [menuItem, setMenItem] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [openNest, setOpenNest] = React.useState(null);
-  const [openNest1, setOpenNest1] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
   const theme = useTheme();
   const { container, history, location } = props
 
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+ 
+
+  const handleClickOpenAuth = () => {
+    setAuth(true);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const handleCloseAuth = () => {
+    setAuth(false);
   };
-
-  const handleMainMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-    
-  };
-
 
   const handleRegisteredCompany = () => {
     setRegisteredCompany((prev) => !prev)
@@ -269,11 +248,10 @@ const handleRegisteredInstrument = () => {
 
 
   const handleClick = (item, index) => {
-     
-
     setSelected(index)
     if(item.name === 'Registered Company') return handleRegisteredCompany()
     if(item.name === 'Registered Instrument') return handleRegisteredInstrument()
+    if(item.name === 'LOGIN') return handleClickOpenAuth()
     if (item.children) {
       openNest === index ?
           setOpenNest(null) :
@@ -288,49 +266,7 @@ const handleRegisteredInstrument = () => {
         setAnchorEl(null);
        
       };
-      const AuthDrawer = (
-        <>
-        <div className={classes.toolbar}>
-          {/* <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton> */}
-          
-        </div>
-        <Box mt={10}></Box>
-        <Divider color="inherit" mt={5}/>
-            <Box mt={2}>
-            <List
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      className={classes.root}
-    >
-        {authDashboard.map((item, index)=> {
-           return <>
-           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
-               <ListItemIcon style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
-               <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
-               {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
-
-           </ListItem>
-           <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
-               <List component="div" disablePadding>
-                   {
-                       item.children ? item.children.map((item, index) => (
-                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
-                               <ListItemIcon style={{ color: "#fff", margin: 0 }}>{item.icon}</ListItemIcon>
-                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
-                           </ListItem>
-                       ))
-                           : null}
-               </List>
-           </Collapse>
-           </>
-        })}
-        </List>
-        </Box>
-          </>
-      );
-
+     
 
       const drawer = (
         <>
@@ -415,43 +351,39 @@ const handleRegisteredInstrument = () => {
     );
   return (
     <div className={classes.grow}>
-      <AppBar color='transparent' position='relative' className={classes.appBar}>
+      <AppBar color='transparent' position='relative'>
           <Hidden xsDown>
         <Toolbar>
           
-        <Box mt={2} ml={2}>
-            <img style={{width: 100,  height: 100}} src={coat} alt='coat'/>
+        <Grid container justifyContent='center' alignItems='center' spacing={4}>
           
-            </Box>
-          <Box mx={5} textAlign='center'>
-            <Box textAlign='center'  fontWeight='bold' fontSize={22}>
-                FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
-            </Box>
-            <Box fontStyle='Nexa' textAlign='center' fontWeight='bold' fontSize={22}>
-                WEIGHTS AND MEASURES DEPARTMENT PORTAL
-            </Box>
-
-          
+          <Grid item>
+          <Box my={2}>
+              <img style={{width: 50,  height: 50}} src={coat} alt='coat'/>
           </Box>
-          <Box ml={2}><img style={{width: 100, height: 100}} src={ellipse} alt='ellipse'/></Box>
+               
+          </Grid>
+          <Grid item>
+          <Box  textAlign='center'>
+        <Box textAlign='center'  fontWeight='bold' fontSize={18}>
+            FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
+        </Box>
+        <Box fontStyle='Nexa' textAlign='center' fontWeight='bold' fontSize={18}>
+            WEIGHTS AND MEASURES DEPARTMENT PORTAL
+        </Box>
+      </Box>
+          </Grid>
+          <Grid item>
+              <img style={{width: 50,  height: 50}} src={ellipse} alt='ellipse'/>
+          </Grid>
+      </Grid>
         </Toolbar>
         </Hidden>
       </AppBar>
       <Box >
-      <AppBar color="primary" position='relative' className={classes.appBar}>
+      <AppBar color="primary" position='relative' >
         <Toolbar >
-        <Box className={classes.sectionDesktop}>
-            {/* <IconButton
-              onClick={handleDrawerOpen}
-            edge="start"
-            aria-controls={menuId}
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon style={{color:'white'}}/>
-            </IconButton> */}
-          </Box>
+       
           <Box className={classes.sectionMobile}>
             <IconButton
               onClick={handleDrawerToggle}
@@ -469,7 +401,7 @@ const handleRegisteredInstrument = () => {
               
               <Hidden xsDown={true} implementation="css">
                   
-                <Box ml='30%'> 
+                <Box ml='60%'> 
                 <List   className={classes.navLinks}>
                   
                   {menu.map((item, index) => (
@@ -483,34 +415,7 @@ const handleRegisteredInstrument = () => {
                     
                   ))}
          
-        <Box pl={10}>
-        <Tooltip title="Profile">
-        <IconButton
         
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                
-                color="inherit"
-              >
-                <AccountCircle style={{color: 'white'}}/>
-              </IconButton>
-              </Tooltip>
-        </Box>
-        <Box >
-        <Tooltip title="Logout">
-            <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                
-                color="inherit"
-              >
-                <ExitToApp style={{color: 'white'}}/>
-              </IconButton>
-              </Tooltip>
-         </Box>
-
                   </List>
                   
                 </Box>
@@ -528,31 +433,7 @@ const handleRegisteredInstrument = () => {
         
       </AppBar>
       </Box>
-      <Box mt={5}/>
-      <div className={classes.sectionDesktop}>
-      <nav className={classes.drawer} aria-label="mailbox folderss">
-      <Hidden xsDown implementation="css">
-                    <SwipeableDrawer
-                            onOpen={handleDrawerOpen}
-                            container={container}
-                            variant="permanent"
-                            anchor={'left'}
-                            open={open}
-                            onClose={handleDrawerOpen}
-                            classes={{
-                                paper: classes.drawerPaper,
-                            }}
-                            ModalProps={{
-                                keepMounted: true, // Better open performance on mobile.
-                            }}
-              >
-                
-                         {AuthDrawer}
-                </SwipeableDrawer>
-                
-        </Hidden>
-      </nav>
-      </div>
+      
 <div className={classes.sectionMobile}>
         <nav className={classes.drawer} aria-label="mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -580,13 +461,26 @@ const handleRegisteredInstrument = () => {
                     </Hidden>
 
 
-                    <main></main>
+                   
                    
           </nav>
           {renderMenu}
           <RegisterCompany registeredCompany={registeredCompany} handleRegisteredCompany={handleRegisteredCompany}/>
           <RegisteredInstrument registeredInstrument={registeredInstrument} handleRegisteredInstrument={handleRegisteredInstrument}/>
+          <SignIn auth={auth} handleCloseAuth={handleCloseAuth}/>
         </div>
+        <main className={classes.content}>
+        <div className={classes.toolbar} />  
+        <Switch>
+                        {routes.map((route) => {
+                            return route.component ? (
+                                <Route key={route.path} path={route.path} exact={route.exact} name={route.name} render={props => (
+                                    <route.component {...props} />
+                                )} />
+                            ) : (null);
+                        })}
+                    </Switch> 
+      </main>
     </div>
   );
 }

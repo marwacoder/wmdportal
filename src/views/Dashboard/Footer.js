@@ -1,11 +1,12 @@
 import React from 'react'
-import {Container, Typography, Toolbar, AppBar, Grid} from '../../mui'
+import {Container, Typography, Toolbar,AppBar, Box, Grid} from '../../mui'
 
 import nnl from '../../assets/NNLLOGO.png'
 
 export default function Downloads() {
     return (
-          <Toolbar>
+      <Box pr={'45%'}>
+          <Toolbar >
               <Grid container spacing={1} justifyContent='center' alignItems='center'>
                 <Grid>
                 <Typography variant="body1" >
@@ -18,5 +19,6 @@ export default function Downloads() {
               </Grid>
             
           </Toolbar>
+          </Box>
     )
 }

@@ -26,6 +26,9 @@ import PaidBill from './views/Tables/PaidBill'
 import ApplyApproval from './views/Tables/ApplyApproval'
 import ApplyInstVerification from './views/Tables/ApplyInstVerification'
 
+
+import DefaultLayout from './layout/DefaultLayout'
+
 export const history = createBrowserHistory();
 
 const nexa = {
@@ -107,33 +110,25 @@ function App() {
     
   return (
     <MuiThemeProvider theme={theme}>
-     <Router history={history} auth={auth} setAuth={setAuth}>
-        <Dashboard history={history} auth={auth} setAuth={setAuth}  darkState={darkState} 
-         />
-  
+     <Router  auth={auth} setAuth={setAuth}>
+        {/* <Dashboard history={history}  darkState={darkState}  */}
+        
+        
+        {/* <Dashboard/> */}
         <Switch >
+        <Redirect
+        exact
+        from="/dashboard"
+        to="/dashboard/home"
+            />
           <Redirect
         exact
-        from="/"
-        to="/dashboard"
+        from="/defaultlayout"
+        to="/defaultlayout/newinstrument"
             />
             <Suspense fallback= {<Spinner/>}>
-            <Box ml={45}>
-          <Route exact path="/dashboard" name="Dashboard" render={props => <Home  {...props}/>}/>
-              <Route path='/downloads' name="Downloads" render={props => <Downloads  darkState={darkState} {...props} />} />
-            <Route path='/auth' name="Auth" render={props => <Auth history={history} auth={auth} setAuth={setAuth} darkState={darkState} {...props} />} />
-            <Route path='/fmiti' name="FMITI" render={props => <FMITI {...props} />} />
-            <Route path='/wmd' name="WMD" render={props => <WMD {...props} />} />
-            <Route path='/contactus' name="ContactUs" render={props => <ContactUs {...props} />} />
-            <Route path='/newinstrument' name="NewInstrumentReg" render={props => <NewInstrumentReg {...props} />} />
-            <Route path='/registeredinstrument' name="RegisteredInstrument" render={props => <RegisteredInstrument {...props} />} />
-            <Route path='/uploads' name="Uploads" render={props => <Uploads {...props} />} />
-            <Route path='/reports' name="Reports" render={props => <Reports {...props} />} />
-            <Route path='/outstandingbill' name="OutstandingBill" render={props => <OutstandingBill {...props} />} />
-            <Route path='/paidbill' name="PaidBill" render={props => <PaidBill {...props} />} />
-            <Route path='/applyapproval' name="ApplyApproval" render={props => <ApplyApproval {...props} />} />
-            <Route path='/applyinstverification' name="ApplyInstVerification" render={props => <ApplyInstVerification {...props} />} />
-            </Box>
+          <Route path='/dashboard' component= {Dashboard} key='Dashboard'/>
+          <Route path='/defaultlayout' component= {DefaultLayout} key='DefaultLayout'/>
             </Suspense>
           </Switch>
           
