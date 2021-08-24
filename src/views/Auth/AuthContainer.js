@@ -73,6 +73,10 @@ const useStyles = makeStyles(theme => ({
     }));
 export default function CustomizedDialogs(props) {
     const classes = useStyles();
+
+    const {auth, setAuth, history} = props
+
+    console.log(auth,history,'iiiuuu')
     
     const [toggleAuth, setToggleAuth] = React.useState(false);
     const [forgotPasswod, setForgotPasswod] = React.useState(false);
@@ -98,7 +102,7 @@ export default function CustomizedDialogs(props) {
           <Box ml={2}>{toggleAuth === false ? "SignIn" : "SignUp"}</Box>
         </DialogTitle>
         <DialogContent dividers>
-                  <SignIn handleForgotPassword={handleForgotPassword} />
+                  <SignIn handleForgotPassword={handleForgotPassword} setAuth={setAuth} auth={auth}/>
                    <SignUp toggleAuth={toggleAuth} handleToggleAuthForm={handleToggleAuthForm}/>  
                    <ForgotPassword forgotPasswod={forgotPasswod} handleForgotPassword={handleForgotPassword}/>
         </DialogContent>

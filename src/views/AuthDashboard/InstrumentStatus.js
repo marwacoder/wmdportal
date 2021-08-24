@@ -5,14 +5,11 @@ import { FormControlLabel,withStyles, Grid, Box, Button,makeStyles, IconButton }
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import { green } from '@material-ui/core/colors';
-
 const GreenCheckbox = withStyles({
     root: {
-      color: green[400],
+      color: '#07121F',
       '&$checked': {
-        color: green[600],
+        color: '#07121F',
       },
     },
     checked: {},
