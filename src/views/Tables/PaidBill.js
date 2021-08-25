@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import {Button, Box} from '../../mui'
+import { Box} from '../../mui'
 
 const columns = [
     { field: 'id', headerName: 'S/N', width: 120 },
@@ -39,7 +39,6 @@ const columns = [
                 sortable: false,
                 width: 120,
                 renderCell: (params) => (
-                    console.log(params.formattedValue,'params'),
                     params.formattedValue === 'Confirmed' ?
                     <Box color='#cddc39'>
                     Pendind

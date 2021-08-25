@@ -3,23 +3,11 @@ import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import {MenuItem, Button,makeStyles, Grid, Box, TextField, Paper } from '../../mui';
-import Checkbox from '@material-ui/core/Checkbox';
-import { green } from '@material-ui/core/colors';
+import {MenuItem, Button, Grid, Box, TextField, Paper } from '../../mui';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
-    input: {
-      display: 'none',
-    },
-  }));
+
   
   
   const instrument = [
@@ -63,8 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Reports() {
- 
-    const classes = useStyles();
+
   const [instrumentReport, setInstrumentReport] = React.useState(null)
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 

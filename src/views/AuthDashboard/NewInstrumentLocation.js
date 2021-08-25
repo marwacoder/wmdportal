@@ -3,7 +3,7 @@ import React from 'react';
 
 import { FormControlLabel,withStyles, Grid, Box, TextField } from '../../mui';
 import Checkbox from '@material-ui/core/Checkbox';
-import { green } from '@material-ui/core/colors';
+
 
 const GreenCheckbox = withStyles({
     root: {
@@ -15,7 +15,7 @@ const GreenCheckbox = withStyles({
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
 
-export default function Review(props) {
+export default function Review() {
  
 
   
@@ -26,7 +26,7 @@ export default function Review(props) {
   return (
     <Box  >
         <form>
-      <Grid container spacing={2} justifyContent='center' alignItems='center'>
+      <Grid container spacing={2} justifyContent='flex-start' alignItems='center'>
           <Grid item xs={12} sm={6}> <FormControlLabel
         control={<GreenCheckbox  name="Registered" />}
         label="Use Company Registered Email Address"
