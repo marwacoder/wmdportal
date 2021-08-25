@@ -270,7 +270,8 @@ const authDashboard = [
                             ) : (null);
                         })}
                     </Switch> 
-                    <Footer/>
+                    <Box  width='100%'> <Footer/></Box>
+                   
       </main>
     </div>
   );

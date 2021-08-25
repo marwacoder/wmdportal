@@ -27,7 +27,7 @@ export default function Review() {
         <TextField id="Instrument" select variant="outlined" label='Instrument'  fullWidth/>
         </Grid>
         
-        <Grid xs={12} sm={6} >
+        <Grid item xs={12} sm={6} >
         <TextField id="Instrument Type" select variant="outlined" label='Instrument Type'  fullWidth/>
               </Grid>
               <Grid item xs={12} sm={6}>
