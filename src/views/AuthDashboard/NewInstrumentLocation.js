@@ -43,7 +43,7 @@ export default function Review() {
         <TextField id="City" select variant="outlined" label='City'  fullWidth/>
         </Grid>
         
-        <Grid xs={12} sm={6} >
+        <Grid item xs={12} sm={6} >
         <TextField id="Local" select variant="outlined" label='Local Government'  fullWidth/>
               </Grid>
               <Grid item xs={12} sm={6}>
