@@ -1,32 +1,17 @@
 import React from 'react';
-import clsx from 'clsx';
+
 import {
-    makeStyles, Grid,Box, OutlinedInput, Divider, DialogContent, InputLabel,Button,
-    InputAdornment, FormControl, Paper, Person, Visibility, VisibilityOff
+   Box, OutlinedInput, InputLabel,Button,
+    FormControl, Paper
 } from '../../mui';
 
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 
 
 
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  
-    }));
-const  ContactUs =(props) =>{
-const classes = useStyles();
-   
+
+const  ContactUs =() =>{   
     
     const [values, setValues] = React.useState({
     email: "",
@@ -38,13 +23,7 @@ const classes = useStyles();
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = event => {
-    event.preventDefault();
-  };
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault()

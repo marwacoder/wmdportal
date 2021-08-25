@@ -1,14 +1,15 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+
 import Button from '@material-ui/core/Button';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import Box from '@material-ui/core/Box';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import machine from '../../assets/bg.png'
+import slide1 from '../../assets/slide3.png'
+import slide2 from '../../assets/slide5.png'
+import slide3 from '../../assets/slide8.png'
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
@@ -16,7 +17,18 @@ const tutorialSteps = [
     label: 'San Francisco – Oakland Bay Bridge, United States',
     imgPath: machine
   },
- 
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath: slide1
+  },
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath: slide2
+  },
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath: slide3
+  },
   
 ];
 
@@ -45,7 +57,7 @@ function SwipeableTextMobileStepper() {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tutorialSteps.length;
+
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -61,7 +73,7 @@ function SwipeableTextMobileStepper() {
 
   return (
     <div className={classes.root}>
-     <Box mt={5}>
+     <Box mt={5} mx={20}>
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
@@ -78,7 +90,7 @@ function SwipeableTextMobileStepper() {
       </AutoPlaySwipeableViews>
       <MobileStepper
       variant="dots"
-      steps={6}
+      steps={5}
       position="static"
       activeStep={activeStep}
       className={classes.root}

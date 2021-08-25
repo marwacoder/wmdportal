@@ -1,31 +1,24 @@
-import React,{Suspense} from 'react';
+import React from 'react';
 import clsx from 'clsx'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import {defaultlayout} from './routes'
 import {  useTheme } from '@material-ui/core/styles';
 
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-import InfoIcon from '@material-ui/icons/Info';
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+
+import Footer from '../views/Dashboard/Footer';
+
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import ReceiptIcon from '@material-ui/icons/Receipt';
-import ReportIcon from '@material-ui/icons/Report';
+import ReportIcon from '@material-ui/icons/ReportOutlined';
+
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Tooltip from '@material-ui/core/Tooltip';
-import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger, ChevronLeftIcon,
-    MenuItem, IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon, CssBaseline,
-    makeStyles, ListItem,Divider, Grid, ListItemText,Zoom,Typography, 
-    SwipeableDrawer,withStyles, Hidden, DashboardIcon, ExitToApp} from '../mui'
+import {Box, List, MenuIcon, Collapse,  ListItemIcon, ChevronLeftIcon,
+    IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon, CssBaseline,
+    makeStyles, ListItem,Divider, Grid, ListItemText, ReceiptIcon, ExpandLess, ExpandMore,
+    SwipeableDrawer, Hidden, ExitToApp} from '../mui'
 
-
-import Spinner from '../helpers/Spinner/Spinner'
 
 import coat from '../assets/Coat_of_arms_of_Nigeria.png'
 import ellipse from '../assets/Ellipse 20.png'
@@ -91,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(5),
+    marginTop: 20
   },
 }));
 
@@ -115,12 +109,11 @@ const authDashboard = [
  function DefaultLayout(props) {
 
     const [openNest, setOpenNest] = React.useState(null);
-    const [selected, setSelected] = React.useState(0);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const { container, history, location } = props
+  const {  history, location } = props
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -132,7 +125,7 @@ const authDashboard = [
 
 
   const handleClick = (item, index) => {
-    setSelected(index)
+
     if (item.children) {
       openNest === index ?
           setOpenNest(null) :
@@ -169,7 +162,7 @@ const authDashboard = [
           
               <Grid item>
               <Box my={2}>
-                  <img style={{width: 50,  height: 50}} src={coat} alt='coat'/>
+                  <img style={{width: 60,  height: 60}} src={coat} alt='coat'/>
               </Box>
                    
               </Grid>
@@ -184,7 +177,7 @@ const authDashboard = [
           </Box>
               </Grid>
               <Grid item>
-                  <img style={{width: 50,  height: 50}} src={ellipse} alt='ellipse'/>
+                  <img style={{width: 60,  height: 60}} src={ellipse} alt='ellipse'/>
               </Grid>
           </Grid>
        
@@ -277,6 +270,7 @@ const authDashboard = [
                             ) : (null);
                         })}
                     </Switch> 
+                    <Footer/>
       </main>
     </div>
   );

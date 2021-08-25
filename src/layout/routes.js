@@ -1,9 +1,6 @@
 /** @format */
 
-import Loadable from "react-loadable";
 
-
-import Spinner from "../helpers/Spinner/Spinner";
 import FMITI from '../views/Dashboard/FMITI';
 import WMD from '../views/Dashboard/WMD';
 import ContactUs from '../views/Dashboard/ContactUs'
@@ -17,13 +14,6 @@ import OutstandingBill from '../views/Tables/OutstandingBill'
 import PaidBill from '../views/Tables/PaidBill'
 import ApplyApproval from '../views/Tables/ApplyApproval'
 import ApplyInstVerification from '../views/Tables/ApplyInstVerification'
-
-const styleProps = {
-  color: "#00854D",
-  height: 50,
-  width: 50,
-  className: "spinner-background-opt"
-};
 
 
 

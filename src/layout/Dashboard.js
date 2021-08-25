@@ -1,21 +1,17 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import {  useTheme } from '@material-ui/core/styles';
+
 import {routes} from './routes'
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import InfoIcon from '@material-ui/icons/Info';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
-import Tooltip from '@material-ui/core/Tooltip';
-import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger,
-    MenuItem, IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon,
+import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger,ListItemIcon,
+    MenuItem, IconButton, Toolbar, AppBar, ExpandLess, ExpandMore,
     makeStyles, ListItem,Divider, Grid, ListItemText,Zoom,
     SwipeableDrawer,withStyles, Hidden, DashboardIcon, ExitToApp} from '../mui'
 
@@ -24,6 +20,8 @@ import ellipse from '../assets/Ellipse 20.png'
 import RegisterCompany from '../views/Dashboard/RegisterdCompany'
 import RegisteredInstrument from '../views/Dashboard/RegisteredInstrument'
 import SignIn from '../views/Auth/AuthContainer'
+
+import Footer from '../views/Dashboard/Footer';
 
 const drawerWidth = 320
 
@@ -66,17 +64,20 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
+  
   title: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
   },
-
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(5),
+    marginRight: 20,
+    marginLeft: 20,
+    marginTop: 150
+  },
   
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -203,19 +204,17 @@ const Dashboard =(props)=> {
   const [registeredCompany, setRegisteredCompany] =  React.useState(false)
   const [registeredInstrument, setRegisteredInstrument] =  React.useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selected, setSelected] = React.useState(0);
-  const [selectedSub, setSelectedSub] = React.useState(null);
-  const [selectedSub1, setSelectedSub1] = React.useState(null);
+
   const [auth, setAuth] = React.useState(false);
   const [menuItem, setMenItem] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [openNest, setOpenNest] = React.useState(null);
 
-  const theme = useTheme();
+
   const { container, history, location } = props
 
-  const [open, setOpen] = React.useState(false);
+
 
  
 
@@ -238,17 +237,10 @@ const handleRegisteredInstrument = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(mobileOpen=> !mobileOpen)
 }
-  const handleMainMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
+ 
 
   const handleClick = (item, index) => {
-    setSelected(index)
+  
     if(item.name === 'Registered Company') return handleRegisteredCompany()
     if(item.name === 'Registered Instrument') return handleRegisteredInstrument()
     if(item.name === 'LOGIN') return handleClickOpenAuth()
@@ -326,7 +318,7 @@ const handleRegisteredInstrument = () => {
           </>
       );
 
-    const menuId = 'primary-search-account-menu';
+   
     const mobileMenuId = 'primary-search-account-menu-mobile';
     
     const renderMenu = (
@@ -351,7 +343,7 @@ const handleRegisteredInstrument = () => {
     );
   return (
     <div className={classes.grow}>
-      <AppBar color='transparent' position='relative'>
+      <AppBar color='white' position='fixed' >
           <Hidden xsDown>
         <Toolbar>
           
@@ -359,7 +351,7 @@ const handleRegisteredInstrument = () => {
           
           <Grid item>
           <Box my={2}>
-              <img style={{width: 50,  height: 50}} src={coat} alt='coat'/>
+              <img style={{width: 60,  height: 60}} src={coat} alt='coat'/>
           </Box>
                
           </Grid>
@@ -374,14 +366,14 @@ const handleRegisteredInstrument = () => {
       </Box>
           </Grid>
           <Grid item>
-              <img style={{width: 50,  height: 50}} src={ellipse} alt='ellipse'/>
+              <img style={{width: 60,  height: 60}} src={ellipse} alt='ellipse'/>
           </Grid>
       </Grid>
         </Toolbar>
         </Hidden>
       </AppBar>
       <Box >
-      <AppBar color="primary" position='relative' >
+      <AppBar color="primary" position='fixed' style={{top: 80}} >
         <Toolbar >
        
           <Box className={classes.sectionMobile}>
@@ -480,6 +472,7 @@ const handleRegisteredInstrument = () => {
                             ) : (null);
                         })}
                     </Switch> 
+                    <Footer/>
       </main>
     </div>
   );

@@ -6,25 +6,11 @@ import { createTheme, MuiThemeProvider, responsiveFontSizes } from '@material-ui
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 
 import Nexa from './font/Nexa-Light.otf';
-import {Box} from './mui'
+
 import Spinner from '../src/helpers/Spinner/Spinner'
 
-import { red, grey, green, lime } from '@material-ui/core/colors';
-import Home from './views/Dashboard/Home';
-import Downloads from './views/Dashboard/Downloads';
-import Footer from './views/Dashboard/Footer';
-import Auth from './views/Auth/AuthContainer';
-import FMITI from './views/Dashboard/FMITI';
-import WMD from './views/Dashboard/WMD';
-import ContactUs from './views/Dashboard/ContactUs';
-import NewInstrumentReg from './views/AuthDashboard/NewInstrumentReg';
-import RegisteredInstrument from './helpers/Table'
-import Uploads from './views/AuthDashboard/Uploads'
-import Reports from './views/AuthDashboard/Reports'
-import OutstandingBill from './views/Tables/OutstandingBill'
-import PaidBill from './views/Tables/PaidBill'
-import ApplyApproval from './views/Tables/ApplyApproval'
-import ApplyInstVerification from './views/Tables/ApplyInstVerification'
+import { red, grey, lime } from '@material-ui/core/colors';
+
 
 
 import DefaultLayout from './layout/DefaultLayout'
@@ -52,12 +38,10 @@ function App() {
     const primaryColor = darkState ? grey[800] : '#07121F';
     const secondaryColor = darkState ? red[300] : red[500];
     const limeColor = darkState ? lime[300] : lime[500];
-    const [route, setRoute] = React.useState(false);
     
-    const [auth, setAuth] = React.useState(false)
 
 
-  console.log(auth,'ppp')
+
     let theme = createTheme({
       typography: {
         
@@ -110,11 +94,7 @@ function App() {
     
   return (
     <MuiThemeProvider theme={theme}>
-     <Router  auth={auth} setAuth={setAuth}>
-        {/* <Dashboard history={history}  darkState={darkState}  */}
-        
-        
-        {/* <Dashboard/> */}
+     <Router>
         <Switch >
         <Redirect
         exact
@@ -131,9 +111,8 @@ function App() {
           <Route path='/defaultlayout' component= {DefaultLayout} key='DefaultLayout'/>
             </Suspense>
           </Switch>
-          
         </Router>
-        <Footer/>
+        
     </MuiThemeProvider>
   );
 }

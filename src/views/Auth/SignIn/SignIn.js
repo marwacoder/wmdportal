@@ -1,8 +1,8 @@
 import React from 'react';
 import {withRouter } from 'react-router-dom'
 import {
-    makeStyles, IconButton,Box, OutlinedInput, InputLabel,Button,
-    InputAdornment, FormControl, Paper, Person, Visibility, VisibilityOff
+    IconButton,Box, OutlinedInput, InputLabel,Button,
+    InputAdornment, FormControl, Person, Visibility, VisibilityOff
 } from '../../../mui';
 
 
@@ -11,22 +11,9 @@ import {
 
 
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  
-    }));
 const  SignIn =(props) =>{
 
-
+  const {history} = props
    const {handleForgotPassword} = props
     
     const [values, setValues] = React.useState({
@@ -104,7 +91,7 @@ const  SignIn =(props) =>{
         <div>
                           
                   
-         <div style={{paddingBottom: 10}}> <Button fullWidth  color="primary" variant="contained">
+         <div style={{paddingBottom: 10}}> <Button fullWidth onClick={()=> history.push('/defaultlayout/newinstrument')} color="primary" variant="contained">
                      <span style={{color: '#fff'}}>Sign In</span> 
                           </Button></div>
                           <Button  color="secondary" onClick={handleForgotPassword}> Forgot Password?</Button>  

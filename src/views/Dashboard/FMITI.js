@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Typography} from '../../mui'
+import {Box} from '../../mui'
 
 export default function FMITI() {
     return (

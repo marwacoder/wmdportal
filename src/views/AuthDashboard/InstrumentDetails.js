@@ -1,21 +1,13 @@
 import React from 'react';
 
 
-import { FormControlLabel,withStyles, Grid, Box, TextField } from '../../mui';
-import Checkbox from '@material-ui/core/Checkbox';
-import { green } from '@material-ui/core/colors';
+import {  Grid, Box, TextField } from '../../mui';
 
-const GreenCheckbox = withStyles({
-    root: {
-      color: green[400],
-      '&$checked': {
-        color: green[600],
-      },
-    },
-    checked: {},
-  })((props) => <Checkbox color="default" {...props} />);
 
-export default function Review(props) {
+
+
+
+export default function Review() {
  
 
   

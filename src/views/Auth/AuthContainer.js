@@ -2,8 +2,8 @@ import React from 'react';
 
 
 import {
-  Paper, withStyles, Button, Dialog,Box, MuiDialogTitle,MuiDialogActions,
-  IconButton, CloseIcon, Typography, makeStyles, MuiDialogContent
+ withStyles, Button, Dialog,Box, MuiDialogTitle,MuiDialogActions,
+  IconButton, CloseIcon, Typography,  MuiDialogContent
 } from '../../mui'
 
 import SignIn from '../Auth/SignIn/SignIn';
