@@ -179,7 +179,35 @@ const authDashboard = [
               <Grid item>
                   <img style={{width: 60,  height: 60}} src={ellipse} alt='ellipse'/>
               </Grid>
+              
           </Grid>
+          <Box >
+        <Tooltip title="Profile">
+        <IconButton
+        
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                
+                color="inherit"
+              >
+                <AccountCircle style={{color: 'white'}}/>
+              </IconButton>
+              </Tooltip>
+        </Box>
+        <Box >
+        <Tooltip title="Logout">
+            <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                
+                color="inherit"
+              >
+                <ExitToApp style={{color: 'white'}}/>
+              </IconButton>
+              </Tooltip>
+         </Box>
        
         </Toolbar>
         </Hidden>
@@ -225,39 +253,16 @@ const authDashboard = [
                        </ListItem>
                    ))
                        : null}
-                       <Box pl={10}>
-        <Tooltip title="Profile">
-        <IconButton
-        
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                
-                color="inherit"
-              >
-                <AccountCircle style={{color: 'white'}}/>
-              </IconButton>
-              </Tooltip>
-        </Box>
-        <Box >
-        <Tooltip title="Logout">
-            <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                
-                color="inherit"
-              >
-                <ExitToApp style={{color: 'white'}}/>
-              </IconButton>
-              </Tooltip>
-         </Box>
+            
 
            </List>
        </Collapse>
+       
        </>
     })}
+    
         </List>
+        
       </SwipeableDrawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />  
