@@ -58,7 +58,7 @@ export default function DataTable() {
 
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <Box  mt={{sm: '5%', xs: '1%', md: '5%'}} style={{ height: 400, width: '100%' }}>
        
       <DataGrid
         rows={rows}
@@ -69,6 +69,6 @@ export default function DataTable() {
         checkboxSelection
         disableSelectionOnClick
       />
-    </div>
+    </Box>
   );
 }

@@ -33,7 +33,7 @@ const nexa = {
 
 function App() {
 
-  const [darkState, setDarkState] = React.useState(false);
+  const [darkState] = React.useState(false);
     const darkTheme = darkState ? "dark" : "light";
     const primaryColor = darkState ? grey[800] : '#07121F';
     const secondaryColor = darkState ? red[300] : red[500];
@@ -101,11 +101,8 @@ function App() {
         from="/"
         to="/dashboard/home"
             />
-          <Redirect
-        exact
-        from="/defaultlayout"
-        to="/defaultlayout/newinstrument"
-            />
+       
+          
             <Suspense fallback= {<Spinner/>}>
           <Route path='/dashboard' component= {Dashboard} key='Dashboard'/>
           <Route path='/defaultlayout' component= {DefaultLayout} key='DefaultLayout'/>

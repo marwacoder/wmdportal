@@ -91,7 +91,7 @@ const  SignIn =(props) =>{
         <div>
                           
                   
-         <div style={{paddingBottom: 10}}> <Button fullWidth onClick={()=> history.push('/defaultlayout/newinstrument')} color="primary" variant="contained">
+         <div style={{paddingBottom: 10}}> <Button fullWidth onClick={()=> history.push('/defaultlayout/home')} color="primary" variant="contained">
                      <span style={{color: '#fff'}}>Sign In</span> 
                           </Button></div>
                           <Button  color="secondary" onClick={handleForgotPassword}> Forgot Password?</Button>  

@@ -74,19 +74,19 @@ export default function DataTable() {
 
 
   return (
-    <Box style={{ height: 400,margin: 10, width: '100%' }}>
+    <Box  mt={{sm: '10%', xs: '1%', md: '10%'}} style={{ height: 400, width: '100%' }}>
        <Box my={3}>
            <Grid container justifyContent='center' alignItems='center' spacing={2}>
-            <Grid item >
+            <Grid item xs={12} sm={12}>
             <Box fontWeight='bold'>Instrument Filter</Box>
             </Grid>
-            <Grid item>
+            <Grid item xs={6} sm={3}>
             <TextField id="filename" size="small"  variant='outlined' label='Model Name'  fullWidth/>
             </Grid>
-            <Grid item>
+            <Grid item xs={6} sm={3}>
             <TextField id="filename" size="small"  variant='outlined' label='Model Number'  fullWidth/>
             </Grid>
-            <Grid item>
+            <Grid item xs={12} sm={6}>
             <Button variant="outlined" color="primary" >
                             Search
                           </Button>

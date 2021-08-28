@@ -1,6 +1,6 @@
 /** @format */
 
-
+import DefaultDashboard from '../views/AuthDashboard/Dashboard'
 import FMITI from '../views/Dashboard/FMITI';
 import WMD from '../views/Dashboard/WMD';
 import ContactUs from '../views/Dashboard/ContactUs'
@@ -31,8 +31,8 @@ export const routes = [
 
 
 export const defaultlayout = [
-
-    { path: "/defaultlayout/newinstrument", exact: true, name: "Newinstrument", component: NewInstrumentReg },
+  { path: "/defaultlayout/home",exact: true,  name: "DefaultDashboard", component: DefaultDashboard },
+    { path: "/defaultlayout/newinstrument",  name: "Newinstrument", component: NewInstrumentReg },
     { path: "/defaultlayout/registeredinstrument", name: "Registeredinstrument", component: RegisteredInstrument },
     { path: "/defaultlayout/uploads",  name: "Uploads", component: Uploads },
     { path: "/defaultlayout/outstandingbill",  name: "OutstandingBill", component: OutstandingBill },

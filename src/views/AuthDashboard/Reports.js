@@ -62,10 +62,11 @@ export default function Reports() {
 
   return (
     
-    <Box mx={3}>
-        <Paper>
-            <Box m={1}>
+    <Box  mt={{sm: '5%', xs: '1%', md: '5%'}} mx={{sm: '5%', xs: '1%', md: '5%'}}>
+        <Paper elevation={0}>
+            
         <form>
+          <Box mx={5} py={1}>
       <Grid container spacing={1} justifyContent='center' alignItems='center'>
       <Grid item xs={12} sm={2}>
         <Box fontWeight='bold'>Report Filter</Box>
@@ -99,6 +100,7 @@ export default function Reports() {
           <Grid item xs={12} sm={2}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
+          fullWidth
           disableToolbar
           variant="inline"
           format="MM/dd/yyyy"
@@ -117,6 +119,7 @@ export default function Reports() {
           <Grid item xs={12} sm={2}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
+          fullWidth
           disableToolbar
           variant="inline"
           format="MM/dd/yyyy"
@@ -140,11 +143,11 @@ export default function Reports() {
           </Grid>
        
       </Grid>
-      
-      </form>
       </Box>
+      </form>
+      
       </Paper>
-      <Box mt={30} mx={'85%'}>
+      <Box mt={{xs: '20%'}} mx={{sm: '5%', xs: '1%', md: '5%'}}>
       <Button variant="outlined" color="primary" component="span">
           print
         </Button>

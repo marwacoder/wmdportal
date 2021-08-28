@@ -33,7 +33,7 @@ const  ContactUs =() =>{
 
 
   return (
-      <Box mx={'30%'}>
+      <Box mx={{sm: '40%', xs: '5%', md: '30%'}}>
       <Paper>
       <Box m={2}>
           
