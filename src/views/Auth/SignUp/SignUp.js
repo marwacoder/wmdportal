@@ -36,7 +36,7 @@ export default function FormDialog(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(register(values.name, values.email, values.password))
+    dispatch(register({name: values.name, email: values.email, password: values.password}))
 
   }
 
