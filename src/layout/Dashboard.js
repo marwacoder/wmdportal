@@ -177,22 +177,22 @@ const menu = [
 
 
         const mobileMenu = [
-            { name: 'HOME',icon: <DashboardIcon/>, link: '/dashboard/home'},
-            { name: 'DOWNLOADS' , icon: <CloudDownloadIcon/>,link: '/dashboard/downloads'},
+            { name: 'HOME',icon: <DashboardIcon color='primary'/>, link: '/dashboard/home'},
+            { name: 'DOWNLOADS' , icon: <CloudDownloadIcon color='primary'/>,link: '/dashboard/downloads'},
             {
-                name: "ABOUT US", icon: <InfoIcon/>, children: [
+                name: "ABOUT US", icon: <InfoIcon color='primary'/>, children: [
                     { name: 'FMITI', link: '/dashboard/fmiti' },
                     {name: 'WMD', link: '/dashboard/wmd'}
             ] },
             {
-                name: "QUICK SEARCH", icon: <FindInPageIcon/>, children: [
+                name: "QUICK SEARCH", icon: <FindInPageIcon color='primary'/>, children: [
                     { name: 'Registered Company', link: '/dashboard/registerdcompany' },
                     {name: 'Registered Instrument', link: '/dashboard/registerdinstrument'}
             ] },
-            { name: 'HELP', icon: <HelpOutlineIcon/>, children: [
+            { name: 'HELP', icon: <HelpOutlineIcon color='primary'/>, children: [
                 { name: 'FAQ', link: '/dashboard/faq' },
                 {name: 'Contact Us', link: '/dashboard/contactus'}
-        ] },{ name: 'LOGOUT',icon: <ExitToApp/>}
+        ] },{ name: 'LOGOUT',icon: <ExitToApp color='primary'/>}
             
         ]
         
@@ -294,7 +294,7 @@ const handleRegisteredInstrument = () => {
         {mobileMenu.map((item, index)=> {
            return <>
            <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link} >
-               <ListItemIcon style={{ color: "#07121F", margin: 0 }}>{item.icon}</ListItemIcon>
+               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
                <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
                {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
            </ListItem>
@@ -303,7 +303,7 @@ const handleRegisteredInstrument = () => {
                    {
                        item.children ? item.children.map((item, index) => (
                            <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
-                               <ListItemIcon style={{ color: "#fff", margin: 0 }}>{item.icon}</ListItemIcon>
+                               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
                                {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
                            </ListItem>
                        ))

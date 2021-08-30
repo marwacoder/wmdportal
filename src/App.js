@@ -8,7 +8,7 @@ import Nexa from './font/Nexa-Light.otf';
 
 import Spinner from '../src/helpers/Spinner/Spinner'
 
-import { red, grey, lime } from '@material-ui/core/colors';
+import { red, grey, lime, indigo } from '@material-ui/core/colors';
 
 
 
@@ -34,7 +34,7 @@ function App() {
 
   const [darkState] = React.useState(false);
     const darkTheme = darkState ? "dark" : "light";
-    const primaryColor = darkState ? grey[800] : '#07121F';
+    const primaryColor = darkState ? grey[800] : indigo[900];
     const secondaryColor = darkState ? red[300] : red[500];
     const limeColor = darkState ? lime[300] : lime[500];
     
