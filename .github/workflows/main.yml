@@ -33,7 +33,9 @@ jobs:
       - run: yarn config set ignore-engines true
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: cp -r ./build/ /var/www/wmd/html/
+      - run: cd build
+      - run: cd -r . /var/www/wmd/html/
+      - run: sudo systemctl restart nginx
 
 
 
