@@ -61,11 +61,11 @@ export const userLogout = () => (dispatch) => {
      clearSession();
 };
 //LOGIN
-export const auth = (username, password) => {
+export const auth = ({email, password}) => {
  
     return (dispatch) => {
         dispatch(authStart());
-        axios.post('http://api.wmd.ng/v1/login',{username, password}).then(resp => {
+        axios.post('http://api.wmd.ng/v1/login',{email, password}).then(resp => {
             setTimeout(() => {
                 dispatch(authSuccess(resp.data))
                 dispatch(checkAuthTimeOut(1209600000))
@@ -112,7 +112,7 @@ export const registerRefresh = () => {
 
 
 
-export const register = (email, name, password) => {
+export const register = ({email, name, password}) => {
  
     return (dispatch) => {
         dispatch(registerStart());
@@ -128,6 +128,54 @@ export const register = (email, name, password) => {
         }).catch(err => {
            console.log(err.response.data.message,'error')
                 dispatch(registerFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
+      })
+    };
+};
+
+
+
+
+export const getCompanyStart = () => {
+    return {
+        type: actionTypes.GET_COMPANY_START
+    }
+}
+
+export const getCompanySuccess = (payload) => {
+    return {
+        type: actionTypes.GET_COMPANY_SUCCESS,
+        payload
+    }
+}
+
+export const getCompanyFail = (payload) => {
+    return {
+        type: actionTypes.GET_COMPANY_FAIL,
+        payload
+    };
+};
+
+export const getCompanyRefresh = () => {
+    return {
+        type: actionTypes.GET_COMPANY_REFRESH,
+    };
+};
+
+
+
+
+export const getCompany = ({id}) => {
+ 
+    return (dispatch) => {
+        dispatch(getCompanyStart());
+        axios.get(`http://api.wmd.ng/v1/company/${id}`).then(resp => {
+
+            setTimeout(() => {
+                dispatch(getCompanySuccess(resp.data))
+            },1000)
+          
+        }).catch(err => {
+                dispatch(getCompanyFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
       })
     };
 };

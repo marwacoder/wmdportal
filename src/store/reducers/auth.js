@@ -23,7 +23,7 @@ export const isAuthenticated = (state = initState, action) => {
             return {
                 isLoading: false,
                 isLoggedIn:true,
-                data: { ...state.data, ...action.payload.user },
+                data: { ...state.data, ...action.payload.data },
                 token: action.payload.token
             }
         case actionTypes.AUTH_FAIL:
@@ -41,7 +41,7 @@ export const isAuthenticated = (state = initState, action) => {
             return {
                 isLoggedOut: true,
                 isLoggedIn: false,
-                data: {...state.data}
+                data: {}
             }
 
             case actionTypes.REGISTER_START:

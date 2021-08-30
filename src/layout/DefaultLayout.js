@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx'
+import {useDispatch, useSelector} from 'react-redux'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import {defaultlayout} from './routes'
 import {  useTheme } from '@material-ui/core/styles';
@@ -18,7 +19,7 @@ import {Box, List, MenuIcon, Collapse,  ListItemIcon, ChevronLeftIcon, Typograph
     IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon, CssBaseline, DashboardIcon,
     makeStyles, ListItem,Divider, Grid, ListItemText, ReceiptIcon, ExpandLess, ExpandMore,
     SwipeableDrawer, Hidden, ExitToApp} from '../mui'
-
+import {userLogout} from '../store/actions'
 
 import coat from '../assets/Coat_of_arms_of_Nigeria.png'
 import ellipse from '../assets/Ellipse 20.png'
@@ -110,7 +111,8 @@ const authDashboard = [
 ]
 
  function DefaultLayout(props) {
-
+const dispatch = useDispatch()
+const {data} = useSelector(state => state.isAuthenticated)
     const [openNest, setOpenNest] = React.useState(null);
   const classes = useStyles();
   const theme = useTheme();
@@ -139,6 +141,10 @@ const authDashboard = [
   
       }
 
+      const onLogout = ()=> {
+        dispatch(userLogout())
+        history.push('/dashboard/home')
+      }
   
 
   return (
@@ -188,7 +194,7 @@ const authDashboard = [
           <Box pr={5}> 
             <Grid container justifyContent='space-around' alignItems='center' spacing={2}>
             <Grid item sm={6}>
-                <Typography noWrap={true}>Company</Typography>
+                <Typography noWrap={true}>{data.name|| 'Company'}</Typography>
               </Grid>
               <Grid item sm={3}>
                 <Box>
@@ -213,7 +219,7 @@ const authDashboard = [
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={()=> history.push('/dashboard/home')}
+                onClick={onLogout}
                 color="inherit"
               >
                 <ExitToApp style={{color: 'white'}}/>

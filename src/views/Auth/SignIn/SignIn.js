@@ -41,7 +41,7 @@ const  SignIn =(props) =>{
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(auth(values.email, values.password))
+    dispatch(auth({email: values.email, password : values.password}))
 
   }
   let authRedirect = null;
