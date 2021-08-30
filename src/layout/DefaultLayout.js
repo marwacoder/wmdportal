@@ -4,7 +4,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import {defaultlayout} from './routes'
 import {  useTheme } from '@material-ui/core/styles';
 
-
+import TimelineIcon from '@material-ui/icons/Timeline';
 
 import Footer from '../views/Dashboard/Footer';
 
@@ -14,8 +14,8 @@ import ReportIcon from '@material-ui/icons/ReportOutlined';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Tooltip from '@material-ui/core/Tooltip';
-import {Box, List, MenuIcon, Collapse,  ListItemIcon, ChevronLeftIcon,
-    IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon, CssBaseline,
+import {Box, List, MenuIcon, Collapse,  ListItemIcon, ChevronLeftIcon, Typography,
+    IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon, CssBaseline, DashboardIcon,
     makeStyles, ListItem,Divider, Grid, ListItemText, ReceiptIcon, ExpandLess, ExpandMore,
     SwipeableDrawer, Hidden, ExitToApp} from '../mui'
 
@@ -86,11 +86,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(5),
     marginTop: 20
   },
+
 }));
 
 
 
 const authDashboard = [
+  { name: 'HOME',icon: <DashboardIcon/>, link: '/defaultlayout/home'},
     { name: 'New Instrument Registration', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon/> },
     { name: 'Registered Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon/>  },
     { name: 'Uploads',link: '/defaultlayout/uploads', icon: <CloudUploadIcon/> },
@@ -100,7 +102,8 @@ const authDashboard = [
       { name: 'Paid Bill',link: '/defaultlayout/paidbill' },
     ]},
     { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon/> },
-    { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon/>  }
+    { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon/>  },
+    { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon/>  }
 
 
     
@@ -144,8 +147,9 @@ const authDashboard = [
       <AppBar   position='fixed'  className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}>
-          <Hidden xsDown>
+          
         <Toolbar>
+
         <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -157,7 +161,7 @@ const authDashboard = [
           >
             <MenuIcon />
           </IconButton>
-          
+          <Hidden xsDown>
           <Grid container justifyContent='center' alignItems='center' spacing={4}>
           
               <Grid item>
@@ -181,8 +185,14 @@ const authDashboard = [
               </Grid>
               
           </Grid>
-          <Box >
-        <Tooltip title="Profile">
+          <Box pr={5}> 
+            <Grid container justifyContent='space-around' alignItems='center' spacing={2}>
+            <Grid item sm={6}>
+                <Typography noWrap={true}>Company</Typography>
+              </Grid>
+              <Grid item sm={3}>
+                <Box>
+                <Tooltip title="Profile">
         <IconButton
         
                 aria-label="account of current user"
@@ -194,23 +204,28 @@ const authDashboard = [
                 <AccountCircle style={{color: 'white'}}/>
               </IconButton>
               </Tooltip>
-        </Box>
-        <Box >
-        <Tooltip title="Logout">
+                </Box>
+              </Grid>
+              <Grid item sm={3}>
+                <Box>
+                <Tooltip title="Logout">
             <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                
+                onClick={()=> history.push('/dashboard/home')}
                 color="inherit"
               >
                 <ExitToApp style={{color: 'white'}}/>
               </IconButton>
               </Tooltip>
-         </Box>
-       
+                </Box>
+              </Grid>
+            </Grid>    
+        </Box> 
+        </Hidden>   
         </Toolbar>
-        </Hidden>
+        
       </AppBar>
      
       
@@ -234,11 +249,11 @@ const authDashboard = [
         </div>
         <Divider />
         <Box mt={5}/>
-        <List>
+        <List  component="div" disablePadding>
         {authDashboard.map((item, index)=> {
        return <>
-       <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
-           <ListItemIcon style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
+       <ListItem button style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
+           <ListItemIcon color='inherit' style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
            <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
            {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
 
@@ -265,7 +280,7 @@ const authDashboard = [
         
       </SwipeableDrawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />  
+      <Box  >
         <Switch>
                         {defaultlayout.map((route) => {
                             return route.component ? (
@@ -275,6 +290,7 @@ const authDashboard = [
                             ) : (null);
                         })}
                     </Switch> 
+                    </Box>
                     <Box  width='100%'> <Footer/></Box>
                    
       </main>

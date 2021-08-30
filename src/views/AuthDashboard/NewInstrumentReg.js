@@ -1,12 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+
 import StepContent from '@material-ui/core/StepContent';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+
+import {Box, Typography, Step, StepLabel, Stepper, Button, Paper} from '../../mui'
 
 import NewInstrumentLocation from '../AuthDashboard/NewInstrumentLocation'
 import InstrumentDetails from '../AuthDashboard/InstrumentDetails'
@@ -63,7 +60,7 @@ export default function VerticalLinearStepper() {
   };
 
   return (
-    <div className={classes.root}>
+    <Box mt={{sm: '2%', xs: '5%', md: '7%'}} className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
@@ -101,6 +98,6 @@ export default function VerticalLinearStepper() {
           </Button>
         </Paper>
       )}
-    </div>
+    </Box>
   );
 }

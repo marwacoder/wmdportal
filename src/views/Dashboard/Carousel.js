@@ -2,8 +2,7 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
+import {Box, Button, Grid} from '../../mui'
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import machine from '../../assets/bg.png'
@@ -72,8 +71,10 @@ function SwipeableTextMobileStepper() {
   };
 
   return (
-    <div className={classes.root}>
-     <Box mt={5} mx={20}>
+    <Box className={classes.root} mt={{sm: '5%', md: '5%', xs: '20%'}}>
+      <Grid container justifyContent='center' alignItems='center'>
+        <Grid item sm={12} xs={12}>
+     <Box >
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
@@ -108,7 +109,9 @@ function SwipeableTextMobileStepper() {
       }
     />
     </Box>
-    </div>
+    </Grid>
+      </Grid>
+    </Box>
   );
 }
 

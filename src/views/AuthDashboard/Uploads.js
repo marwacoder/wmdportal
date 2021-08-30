@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import { makeStyles,Button, Grid, Box, TextField } from '../../mui';
+import { makeStyles,Button, Grid, Box, TextField, Paper} from '../../mui';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function Uploads(props) {
+export default function Uploads() {
  
     const classes = useStyles();
   
@@ -24,8 +24,12 @@ export default function Uploads(props) {
  
 
   return (
-    <Box  mx={5}>
+    
+    
+      <Box  my={{sm: '5%', xs: '1%', md: '5%'}}  mx={{sm: '5%', xs: '1%', md: '5%'}}>
+      <Paper elevation={0}>
         <form>
+        <Box mx={5} py={3}>
       <Grid container spacing={2} justifyContent='flex-start' alignItems='center'>
 
         <Grid item xs={12} sm={6}>
@@ -126,9 +130,11 @@ export default function Uploads(props) {
           Upload
         </Button>
       </Box>
-     
+      </Box>
       </form>
-    </Box>
+      </Paper>
+      </Box>
+    
   );
 }
 

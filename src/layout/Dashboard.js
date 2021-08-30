@@ -1,7 +1,7 @@
 import React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types';
-
+import {useSelector} from 'react-redux'
 import {routes} from './routes'
 
 import InfoIcon from '@material-ui/icons/Info';
@@ -11,7 +11,7 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger,ListItemIcon,
-    MenuItem, IconButton, Toolbar, AppBar, ExpandLess, ExpandMore,
+    MenuItem, IconButton, Toolbar, AppBar, ExpandLess, ExpandMore,Fab, KeyboardArrowUpIcon,
     makeStyles, ListItem,Divider, Grid, ListItemText,Zoom,
     SwipeableDrawer,withStyles, Hidden, DashboardIcon, ExitToApp} from '../mui'
 
@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   
   grow: {
     flexGrow: 1,
+    backgroundImage: ellipse
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -70,13 +71,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(5),
-    marginRight: 20,
-    marginLeft: 20,
-    marginTop: 150
   },
   
   searchIcon: {
@@ -146,6 +140,15 @@ const useStyles = makeStyles((theme) => ({
         color: "#07121F",
         fontWeight: 600
     }
+  },
+  log: {
+    borderRadius: 5,
+    height: 40,
+        backgroundColor: "#f44336",
+        fontWeight: 600,
+        '&:hover': {
+          backgroundColor: "#4caf50",
+        },
   }
 }));
 
@@ -166,12 +169,7 @@ const menu = [
             { name: 'HELP', children: [
                 { name: 'FAQ', link: '/dashboard/faq' },
                 {name: 'Contact Us', link: '/dashboard/contactus'}
-        ] },
-        { name: 'LOGIN', link: '/dashboard/login' },
-
-        
-        
-            
+        ] } 
         ]
 
 
@@ -179,21 +177,21 @@ const menu = [
 
 
         const mobileMenu = [
-            { name: 'HOME',icon: <DashboardIcon/>, link: '/dashboard'},
-            { name: 'DOWNLOADS' , icon: <CloudDownloadIcon/>,link: '/downloads'},
+            { name: 'HOME',icon: <DashboardIcon/>, link: '/dashboard/home'},
+            { name: 'DOWNLOADS' , icon: <CloudDownloadIcon/>,link: '/dashboard/downloads'},
             {
                 name: "ABOUT US", icon: <InfoIcon/>, children: [
-                    { name: 'FMITI', link: '/fmiti' },
-                    {name: 'WMD', link: '/wmd'}
+                    { name: 'FMITI', link: '/dashboard/fmiti' },
+                    {name: 'WMD', link: '/dashboard/wmd'}
             ] },
             {
                 name: "QUICK SEARCH", icon: <FindInPageIcon/>, children: [
-                    { name: 'Registered Company', link: '/registerdcompany' },
-                    {name: 'Registered Instrument', link: '/registerdinstrument'}
+                    { name: 'Registered Company', link: '/dashboard/registerdcompany' },
+                    {name: 'Registered Instrument', link: '/dashboard/registerdinstrument'}
             ] },
             { name: 'HELP', icon: <HelpOutlineIcon/>, children: [
-                { name: 'FAQ', link: '/faq' },
-                {name: 'Contact Us', link: '/contactus'}
+                { name: 'FAQ', link: '/dashboard/faq' },
+                {name: 'Contact Us', link: '/dashboard/contactus'}
         ] },{ name: 'LOGOUT',icon: <ExitToApp/>}
             
         ]
@@ -211,7 +209,7 @@ const Dashboard =(props)=> {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [openNest, setOpenNest] = React.useState(null);
 
-
+  const {isLoggedIn } = useSelector(state => state.isAuthenticated)
   const { container, history, location } = props
 
 
@@ -243,7 +241,6 @@ const handleRegisteredInstrument = () => {
   
     if(item.name === 'Registered Company') return handleRegisteredCompany()
     if(item.name === 'Registered Instrument') return handleRegisteredInstrument()
-    if(item.name === 'LOGIN') return handleClickOpenAuth()
     if (item.children) {
       openNest === index ?
           setOpenNest(null) :
@@ -259,7 +256,10 @@ const handleRegisteredInstrument = () => {
        
       };
      
-
+      let authRedirect = null;
+        if(isLoggedIn === true) {
+            authRedirect = <Redirect to ='/defaultlayout/home'/>
+         }
       const drawer = (
         <>
             <Box m={2}>
@@ -342,7 +342,9 @@ const handleRegisteredInstrument = () => {
    </StyledMenu>
     );
   return (
-    <div className={classes.grow}>
+    <div >
+      {authRedirect}
+      <Hidden xsDown>
       <AppBar color='white' position='fixed' >
           <Hidden xsDown>
         <Toolbar>
@@ -372,6 +374,7 @@ const handleRegisteredInstrument = () => {
         </Toolbar>
         </Hidden>
       </AppBar>
+      
       <Box >
       <AppBar color="primary" position='fixed' style={{top: 80}} >
         <Toolbar >
@@ -406,8 +409,15 @@ const handleRegisteredInstrument = () => {
                     </Box>
                     
                   ))}
-         
-        
+                  <Box  >
+                    <MenuItem  className={classes.log} onClick={()=> handleClickOpenAuth()}>
+                   <ListItemText>LOGIN</ListItemText>
+                   </MenuItem>
+                  </Box>
+                   
+                   
+                  
+                      
                   </List>
                   
                 </Box>
@@ -424,8 +434,30 @@ const handleRegisteredInstrument = () => {
         </Toolbar>
         
       </AppBar>
-      </Box>
       
+      </Box>
+      </Hidden>
+      <Hidden smUp>
+      <AppBar color="primary" position='fixed'>
+        <Toolbar >
+       
+          <Box className={classes.sectionMobile}>
+            <IconButton
+              onClick={handleDrawerToggle}
+            edge="start"
+            aria-controls={mobileMenuId}
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="open drawer"
+          >
+            <MenuIcon style={{color:'white'}}/>
+            </IconButton>
+          </Box>     
+        </Toolbar>
+        
+      </AppBar>
+      </Hidden>
+      <Box id="back-to-top-anchor" />
 <div className={classes.sectionMobile}>
         <nav className={classes.drawer} aria-label="mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -461,9 +493,9 @@ const handleRegisteredInstrument = () => {
           <RegisteredInstrument registeredInstrument={registeredInstrument} handleRegisteredInstrument={handleRegisteredInstrument}/>
           <SignIn auth={auth} handleCloseAuth={handleCloseAuth}/>
         </div>
-        <main className={classes.content}>
-        <div className={classes.toolbar} />  
-        <Switch>
+        <main>
+      <Box  my={{sm: '12%', xs: '11%'}}>
+      <Switch>
                         {routes.map((route) => {
                             return route.component ? (
                                 <Route key={route.path} path={route.path} exact={route.exact} name={route.name} render={props => (
@@ -473,7 +505,14 @@ const handleRegisteredInstrument = () => {
                         })}
                     </Switch> 
                     <Footer/>
+      </Box>
+     
       </main>
+      <ScrollTop {...props}>
+        <Fab color="secondary" size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon style={{color: '#fff'}}/>
+        </Fab>
+      </ScrollTop>
     </div>
   );
 }

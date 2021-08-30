@@ -1,4 +1,10 @@
 body {
+  /* background-image: url('./assets//Ellipse\ 20.png')  ;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  background-size: 10rem; */
+  background-position: center;
   background-color: white;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

@@ -1,13 +1,13 @@
 /** @format */
 
-
+import DefaultDashboard from '../views/AuthDashboard/Dashboard'
 import FMITI from '../views/Dashboard/FMITI';
 import WMD from '../views/Dashboard/WMD';
 import ContactUs from '../views/Dashboard/ContactUs'
 import Home from '../views/Dashboard/Home';
 import Downloads from '../views/Dashboard/Downloads';
 import NewInstrumentReg from '../views/AuthDashboard/NewInstrumentReg';
-import RegisteredInstrument from '../helpers/Table'
+import RegisteredInstrument from '../views/Tables'
 import Uploads from '../views/AuthDashboard/Uploads'
 import Reports from '../views/AuthDashboard/Reports'
 import OutstandingBill from '../views/Tables/OutstandingBill'
@@ -31,8 +31,8 @@ export const routes = [
 
 
 export const defaultlayout = [
-
-    { path: "/defaultlayout/newinstrument", exact: true, name: "Newinstrument", component: NewInstrumentReg },
+  { path: "/defaultlayout/home",exact: true,  name: "DefaultDashboard", component: DefaultDashboard },
+    { path: "/defaultlayout/newinstrument",  name: "Newinstrument", component: NewInstrumentReg },
     { path: "/defaultlayout/registeredinstrument", name: "Registeredinstrument", component: RegisteredInstrument },
     { path: "/defaultlayout/uploads",  name: "Uploads", component: Uploads },
     { path: "/defaultlayout/outstandingbill",  name: "OutstandingBill", component: OutstandingBill },
@@ -40,6 +40,7 @@ export const defaultlayout = [
     { path: "/defaultlayout/applyapproval",  name: "ApplyApproval", component: ApplyApproval },
     { path: "/defaultlayout/applyinstverification",  name: "ApplyInstVerification", component: ApplyInstVerification },
     { path: "/defaultlayout/reports",  name: "Report", component: Reports },
+    { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: NewInstrumentReg },
  
 ];
 

@@ -3,7 +3,7 @@ import {Box} from '../../mui'
 
 export default function FMITI() {
     return (
-        <Box  mx={2} mb={10}>
+        <Box mt={{xs: '13%', sm: '15%', md: '12%'}}   mx={{sm: '5%', md: '5%', xs: '5%'}} mb={10}>
        <Box fontSize={20}>
        Federal Ministry of Industry, Trade and Investment was created to play a decisive role in the diversification of the resource base of the economy by promoting trade and investment with special emphasis on increased production and export of non-oil and gas products that will lead to wealth and job creation, poverty reduction andensure enhanced service delivery in a manner that will stimulate the growth of thedomestic economy for self-reliance and export and its integration into the globalmarket taking full advantage of globalization.
 <Box fontWeight='bold' mt={1}>
