@@ -34,7 +34,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: cd build
-      - run: cd -r . /var/www/wmd/html/
+      - run: cp -r . /var/www/wmd/html/
       - run: sudo systemctl restart nginx
 
 
