@@ -1,7 +1,7 @@
 import React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types';
-
+import {useSelector} from 'react-redux'
 import {routes} from './routes'
 
 import InfoIcon from '@material-ui/icons/Info';
@@ -140,6 +140,15 @@ const useStyles = makeStyles((theme) => ({
         color: "#07121F",
         fontWeight: 600
     }
+  },
+  log: {
+    borderRadius: 5,
+    height: 40,
+        backgroundColor: "#f44336",
+        fontWeight: 600,
+        '&:hover': {
+          backgroundColor: "#4caf50",
+        },
   }
 }));
 
@@ -160,12 +169,7 @@ const menu = [
             { name: 'HELP', children: [
                 { name: 'FAQ', link: '/dashboard/faq' },
                 {name: 'Contact Us', link: '/dashboard/contactus'}
-        ] },
-        { name: 'LOGIN', link: '/dashboard/login' },
-
-        
-        
-            
+        ] } 
         ]
 
 
@@ -205,7 +209,7 @@ const Dashboard =(props)=> {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [openNest, setOpenNest] = React.useState(null);
 
-
+  const {isLoggedIn } = useSelector(state => state.isAuthenticated)
   const { container, history, location } = props
 
 
@@ -237,7 +241,6 @@ const handleRegisteredInstrument = () => {
   
     if(item.name === 'Registered Company') return handleRegisteredCompany()
     if(item.name === 'Registered Instrument') return handleRegisteredInstrument()
-    if(item.name === 'LOGIN') return handleClickOpenAuth()
     if (item.children) {
       openNest === index ?
           setOpenNest(null) :
@@ -253,7 +256,10 @@ const handleRegisteredInstrument = () => {
        
       };
      
-
+      let authRedirect = null;
+        if(isLoggedIn === true) {
+            authRedirect = <Redirect to ='/defaultlayout/home'/>
+         }
       const drawer = (
         <>
             <Box m={2}>
@@ -337,6 +343,7 @@ const handleRegisteredInstrument = () => {
     );
   return (
     <div >
+      {authRedirect}
       <Hidden xsDown>
       <AppBar color='white' position='fixed' >
           <Hidden xsDown>
@@ -402,8 +409,15 @@ const handleRegisteredInstrument = () => {
                     </Box>
                     
                   ))}
-         
-        
+                  <Box  >
+                    <MenuItem  className={classes.log} onClick={()=> handleClickOpenAuth()}>
+                   <ListItemText>LOGIN</ListItemText>
+                   </MenuItem>
+                  </Box>
+                   
+                   
+                  
+                      
                   </List>
                   
                 </Box>

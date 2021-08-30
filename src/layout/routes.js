@@ -7,7 +7,7 @@ import ContactUs from '../views/Dashboard/ContactUs'
 import Home from '../views/Dashboard/Home';
 import Downloads from '../views/Dashboard/Downloads';
 import NewInstrumentReg from '../views/AuthDashboard/NewInstrumentReg';
-import RegisteredInstrument from '../helpers/Table'
+import RegisteredInstrument from '../views/Tables'
 import Uploads from '../views/AuthDashboard/Uploads'
 import Reports from '../views/AuthDashboard/Reports'
 import OutstandingBill from '../views/Tables/OutstandingBill'
@@ -40,6 +40,7 @@ export const defaultlayout = [
     { path: "/defaultlayout/applyapproval",  name: "ApplyApproval", component: ApplyApproval },
     { path: "/defaultlayout/applyinstverification",  name: "ApplyInstVerification", component: ApplyInstVerification },
     { path: "/defaultlayout/reports",  name: "Report", component: Reports },
+    { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: NewInstrumentReg },
  
 ];
 

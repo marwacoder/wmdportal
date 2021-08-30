@@ -4,7 +4,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import {defaultlayout} from './routes'
 import {  useTheme } from '@material-ui/core/styles';
 
-
+import TimelineIcon from '@material-ui/icons/Timeline';
 
 import Footer from '../views/Dashboard/Footer';
 
@@ -102,7 +102,8 @@ const authDashboard = [
       { name: 'Paid Bill',link: '/defaultlayout/paidbill' },
     ]},
     { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon/> },
-    { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon/>  }
+    { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon/>  },
+    { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon/>  }
 
 
     

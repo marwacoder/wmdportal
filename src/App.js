@@ -1,7 +1,6 @@
 import 'date-fns';
 import React,{Suspense} from 'react';
 import Dashboard from '../src/layout/Dashboard'
-import { createBrowserHistory } from 'history';
 import { createTheme, MuiThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 
@@ -15,7 +14,7 @@ import { red, grey, lime } from '@material-ui/core/colors';
 
 import DefaultLayout from './layout/DefaultLayout'
 
-export const history = createBrowserHistory();
+
 
 const nexa = {
   fontFamily: 'Nexa',
@@ -100,16 +99,13 @@ function App() {
         exact
         from="/"
         to="/dashboard/home"
-            />
-       
-          
+            />    
             <Suspense fallback= {<Spinner/>}>
           <Route path='/dashboard' component= {Dashboard} key='Dashboard'/>
           <Route path='/defaultlayout' component= {DefaultLayout} key='DefaultLayout'/>
             </Suspense>
           </Switch>
         </Router>
-        
     </MuiThemeProvider>
   );
 }

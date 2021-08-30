@@ -1,6 +1,7 @@
 import React from 'react';
 
-
+import {useSelector, useDispatch} from 'react-redux'
+import {authRefresh} from '../../store/actions'
 import {
  withStyles, Button, Dialog,Box, MuiDialogTitle,MuiDialogActions,
   IconButton, CloseIcon, Typography,  MuiDialogContent
@@ -9,6 +10,8 @@ import {
 import SignIn from '../Auth/SignIn/SignIn';
 import SignUp from '../Auth/SignUp/SignUp'
 import ForgotPassword from '../Dashboard/ForgotPassword';
+
+import Snackbars from '../../helpers/Snackbar/Snackbar'
 
 const styles = (theme) => ({
   root: {
@@ -60,12 +63,13 @@ const DialogActions = withStyles((theme) => ({
 export default function CustomizedDialogs(props) {
 
     const {auth, handleCloseAuth} = props
+    const {error, message, success } = useSelector(state => state.isAuthenticated)
 
     
     const [toggleAuth, setToggleAuth] = React.useState(false);
     const [forgotPasswod, setForgotPasswod] = React.useState(false);
        
-   
+   const dispatch = useDispatch()
     const handleToggleAuthForm = () => {
         setToggleAuth((prev) => !prev)
     }
@@ -74,19 +78,27 @@ export default function CustomizedDialogs(props) {
       setForgotPasswod((prev) => !prev)
   }
 
-  
 
+  
+  const onHandleSnack = () => {
+    dispatch(authRefresh())
+}
+
+console.log(message,'ooopppmessage')
 
   return (     
      <Box >
      <Dialog  open={auth} onClose={handleCloseAuth} aria-labelledby="form-dialog-title">
         <DialogTitle id="customized-dialog-title" onClose={handleCloseAuth} >
-          <Box ml={2}>{toggleAuth === false ? "SignIn" : "SignUp"}</Box>
+          <Box ml={2}>{toggleAuth === false ? "SignIn" : "Register"}</Box>
         </DialogTitle>
         <DialogContent dividers>
-                  <SignIn handleForgotPassword={handleForgotPassword} />
-                   <SignUp toggleAuth={toggleAuth} handleToggleAuthForm={handleToggleAuthForm}/>  
-                   <ForgotPassword forgotPasswod={forgotPasswod} handleForgotPassword={handleForgotPassword}/>
+                  {toggleAuth === false ? <SignIn handleForgotPassword={handleForgotPassword} />:
+                 <SignUp toggleAuth={toggleAuth} handleToggleAuthForm={handleToggleAuthForm}/> }
+
+
+                  <ForgotPassword forgotPasswod={forgotPasswod} handleForgotPassword={handleForgotPassword}/>
+                 
         </DialogContent>
         <Box mb={5}>
                   <DialogActions >
@@ -96,7 +108,20 @@ export default function CustomizedDialogs(props) {
                       
           </DialogActions>
           </Box>
+          <Snackbars
+                    variant={'success'}
+                    handleClose={onHandleSnack}
+                    message={message}
+                    isOpen={success === true}
+            />
+                  <Snackbars
+                    variant={"error"}
+                    handleClose={onHandleSnack}
+                    message={message}
+                    isOpen={error === true}
+                />
           </Dialog>
+                 
           </Box>
       
   );
