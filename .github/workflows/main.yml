@@ -33,7 +33,7 @@ jobs:
       - run: yarn config set ignore-engines true
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: cp ./dist/ /var/www/wmd/html/
+      - run: cp ./build/ /var/www/wmd/html/
 
 
 
