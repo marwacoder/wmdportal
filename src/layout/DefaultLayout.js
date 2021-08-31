@@ -87,6 +87,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(5),
     marginTop: 20
   },
+  drawerPaper: {
+    width: drawerWidth,
+    backgroundColor: theme.palette.background.paper
+  },
 
 }));
 
@@ -110,6 +114,9 @@ const authDashboard = [
     
 ]
 
+
+
+
  function DefaultLayout(props) {
 const dispatch = useDispatch()
 const {data} = useSelector(state => state.isAuthenticated)
@@ -117,8 +124,8 @@ const {data} = useSelector(state => state.isAuthenticated)
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-  const {  history, location } = props
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const {  history, location, container } = props
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -127,7 +134,9 @@ const {data} = useSelector(state => state.isAuthenticated)
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const handleDrawerToggle = () => {
+    setMobileOpen(mobileOpen=> !mobileOpen)
+}
 
   const handleClick = (item, index) => {
 
@@ -145,28 +154,88 @@ const {data} = useSelector(state => state.isAuthenticated)
         dispatch(userLogout())
         history.push('/dashboard/home')
       }
-  
+      const mobileMenuId = 'primary-search-account-menu-mobile';
+     
+      const drawer = (
+        <>
+            <Box m={2}>
+            <Grid container alignItems='center' justifyContent='center' alignContent='center'>
+           <Grid item xs>
+            <img style={{width: 50, marginRight: 5, height: 50}} src={coat} alt='coat'/>
+        </Grid>
+        <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
+        <Grid container alignItems='center' justifyContent='center' alignContent='center'>
+            <Grid>
+               <Box mt={2} fontWeight='bold'  fontSize={10}>
+               FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
+            </Box> 
+            </Grid>
+            <Grid>
+            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={10}>
+            WEIGHTS AND MEASURES DEPARTMENT PORTAL
+            </Box>
+            </Grid>
+        </Grid>
+         </Grid>
+         </Box>
+        
+          
+          <Divider color="inherit" />
+            <Box mt={2}>
+            <List
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      className={classes.root}
+    >
+        {authDashboard.map((item, index)=> {
+           return <>
+           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link} >
+               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
+               <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
+               {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
+           </ListItem>
+           <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
+               <List component="div" disablePadding>
+                   {
+                       item.children ? item.children.map((item, index) => (
+                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
+                               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
+                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
+                           </ListItem>
+                       ))
+                           : null}
+               </List>
+           </Collapse>
+       </>
+})}
+    </List>
+     </Box>
+           
+          </>
+      );
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar   position='fixed'  className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+        
         })}>
           
         <Toolbar>
-
-        <IconButton
+        <Hidden smUp>
+        <Box className={classes.sectionMobile}>
+            <IconButton
+              onClick={handleDrawerToggle}
+            edge="start"
+            aria-controls={mobileMenuId}
+            className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
           >
-            <MenuIcon />
-          </IconButton>
+            <MenuIcon style={{color:'white'}}/>
+            </IconButton>
+          </Box>
+          </Hidden>
           <Hidden xsDown>
           <Grid container justifyContent='center' alignItems='center' spacing={4}>
           
@@ -234,17 +303,15 @@ const {data} = useSelector(state => state.isAuthenticated)
         
       </AppBar>
      
-      
-      <SwipeableDrawer
+      <Hidden xsDown>
+         <SwipeableDrawer
         variant="permanent"
         className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
+         
         })}
         classes={{
           paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
+            
           }),
         }}
       >
@@ -285,6 +352,77 @@ const {data} = useSelector(state => state.isAuthenticated)
         </List>
         
       </SwipeableDrawer>
+      </Hidden>
+      <Hidden smUp>
+              
+              <SwipeableDrawer
+                            onOpen={handleDrawerToggle}
+                            container={container}
+                            variant="temporary"
+                            anchor={'left'}
+                            open={mobileOpen}
+                            onClose={handleDrawerToggle}
+                            classes={{
+                                paper: classes.drawerPaper,
+                            }}
+                            ModalProps={{
+                                keepMounted: true, // Better open performance on mobile.
+                            }}
+              >
+                <Box m={2}>
+            <Grid container alignItems='center' justifyContent='center' alignContent='center'>
+           <Grid item xs>
+            <img style={{width: 50, marginRight: 5, height: 50}} src={coat} alt='coat'/>
+        </Grid>
+        <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
+        <Grid container alignItems='center' justifyContent='center' alignContent='center'>
+            <Grid>
+               <Box mt={2} fontWeight='bold'  fontSize={10}>
+               FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
+            </Box> 
+            </Grid>
+            <Grid>
+            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={10}>
+            WEIGHTS AND MEASURES DEPARTMENT PORTAL
+            </Box>
+            </Grid>
+        </Grid>
+         </Grid>
+         </Box>
+                <Divider />
+        <Box mt={5}/>
+        <List  component="div" disablePadding>
+        {authDashboard.map((item, index)=> {
+       return <>
+       <ListItem button style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
+           <ListItemIcon color='inherit' style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
+           <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
+           {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
+
+       </ListItem>
+       <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
+           <List component="div" disablePadding>
+               {
+                   item.children ? item.children.map((item, index) => (
+                       <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
+                           <ListItemIcon style={{ color: "#fff", margin: 0 }}>{item.icon}</ListItemIcon>
+                           {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
+                       </ListItem>
+                   ))
+                       : null}
+            
+
+           </List>
+       </Collapse>
+       
+       </>
+    })}
+    
+        </List>
+        
+                </SwipeableDrawer>
+                
+                    </Hidden>
       <main className={classes.content}>
       <Box  >
         <Switch>

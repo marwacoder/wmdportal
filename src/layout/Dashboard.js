@@ -265,18 +265,18 @@ const handleRegisteredInstrument = () => {
             <Box m={2}>
             <Grid container alignItems='center' justifyContent='center' alignContent='center'>
            <Grid item xs>
-            <img style={{width: 60, marginRight: 5, height: 60}} src={coat} alt='coat'/>
+            <img style={{width: 50, marginRight: 5, height: 50}} src={coat} alt='coat'/>
         </Grid>
-        <Grid> <img style={{width: 60, height: 60}}  src={ellipse} alt='ellipse'/></Grid>
+        <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
         <Grid container alignItems='center' justifyContent='center' alignContent='center'>
             <Grid>
-               <Box mt={2} fontWeight='bold' fontSize={11}>
-                FEDERAL MINISTRY OF INDUSTRY AND INVESTMENT
+               <Box mt={2} fontWeight='bold'  fontSize={10}>
+               FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
             </Box> 
             </Grid>
             <Grid>
-            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={11}>
-                WEIGHT AND MEASURES DEPARTMENTAL PORTAL
+            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={10}>
+            WEIGHTS AND MEASURES DEPARTMENT PORTAL
             </Box>
             </Grid>
         </Grid>
