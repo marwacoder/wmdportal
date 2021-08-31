@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: '#1a237e'
   },
 
 }));
@@ -89,18 +89,18 @@ const useStyles = makeStyles((theme) => ({
 
 
 const authDashboard = [
-  { name: 'HOME',icon: <DashboardIcon/>, link: '/defaultlayout/home'},
-    { name: 'New Instrument Registration', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon/> },
-    { name: 'Registered Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon/>  },
-    { name: 'Uploads',link: '/defaultlayout/uploads', icon: <CloudUploadIcon/> },
-    { name: 'Report',link: '/defaultlayout/reports', icon: <ReportIcon/>  },
-    { name: 'Invoices' , icon: <ReceiptIcon/>, children: [
+  { name: 'HOME',icon: <DashboardIcon color='white'/>, link: '/defaultlayout/home'},
+    { name: 'New Instrument Registration', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon color='white'/> },
+    { name: 'Registered Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon color='white' />  },
+    { name: 'Uploads',link: '/defaultlayout/uploads', icon: <CloudUploadIcon color='white'/> },
+    { name: 'Report',link: '/defaultlayout/reports', icon: <ReportIcon color='white'/>  },
+    { name: 'Invoices' , icon: <ReceiptIcon color='white'/>, children: [
       { name: 'Outstanding Bill',link: '/defaultlayout/outstandingbill' },
       { name: 'Paid Bill',link: '/defaultlayout/paidbill' },
     ]},
-    { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon/> },
+    { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon color='white' /> },
     { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon/>  },
-    { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon/>  }
+    { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon color='white' />  }
 
 
     
@@ -175,10 +175,10 @@ const {data} = useSelector(state => state.isAuthenticated)
               </Grid>
               <Grid item>
               <Box  textAlign='center'>
-            <Box textAlign='center'  fontWeight='bold' fontSize={18}>
+            <Box textAlign='center' color='white' fontWeight='bold' fontSize={18}>
                 FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
             </Box>
-            <Box fontStyle='Nexa' textAlign='center' fontWeight='bold' fontSize={18}>
+            <Box fontStyle='Nexa'color='white'  textAlign='center' fontWeight='bold' fontSize={18}>
                 WEIGHTS AND MEASURES DEPARTMENT PORTAL
             </Box>
           </Box>
@@ -234,7 +234,7 @@ const {data} = useSelector(state => state.isAuthenticated)
       <Hidden xsDown>
          <SwipeableDrawer
         variant="permanent"
-        className={clsx(classes.drawer, {
+        className={clsx(classes.drawerPaper, {
          
         })}
         classes={{
@@ -252,7 +252,7 @@ const {data} = useSelector(state => state.isAuthenticated)
         {authDashboard.map((item, index)=> {
        return <>
        <ListItem button style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
-           <ListItemIcon color='inherit' style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
+           <ListItemIcon color='inherit' style={{ color: "white"}}>{item.icon}</ListItemIcon>
            <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
            {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
 
@@ -321,7 +321,7 @@ const {data} = useSelector(state => state.isAuthenticated)
         {authDashboard.map((item, index)=> {
        return <>
        <ListItem button style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
-           <ListItemIcon color='inherit' style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
+           <ListItemIcon color='inherit' style={{ color: "white"}}>{item.icon}</ListItemIcon>
            <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
            {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
 
