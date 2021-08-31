@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: '#1a237e'
   },
   sectionMobile: {
     display: 'flex',
@@ -270,12 +270,12 @@ const handleRegisteredInstrument = () => {
         <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
         <Grid container alignItems='center' justifyContent='center' alignContent='center'>
             <Grid>
-               <Box mt={2} fontWeight='bold'  fontSize={10}>
+               <Box mt={2} color='white' fontWeight='bold'  fontSize={10}>
                FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
             </Box> 
             </Grid>
             <Grid>
-            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={10}>
+            <Box fontStyle='Nexa' color='white' fontWeight='bold' fontSize={10}>
             WEIGHTS AND MEASURES DEPARTMENT PORTAL
             </Box>
             </Grid>
@@ -294,8 +294,8 @@ const handleRegisteredInstrument = () => {
         {mobileMenu.map((item, index)=> {
            return <>
            <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link} >
-               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
-               <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
+               <ListItemIcon style={{ margin: 0, color='white' }}>{item.icon}</ListItemIcon>
+               <ListItemText primary={item.name} color='white' classes={{ primary: classes.sidebarText }} />
                {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
            </ListItem>
            <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
@@ -303,8 +303,8 @@ const handleRegisteredInstrument = () => {
                    {
                        item.children ? item.children.map((item, index) => (
                            <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
-                               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
-                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
+                               <ListItemIcon style={{ margin: 0, color='white' }}>{item.icon}</ListItemIcon>
+                               {<ListItemText color='white' primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
                            </ListItem>
                        ))
                        
