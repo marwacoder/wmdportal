@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import {useDispatch, useSelector} from 'react-redux'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import {defaultlayout} from './routes'
-import {  useTheme } from '@material-ui/core/styles';
 
 import TimelineIcon from '@material-ui/icons/Timeline';
 
@@ -15,8 +14,8 @@ import ReportIcon from '@material-ui/icons/ReportOutlined';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Tooltip from '@material-ui/core/Tooltip';
-import {Box, List, MenuIcon, Collapse,  ListItemIcon, ChevronLeftIcon, Typography,
-    IconButton, Toolbar, AppBar,AccountCircle, ChevronRightIcon, CssBaseline, DashboardIcon,
+import {Box, List, MenuIcon, Collapse,  ListItemIcon, Typography,
+    IconButton, Toolbar, AppBar,AccountCircle, CssBaseline, DashboardIcon,
     makeStyles, ListItem,Divider, Grid, ListItemText, ReceiptIcon, ExpandLess, ExpandMore,
     SwipeableDrawer, Hidden, ExitToApp} from '../mui'
 import {userLogout} from '../store/actions'
@@ -37,14 +36,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
+  
   menuButton: {
     marginRight: 36,
   },
@@ -122,18 +114,12 @@ const dispatch = useDispatch()
 const {data} = useSelector(state => state.isAuthenticated)
     const [openNest, setOpenNest] = React.useState(null);
   const classes = useStyles();
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const {  history, location, container } = props
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+ 
   const handleDrawerToggle = () => {
     setMobileOpen(mobileOpen=> !mobileOpen)
 }
@@ -155,65 +141,7 @@ const {data} = useSelector(state => state.isAuthenticated)
         history.push('/dashboard/home')
       }
       const mobileMenuId = 'primary-search-account-menu-mobile';
-     
-      const drawer = (
-        <>
-            <Box m={2}>
-            <Grid container alignItems='center' justifyContent='center' alignContent='center'>
-           <Grid item xs>
-            <img style={{width: 50, marginRight: 5, height: 50}} src={coat} alt='coat'/>
-        </Grid>
-        <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
-        <Grid container alignItems='center' justifyContent='center' alignContent='center'>
-            <Grid>
-               <Box mt={2} fontWeight='bold'  fontSize={10}>
-               FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
-            </Box> 
-            </Grid>
-            <Grid>
-            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={10}>
-            WEIGHTS AND MEASURES DEPARTMENT PORTAL
-            </Box>
-            </Grid>
-        </Grid>
-         </Grid>
-         </Box>
-        
-          
-          <Divider color="inherit" />
-            <Box mt={2}>
-            <List
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      className={classes.root}
-    >
-        {authDashboard.map((item, index)=> {
-           return <>
-           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link} >
-               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
-               <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
-               {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
-           </ListItem>
-           <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
-               <List component="div" disablePadding>
-                   {
-                       item.children ? item.children.map((item, index) => (
-                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
-                               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
-                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
-                           </ListItem>
-                       ))
-                           : null}
-               </List>
-           </Collapse>
-       </>
-})}
-    </List>
-     </Box>
-           
-          </>
-      );
-
+    
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -316,12 +244,10 @@ const {data} = useSelector(state => state.isAuthenticated)
         }}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
+         
         </div>
         <Divider />
-        <Box mt={5}/>
+        <Box mt={10}/>
         <List  component="div" disablePadding>
         {authDashboard.map((item, index)=> {
        return <>
