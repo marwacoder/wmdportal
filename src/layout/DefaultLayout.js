@@ -155,65 +155,7 @@ const {data} = useSelector(state => state.isAuthenticated)
         history.push('/dashboard/home')
       }
       const mobileMenuId = 'primary-search-account-menu-mobile';
-     
-      const drawer = (
-        <>
-            <Box m={2}>
-            <Grid container alignItems='center' justifyContent='center' alignContent='center'>
-           <Grid item xs>
-            <img style={{width: 50, marginRight: 5, height: 50}} src={coat} alt='coat'/>
-        </Grid>
-        <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
-        <Grid container alignItems='center' justifyContent='center' alignContent='center'>
-            <Grid>
-               <Box mt={2} fontWeight='bold'  fontSize={10}>
-               FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
-            </Box> 
-            </Grid>
-            <Grid>
-            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={10}>
-            WEIGHTS AND MEASURES DEPARTMENT PORTAL
-            </Box>
-            </Grid>
-        </Grid>
-         </Grid>
-         </Box>
-        
-          
-          <Divider color="inherit" />
-            <Box mt={2}>
-            <List
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      className={classes.root}
-    >
-        {authDashboard.map((item, index)=> {
-           return <>
-           <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link} >
-               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
-               <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
-               {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
-           </ListItem>
-           <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
-               <List component="div" disablePadding>
-                   {
-                       item.children ? item.children.map((item, index) => (
-                           <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
-                               <ListItemIcon style={{ margin: 0 }}>{item.icon}</ListItemIcon>
-                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
-                           </ListItem>
-                       ))
-                           : null}
-               </List>
-           </Collapse>
-       </>
-})}
-    </List>
-     </Box>
-           
-          </>
-      );
-
+    
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -321,7 +263,7 @@ const {data} = useSelector(state => state.isAuthenticated)
           </IconButton>
         </div>
         <Divider />
-        <Box mt={5}/>
+        <Box mt={10}/>
         <List  component="div" disablePadding>
         {authDashboard.map((item, index)=> {
        return <>
