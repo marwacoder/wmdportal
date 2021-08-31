@@ -307,11 +307,14 @@ const handleRegisteredInstrument = () => {
                                {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
                            </ListItem>
                        ))
+                       
                            : null}
+                      
                </List>
            </Collapse>
        </>
 })}
+
     </List>
      </Box>
            

@@ -84,7 +84,6 @@ export default function CustomizedDialogs(props) {
     dispatch(authRefresh())
 }
 
-console.log(message,'ooopppmessage')
 
   return (     
      <Box >
