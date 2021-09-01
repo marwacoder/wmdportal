@@ -103,11 +103,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-<<<<<<< HEAD
     background: theme.palette.primary.main
-=======
-    backgroundColor: '#1a237e'
->>>>>>> e5b17f8f61e001b337f56777d67de895708fc627
   },
   sectionMobile: {
     display: 'flex',
