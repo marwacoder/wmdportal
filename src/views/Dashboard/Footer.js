@@ -5,11 +5,11 @@ import nnl from '../../assets/NNLLOGO.png'
 
 export default function Downloads() {
     return (
-      <Box  position='fixed' right={39} bottom={0}   bgcolor='white'>
+      <Box width='100%' position='fixed'  left={0} bottom={0}  bgcolor='white'>
          
-              <Grid container spacing={1} justifyContent='center' alignItems='center'>
+              <Grid container spacing={1} justifyContent='flex-end' alignItems='center'>
                 <Grid>
-                  <Box>
+                  <Box  >
                   <Typography variant="body3" >
               © Copyright 2021 All rights Reserved:
             </Typography>

@@ -60,7 +60,8 @@ export default function VerticalLinearStepper() {
   };
 
   return (
-    <Box mt={{ xs: '-10%'}} className={classes.root}>
+    <Box mt={{ xs: '-10%',sm: '-3%', md: '1%'}}  className={classes.root}>
+      <Box my={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>New Instrument Registration</Box>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>

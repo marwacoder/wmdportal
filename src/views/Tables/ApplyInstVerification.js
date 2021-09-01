@@ -74,7 +74,9 @@ export default function DataTable() {
 
 
   return (
-    <Box  style={{ height: 400, width: '100%' }}>
+    <Box mt={{xs: '-6%', sm: '-5%', md: '2%'}} style={{ height: 400, width: '100%' }}>
+            <Box mt={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Apply for Instrument Verification</Box>
+
        <Box my={3}>
            <Grid container justifyContent='center' alignItems='center' spacing={2}>
             <Grid item xs={12} sm={12}>

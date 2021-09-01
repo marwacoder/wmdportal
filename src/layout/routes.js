@@ -14,7 +14,7 @@ import OutstandingBill from '../views/Tables/OutstandingBill'
 import PaidBill from '../views/Tables/PaidBill'
 import ApplyApproval from '../views/Tables/ApplyApproval'
 import ApplyInstVerification from '../views/Tables/ApplyInstVerification'
-
+import PeridicVer from '../views/Tables/PeridicVer'
 
 
 export const routes = [
@@ -40,7 +40,7 @@ export const defaultlayout = [
     { path: "/defaultlayout/applyapproval",  name: "ApplyApproval", component: ApplyApproval },
     { path: "/defaultlayout/applyinstverification",  name: "ApplyInstVerification", component: ApplyInstVerification },
     { path: "/defaultlayout/reports",  name: "Report", component: Reports },
-    { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: ApplyInstVerification },
+    { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: PeridicVer },
  
 ];
 

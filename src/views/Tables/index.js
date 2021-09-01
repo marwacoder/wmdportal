@@ -73,6 +73,7 @@ const rows = [
 export default function DataTable() {
   return (
     <Box  style={{ height: 400, width: '100%' }}>
+      <Box my={{xs: 0, sm: 1}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Registerd Instrument(s)</Box>
       <DataGrid
         rows={rows}
         columns={columns}

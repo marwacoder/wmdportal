@@ -50,19 +50,19 @@ const columns = [
                   sortable: false,
                   width: 120,
               },
-                  {
-                      field: 'ivc',
-                      headerName: 'IVC',
-                      description: 'This column has a value getter and is not sortable.',
-                      sortable: false,
-                      width: 100,
-                      renderCell: () => (
-                        <Button variant="outlined" color="primary" >
-                        Apply
-                      </Button>
-                      ),
-                  },
-                     
+                  
+                      {
+                          field: 'pvc',
+                          headerName: 'PVC',
+                          description: 'This column has a value getter and is not sortable.',
+                          sortable: false,
+                          width: 120,
+                          renderCell: () => (
+                            <Button variant="outlined" color="primary" >
+                            Apply
+                          </Button>
+                          ),
+    },
 ];
 
 
@@ -75,19 +75,18 @@ export default function DataTable() {
 
   return (
     <Box mt={{xs: '-6%', sm: '-5%', md: '2%'}} style={{ height: 400, width: '100%' }}>
-      <Box mt={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Apply for Pattern Approval Certificate</Box>
+            <Box mt={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Periodic Instrument Verification</Box>
+
        <Box my={3}>
            <Grid container justifyContent='center' alignItems='center' spacing={2}>
             <Grid item xs={12} sm={12}>
             <Box fontWeight='bold'>Instrument Filter</Box>
             </Grid>
-            <Grid item xs={6} sm={3}>
-            <TextField id="filename" size="small"  variant='outlined' label='Model Name'  fullWidth/>
+            <Grid item xs={8} sm={4}>
+            <TextField id="filename" size="small"  variant='outlined' label='Serial Number'  fullWidth/>
             </Grid>
-            <Grid item xs={6} sm={3}>
-            <TextField id="filename" size="small"  variant='outlined' label='Model Number'  fullWidth/>
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            
+            <Grid item xs={4} sm={8}>
             <Button variant="outlined" color="primary" >
                             Search
                           </Button>

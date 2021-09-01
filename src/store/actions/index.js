@@ -123,8 +123,7 @@ export const register = ({email, name, password}) => {
                 const token = resp.data.token;
                 localStorage.setItem('user-token', token);
                 setAuthToken(token)
-            },2000)
-          
+            },2000)          
         }).catch(err => {
            console.log(err.response.data.message,'error')
                 dispatch(registerFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 

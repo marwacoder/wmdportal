@@ -26,7 +26,8 @@ export default function Uploads() {
   return (
     
     
-      <Box  mt={{ xs: '-10%', md: '2%'}}  >
+      <Box  mt={{ xs: '-10%',sm: '-3%', md: '1%'}}  >
+        <Box my={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Upload(s)</Box>
       <Paper elevation={0}>
         <form>
         <Box mx={5} py={3}>

@@ -53,6 +53,7 @@ const rows = [
 export default function DataTable() {
   return (
     <Box  style={{ height: 400, width: '100%' }}>
+      <Box my={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Outstanding Bills</Box>
       <DataGrid
         rows={rows}
         columns={columns}
