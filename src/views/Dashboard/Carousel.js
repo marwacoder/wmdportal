@@ -2,13 +2,17 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 
-import {Box, Button, Grid} from '../../mui'
+import {Box, Button, Grid, Hidden} from '../../mui'
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import machine from '../../assets/bg.png'
 import slide1 from '../../assets/slide3.png'
 import slide2 from '../../assets/slide5.png'
 import slide3 from '../../assets/slide8.png'
+
+import AuthContainer from '../Auth/mobileAuthContainer'
+
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
@@ -71,7 +75,7 @@ function SwipeableTextMobileStepper() {
   };
 
   return (
-    <Box className={classes.root} mt={{sm: '5%', md: '5%', xs: '20%'}}>
+    <Box className={classes.root} mt={{ xs: '15%'}}>
       <Grid container justifyContent='center' alignItems='center'>
         <Grid item sm={12} xs={12}>
      <Box >
@@ -91,7 +95,7 @@ function SwipeableTextMobileStepper() {
       </AutoPlaySwipeableViews>
       <MobileStepper
       variant="dots"
-      steps={5}
+      steps={4}
       position="static"
       activeStep={activeStep}
       className={classes.root}
@@ -110,6 +114,16 @@ function SwipeableTextMobileStepper() {
     />
     </Box>
     </Grid>
+    <Hidden smUp>
+      <Grid item sm={12} xs={12}>
+      
+      <Box mt={5}>
+        <AuthContainer/>
+      </Box>
+      
+    </Grid>
+    </Hidden>
+    
       </Grid>
     </Box>
   );

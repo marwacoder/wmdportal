@@ -60,7 +60,7 @@ export default function VerticalLinearStepper() {
   };
 
   return (
-    <Box mt={{sm: '2%', xs: '5%', md: '7%'}} className={classes.root}>
+    <Box mt={{ xs: '-10%'}} className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>

@@ -5,7 +5,7 @@ import nnl from '../../assets/NNLLOGO.png'
 
 export default function Downloads() {
     return (
-      <Box  position='fixed' right={39} bottom={0}   bgcolor='transparent'>
+      <Box  position='fixed' right={39} bottom={0}   bgcolor='white'>
          
               <Grid container spacing={1} justifyContent='center' alignItems='center'>
                 <Grid>

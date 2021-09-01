@@ -43,7 +43,7 @@ export default function FormDialog(props) {
 
 
   return (
-    <Box width={300}>
+    <Box>
     <form onSubmit={handleSubmit} >
     <Box mb={2}>
             <FormControl  variant="outlined" fullWidth>

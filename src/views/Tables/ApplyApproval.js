@@ -74,7 +74,7 @@ export default function DataTable() {
 
 
   return (
-    <Box  mt={{sm: '10%', xs: '1%', md: '10%'}} style={{ height: 400, width: '100%' }}>
+    <Box  style={{ height: 400, width: '100%' }}>
        <Box my={3}>
            <Grid container justifyContent='center' alignItems='center' spacing={2}>
             <Grid item xs={12} sm={12}>

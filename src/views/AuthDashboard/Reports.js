@@ -62,7 +62,7 @@ export default function Reports() {
 
   return (
     
-    <Box  mt={{sm: '5%', xs: '1%', md: '5%'}} mx={{sm: '5%', xs: '1%', md: '5%'}}>
+    <Box  mt={{ xs: '-10%', md: '2%'}}>
         <Paper elevation={0}>
             
         <form>

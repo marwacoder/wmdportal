@@ -58,7 +58,7 @@ export default function DataTable() {
 
 
   return (
-    <Box  mt={{sm: '5%', xs: '1%', md: '5%'}} style={{ height: 400, width: '100%' }}>
+    <Box style={{ height: 400, width: '100%' }}>
        
       <DataGrid
         rows={rows}

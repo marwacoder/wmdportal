@@ -40,7 +40,7 @@ export const defaultlayout = [
     { path: "/defaultlayout/applyapproval",  name: "ApplyApproval", component: ApplyApproval },
     { path: "/defaultlayout/applyinstverification",  name: "ApplyInstVerification", component: ApplyInstVerification },
     { path: "/defaultlayout/reports",  name: "Report", component: Reports },
-    { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: NewInstrumentReg },
+    { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: ApplyInstVerification },
  
 ];
 

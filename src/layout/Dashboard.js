@@ -13,7 +13,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger,ListItemIcon,
     MenuItem, IconButton, Toolbar, AppBar, ExpandLess, ExpandMore,Fab, KeyboardArrowUpIcon,
     makeStyles, ListItem,Divider, Grid, ListItemText,Zoom,
-    SwipeableDrawer,withStyles, Hidden, DashboardIcon, ExitToApp} from '../mui'
+    SwipeableDrawer,withStyles, Hidden, DashboardIcon} from '../mui'
 
 import coat from '../assets/Coat_of_arms_of_Nigeria.png'
 import ellipse from '../assets/Ellipse 20.png'
@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: '#1a237e'
+    background: theme.palette.primary.main
   },
   sectionMobile: {
     display: 'flex',
@@ -149,6 +149,9 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
           backgroundColor: "#4caf50",
         },
+  },
+  sidebarText: {
+    color: 'white'
   }
 }));
 
@@ -176,25 +179,7 @@ const menu = [
 
 
 
-        const mobileMenu = [
-            { name: 'HOME',icon: <DashboardIcon color='primary'/>, link: '/dashboard/home'},
-            { name: 'DOWNLOADS' , icon: <CloudDownloadIcon color='primary'/>,link: '/dashboard/downloads'},
-            {
-                name: "ABOUT US", icon: <InfoIcon color='primary'/>, children: [
-                    { name: 'FMITI', link: '/dashboard/fmiti' },
-                    {name: 'WMD', link: '/dashboard/wmd'}
-            ] },
-            {
-                name: "QUICK SEARCH", icon: <FindInPageIcon color='primary'/>, children: [
-                    { name: 'Registered Company', link: '/dashboard/registerdcompany' },
-                    {name: 'Registered Instrument', link: '/dashboard/registerdinstrument'}
-            ] },
-            { name: 'HELP', icon: <HelpOutlineIcon color='primary'/>, children: [
-                { name: 'FAQ', link: '/dashboard/faq' },
-                {name: 'Contact Us', link: '/dashboard/contactus'}
-        ] },{ name: 'LOGOUT',icon: <ExitToApp color='primary'/>}
-            
-        ]
+        
         
         
 const Dashboard =(props)=> {
@@ -215,6 +200,28 @@ const Dashboard =(props)=> {
 
 
  
+  const mobileMenu = [
+    { name: 'HOME',icon: <DashboardIcon color='white'/>, link: '/dashboard/home'},
+    { name: 'DOWNLOADS' , icon: <CloudDownloadIcon color='white'/>,link: '/dashboard/downloads'},
+    {
+        name: "ABOUT US", icon: <InfoIcon color='white'/>, children: [
+            { name: 'FMITI', link: '/dashboard/fmiti' },
+            {name: 'WMD', link: '/dashboard/wmd'}
+    ] },
+    {
+        name: "QUICK SEARCH", icon: <FindInPageIcon color='white'/>, children: [
+            { name: 'Registered Company', link: '/dashboard/registerdcompany' },
+            {name: 'Registered Instrument', link: '/dashboard/registerdinstrument'}
+    ] },
+    { name: 'HELP', icon: <HelpOutlineIcon color='white'/>, children: [
+        { name: 'FAQ', link: '/dashboard/faq' },
+        {name: 'Contact Us', link: '/dashboard/contactus'}
+] },
+    
+]
+
+
+
 
   const handleClickOpenAuth = () => {
     setAuth(true);
@@ -270,12 +277,12 @@ const handleRegisteredInstrument = () => {
         <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
         <Grid container alignItems='center' justifyContent='center' alignContent='center'>
             <Grid>
-               <Box mt={2} color='white' fontWeight='bold'  fontSize={10}>
+               <Box mt={2} fontWeight='bold' color='white' fontSize={10}>
                FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
             </Box> 
             </Grid>
             <Grid>
-            <Box fontStyle='Nexa' color='white' fontWeight='bold' fontSize={10}>
+            <Box fontStyle='Nexa'  fontWeight='bold' color='white' fontSize={10}>
             WEIGHTS AND MEASURES DEPARTMENT PORTAL
             </Box>
             </Grid>
@@ -294,17 +301,16 @@ const handleRegisteredInstrument = () => {
         {mobileMenu.map((item, index)=> {
            return <>
            <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link} >
-               <ListItemIcon style={{ margin: 0, color='white' }}>{item.icon}</ListItemIcon>
-               <ListItemText primary={item.name} color='white' classes={{ primary: classes.sidebarText }} />
-               {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
-           </ListItem>
+               <ListItemIcon style={{ margin: 0, color: 'white' }}>{item.icon}</ListItemIcon>
+               <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
+               {item.children ? <ListItemIcon className={classes.sidebarText}>{openNest === index ? <ExpandLess color='white'/> : <ExpandMore color='white'/>}</ListItemIcon> : null}           </ListItem>
            <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
                <List component="div" disablePadding>
                    {
                        item.children ? item.children.map((item, index) => (
                            <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
-                               <ListItemIcon style={{ margin: 0, color='white' }}>{item.icon}</ListItemIcon>
-                               {<ListItemText color='white' primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
+                               <ListItemIcon style={{ margin: 0, color: 'white' }}>{item.icon}</ListItemIcon>
+                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
                            </ListItem>
                        ))
                        
@@ -497,7 +503,7 @@ const handleRegisteredInstrument = () => {
           <SignIn auth={auth} handleCloseAuth={handleCloseAuth}/>
         </div>
         <main>
-      <Box  my={{sm: '12%', xs: '11%'}}>
+      <Box >
       <Switch>
                         {routes.map((route) => {
                             return route.component ? (
