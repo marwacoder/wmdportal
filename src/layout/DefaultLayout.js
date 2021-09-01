@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
+    background: '#1a237e',
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -81,26 +82,29 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.background.paper
+    background: theme.palette.primary.main
   },
+  sidebarText: {
+    color: 'white'
+  }
 
 }));
 
 
 
 const authDashboard = [
-  { name: 'HOME',icon: <DashboardIcon/>, link: '/defaultlayout/home'},
-    { name: 'New Instrument Registration', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon/> },
-    { name: 'Registered Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon/>  },
-    { name: 'Uploads',link: '/defaultlayout/uploads', icon: <CloudUploadIcon/> },
-    { name: 'Report',link: '/defaultlayout/reports', icon: <ReportIcon/>  },
-    { name: 'Invoices' , icon: <ReceiptIcon/>, children: [
+  { name: 'HOME',icon: <DashboardIcon color='white'/>, link: '/defaultlayout/home'},
+    { name: 'New Instrument Registration', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon color='white'/> },
+    { name: 'Registered Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon color='white'/>  },
+    { name: 'Uploads',link: '/defaultlayout/uploads', icon: <CloudUploadIcon color='white'/> },
+    { name: 'Report',link: '/defaultlayout/reports', icon: <ReportIcon color='white'/>  },
+    { name: 'Invoices' , icon: <ReceiptIcon color='white'/>, children: [
       { name: 'Outstanding Bill',link: '/defaultlayout/outstandingbill' },
       { name: 'Paid Bill',link: '/defaultlayout/paidbill' },
     ]},
-    { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon/> },
-    { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon/>  },
-    { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon/>  }
+    { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon color='white'/> },
+    { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon color='white'/>  },
+    { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon color='white'/>  }
 
 
     
@@ -117,9 +121,30 @@ const {data} = useSelector(state => state.isAuthenticated)
 
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [open] = React.useState(true);
   const {  history, location, container } = props
 
  
+  const mobileAuthDashboard = [
+    { name: 'HOME',icon: <DashboardIcon color='white'/>, link: '/defaultlayout/home'},
+      { name: 'New Instrument Registration', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon color='white'/> },
+      { name: 'Registered Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon color='white'/>  },
+      { name: 'Uploads',link: '/defaultlayout/uploads', icon: <CloudUploadIcon color='white'/> },
+      { name: 'Report',link: '/defaultlayout/reports', icon: <ReportIcon color='white'/>  },
+      { name: 'Invoices' , icon: <ReceiptIcon color='white'/>, children: [
+        { name: 'Outstanding Bill',link: '/defaultlayout/outstandingbill' },
+        { name: 'Paid Bill',link: '/defaultlayout/paidbill' },
+      ]},
+      { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon color='white'/> },
+      { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon color='white'/>  },
+      { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon color='white'/>  },
+      { name: 'Logout',icon: <ExitToApp color='white'/>}
+  
+  
+      
+  ]
+
+
   const handleDrawerToggle = () => {
     setMobileOpen(mobileOpen=> !mobileOpen)
 }
@@ -175,10 +200,10 @@ const {data} = useSelector(state => state.isAuthenticated)
               </Grid>
               <Grid item>
               <Box  textAlign='center'>
-            <Box textAlign='center'  fontWeight='bold' fontSize={18}>
+            <Box textAlign='center' color='white'  fontWeight='bold' fontSize={18}>
                 FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
             </Box>
-            <Box fontStyle='Nexa' textAlign='center' fontWeight='bold' fontSize={18}>
+            <Box fontStyle='Nexa' color='white' textAlign='center' fontWeight='bold' fontSize={18}>
                 WEIGHTS AND MEASURES DEPARTMENT PORTAL
             </Box>
           </Box>
@@ -234,12 +259,14 @@ const {data} = useSelector(state => state.isAuthenticated)
       <Hidden xsDown>
          <SwipeableDrawer
         variant="permanent"
-        className={clsx(classes.drawer, {
-         
+        className={clsx(classes.drawerPaper, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
         })}
         classes={{
           paper: clsx({
-            
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
           }),
         }}
       >
@@ -252,10 +279,9 @@ const {data} = useSelector(state => state.isAuthenticated)
         {authDashboard.map((item, index)=> {
        return <>
        <ListItem button style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
-           <ListItemIcon color='inherit' style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
+           <ListItemIcon style={{ margin: 0, color: 'white' }}>{item.icon}</ListItemIcon>
            <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
-           {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
-
+           {item.children ? <ListItemIcon className={classes.sidebarText}>{openNest === index ? <ExpandLess color='white'/> : <ExpandMore color='white'/>}</ListItemIcon> : null}
        </ListItem>
        <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
            <List component="div" disablePadding>
@@ -303,12 +329,12 @@ const {data} = useSelector(state => state.isAuthenticated)
         <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
         <Grid container alignItems='center' justifyContent='center' alignContent='center'>
             <Grid>
-               <Box mt={2} fontWeight='bold'  fontSize={10}>
+               <Box mt={2} fontWeight='bold' color='white'   fontSize={10}>
                FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
             </Box> 
             </Grid>
             <Grid>
-            <Box fontStyle='Nexa'  fontWeight='bold' fontSize={10}>
+            <Box fontStyle='Nexa'  fontWeight='bold' color='white'  fontSize={10}>
             WEIGHTS AND MEASURES DEPARTMENT PORTAL
             </Box>
             </Grid>
@@ -316,14 +342,14 @@ const {data} = useSelector(state => state.isAuthenticated)
          </Grid>
          </Box>
                 <Divider />
-        <Box mt={5}/>
+        <Box mt={2}/>
         <List  component="div" disablePadding>
-        {authDashboard.map((item, index)=> {
+        {mobileAuthDashboard.map((item, index)=> {
        return <>
-       <ListItem button style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}  >
-           <ListItemIcon color='inherit' style={{ color: "#07121F"}}>{item.icon}</ListItemIcon>
+       <ListItem button style={{ '&:focus': { outline: "none" } }} onClick={ item.name === 'Logout' ? onLogout : () => handleClick(item, index)} selected={location.pathname === item.link}  >
+           <ListItemIcon  style={{ margin: 0, color: 'white' }}>{item.icon}</ListItemIcon>
            <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
-           {item.children ? <ListItemIcon className={classes.nestedIcon}>{openNest === index ? <ExpandLess /> : <ExpandMore />}</ListItemIcon> : null}
+           {item.children ? <ListItemIcon className={classes.sidebarText}>{openNest === index ? <ExpandLess color='white'/> : <ExpandMore color='white'/>}</ListItemIcon> : null}
 
        </ListItem>
        <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
@@ -349,7 +375,8 @@ const {data} = useSelector(state => state.isAuthenticated)
                 </SwipeableDrawer>
                 
                     </Hidden>
-      <main className={classes.content}>
+                    <main className={classes.content}>
+        <div className={classes.toolbar} />
       <Box  >
         <Switch>
                         {defaultlayout.map((route) => {

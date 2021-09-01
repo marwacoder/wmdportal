@@ -3,7 +3,7 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import {authRefresh} from '../../store/actions'
 import {
- withStyles, Button, Dialog,Box, MuiDialogTitle,MuiDialogActions,
+ withStyles, Button, Paper,Box, MuiDialogTitle,MuiDialogActions,
   IconButton, CloseIcon, Typography,  MuiDialogContent
 } from '../../mui'
 
@@ -62,7 +62,7 @@ const DialogActions = withStyles((theme) => ({
 
 export default function CustomizedDialogs(props) {
 
-    const {auth, handleCloseAuth} = props
+    const { handleCloseAuth} = props
     const {error, message, success } = useSelector(state => state.isAuthenticated)
 
     
@@ -86,14 +86,13 @@ export default function CustomizedDialogs(props) {
 
 
   return (     
-     <Box >
-     <Dialog  open={auth} onClose={handleCloseAuth} aria-labelledby="form-dialog-title">
+     <Paper >
         <DialogTitle id="customized-dialog-title" onClose={handleCloseAuth} >
           <Box ml={2}>{toggleAuth === false ? "SignIn" : "Register"}</Box>
         </DialogTitle>
         <DialogContent dividers>
-                  {toggleAuth === false ? <Box width={300}><SignIn handleForgotPassword={handleForgotPassword} /></Box>:
-                <Box width={300}> <SignUp toggleAuth={toggleAuth} handleToggleAuthForm={handleToggleAuthForm}/> </Box>}
+                  {toggleAuth === false ? <SignIn handleForgotPassword={handleForgotPassword} />:
+                 <SignUp toggleAuth={toggleAuth} handleToggleAuthForm={handleToggleAuthForm}/> }
 
 
                   <ForgotPassword forgotPasswod={forgotPasswod} handleForgotPassword={handleForgotPassword}/>
@@ -101,10 +100,7 @@ export default function CustomizedDialogs(props) {
         </DialogContent>
         <Box mb={5}>
                   <DialogActions >
-                     
-
-                          <div>{toggleAuth === false ? "Don't have an account?": "Already have an account?" }  <Button onClick={handleToggleAuthForm} color="secondary">{toggleAuth === false ? "REGISTER": "Sign In"}</Button></div>
-                      
+                          <div>{toggleAuth === false ? "Don't have an account?": "Already have an account?" }  <Button onClick={handleToggleAuthForm} color="secondary">{toggleAuth === false ? "REGISTER": "Sign In"}</Button></div>       
           </DialogActions>
           </Box>
           <Snackbars
@@ -119,9 +115,8 @@ export default function CustomizedDialogs(props) {
                     message={message}
                     isOpen={error === true}
                 />
-          </Dialog>
                  
-          </Box>
+          </Paper>
       
   );
 }

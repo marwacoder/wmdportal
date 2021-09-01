@@ -3,7 +3,7 @@ import {Box} from '../../mui'
 
 export default function Downloads() {
     return (
-        <Box  mx={{sm: '30%', md: '40%'}} fontSize={100} >
+        <Box mt={{sm: '10%', md: '10%'}} mx={{sm: '50%', md: '50%'}} fontSize={100} >
         Downloads
         
      </Box>

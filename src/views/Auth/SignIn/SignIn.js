@@ -50,7 +50,7 @@ const  SignIn =(props) =>{
   }
 
   return (
-      <Box width={300}>
+      <Box >
         {authRedirect}
                   <form onSubmit={handleSubmit} >
                     
