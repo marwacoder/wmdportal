@@ -20,6 +20,8 @@ import {Box, List, MenuIcon, Collapse,  ListItemIcon, Typography,
     SwipeableDrawer, Hidden, ExitToApp} from '../mui'
 import {userLogout} from '../store/actions'
 
+import Breadcrumb from '../helpers/Breadcrumb'
+
 import coat from '../assets/Coat_of_arms_of_Nigeria.png'
 import ellipse from '../assets/Ellipse 20.png'
 
@@ -150,18 +152,23 @@ const {data} = useSelector(state => state.isAuthenticated)
   ]
 
 
+  
+
+
   const handleDrawerToggle = () => {
     setMobileOpen(mobileOpen=> !mobileOpen)
 }
 
   const handleClick = (item, index) => {
-
     if (item.children) {
+      
       openNest === index ?
           setOpenNest(null) :
           setOpenNest(index)
   } else {
       history.push(item.link);
+      handleDrawerToggle()
+      
   } 
   
       }
@@ -382,6 +389,10 @@ const {data} = useSelector(state => state.isAuthenticated)
                     </Hidden>
                     <main className={classes.content}>
         <div className={classes.toolbar} />
+       
+          <Box  mt={{ xs: '-3%',sm: '-3%', md: '3%'}} mb={{ xs: '2%',sm: '2%', md: '2%'}}>
+            <Breadcrumb/>
+          </Box>
       <Box  >
         <Switch>
                         {defaultlayout.map((route) => {

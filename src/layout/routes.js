@@ -7,7 +7,7 @@ import ContactUs from '../views/Dashboard/ContactUs'
 import Home from '../views/Dashboard/Home';
 import Downloads from '../views/Dashboard/Downloads';
 import NewInstrumentReg from '../views/AuthDashboard/NewInstrumentReg';
-import RegisteredInstrument from '../views/Tables'
+import RegisteredInstrument from '../views/Tables/RegisteredInstrument'
 import Uploads from '../views/AuthDashboard/Uploads'
 import Reports from '../views/AuthDashboard/Reports'
 import OutstandingBill from '../views/Tables/OutstandingBill'

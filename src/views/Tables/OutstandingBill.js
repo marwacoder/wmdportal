@@ -2,6 +2,9 @@ import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import {Button, Box} from '../../mui'
 
+import {useDispatch} from 'react-redux'
+import {updateBreadcrumbs} from '../../store/actions'
+
 const columns = [
     { field: 'id', headerName: 'S/N', width: 120 },
     {
@@ -51,9 +54,14 @@ const rows = [
     }];
 
 export default function DataTable() {
+
+  const dispatch = useDispatch()
+  
+  React.useEffect(()=> {
+    dispatch(updateBreadcrumbs({name: "Invoice(s)", child: 'Outstanding Bill', link: '/defaultlayout/outstandingbill'}))
+  })
   return (
     <Box  style={{ height: 400, width: '100%' }}>
-      <Box my={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Outstanding Bills</Box>
       <DataGrid
         rows={rows}
         columns={columns}

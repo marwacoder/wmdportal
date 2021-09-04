@@ -5,6 +5,20 @@ import * as actionTypes from './actionTypes';
 
 
 
+export const updateBreadcrumbs = (payload) => {
+    return {
+    type: actionTypes.UPDATE_BREADCRUMBS,
+    payload
+    }
+};
+
+
+export const toggleBreadcrumbs = (payload) => {
+    return {
+    type: actionTypes.TOGGLE_BREADCRUMBS,
+    payload
+    }
+};
 
 
 

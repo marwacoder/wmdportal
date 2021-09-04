@@ -2,6 +2,10 @@ import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import {Button,Grid, TextField, Box} from '../../mui'
 
+import {useDispatch} from 'react-redux'
+import {updateBreadcrumbs} from '../../store/actions'
+
+
 const columns = [
     { field: 'id', headerName: 'S/N', width: 120 },
     {
@@ -73,11 +77,17 @@ const rows = [
 export default function DataTable() {
 
 
-  return (
-    <Box mt={{xs: '-6%', sm: '-5%', md: '2%'}} style={{ height: 400, width: '100%' }}>
-            <Box mt={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Periodic Instrument Verification</Box>
+  const dispatch = useDispatch()
+  
+  React.useEffect(()=> {
+    dispatch(updateBreadcrumbs({name: "Apply for Instrument Verification",  link: '/defaultlayout/periodicinstrumentv'}))
+  })
 
-       <Box my={3}>
+  return (
+    <Box>
+           
+
+       <Box >
            <Grid container justifyContent='center' alignItems='center' spacing={2}>
             <Grid item xs={12} sm={12}>
             <Box fontWeight='bold'>Instrument Filter</Box>

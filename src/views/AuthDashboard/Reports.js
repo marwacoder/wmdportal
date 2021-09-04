@@ -7,7 +7,8 @@ import {
 } from '@material-ui/pickers';
 import {MenuItem, Button, Grid, Box, TextField, Paper } from '../../mui';
 
-
+import {useDispatch} from 'react-redux'
+import {updateBreadcrumbs} from '../../store/actions'
   
   
   const instrument = [
@@ -58,12 +59,16 @@ export default function Reports() {
     const handleDateChange = (date) => {
       setSelectedDate(date);
     };
- 
+    const dispatch = useDispatch()
+  
+    React.useEffect(()=> {
+      dispatch(updateBreadcrumbs({name: "Report(s)", link: '/defaultlayout/reports'}))
+    })
 
   return (
     
-    <Box  mt={{ xs: '-10%',sm: '-3%', md: '1%'}}>
-      <Box my={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Generate Report</Box>
+    <Box  >
+
         <Paper elevation={0}>
             
         <form>

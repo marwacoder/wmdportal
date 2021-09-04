@@ -1,11 +1,12 @@
 import {combineReducers} from 'redux'
 
 import isAuthenticated from './auth'
-
+import breadCrumb from './breadcrumb'
 
 
 export const reducers = {
- isAuthenticated
+ isAuthenticated,
+ breadCrumb
 };
 
 

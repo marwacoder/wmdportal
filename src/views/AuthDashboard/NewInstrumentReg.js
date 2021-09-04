@@ -2,12 +2,15 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import StepContent from '@material-ui/core/StepContent';
+import {useDispatch} from 'react-redux'
 
 import {Box, Typography, Step, StepLabel, Stepper, Button, Paper} from '../../mui'
 
 import NewInstrumentLocation from '../AuthDashboard/NewInstrumentLocation'
 import InstrumentDetails from '../AuthDashboard/InstrumentDetails'
 import InstrumentStatus from '../AuthDashboard/InstrumentStatus'
+
+import {updateBreadcrumbs} from '../../store/actions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +49,7 @@ export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const dispatch = useDispatch()
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -59,9 +63,12 @@ export default function VerticalLinearStepper() {
     setActiveStep(0);
   };
 
+  React.useEffect(()=> {
+    dispatch(updateBreadcrumbs({name: "New Instrument Registration", link: '/defaultlayout/newinstrument'}))
+  })
+
   return (
-    <Box mt={{ xs: '-10%',sm: '-3%', md: '1%'}}  className={classes.root}>
-      <Box my={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>New Instrument Registration</Box>
+    <Box   className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>

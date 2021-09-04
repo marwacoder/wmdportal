@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Box} from '../../mui'
+import {useDispatch} from 'react-redux'
+import {updateBreadcrumbs} from '../../store/actions'
 
 const columns = [
     { field: 'id', headerName: 'S/N', width: 120 },
@@ -55,11 +57,15 @@ const rows = [
     {id: 2, date: '03/04/2021', amount: '27,500.00', purpose: 'Instrument Annual Licencing Fee', paystatus: 'Pending', transactId: '56377256', action: 'Confirmed'}];
 
 export default function DataTable() {
+  const dispatch = useDispatch()
+  
+  React.useEffect(()=> {
+    dispatch(updateBreadcrumbs({name: "Invoice(s)", child: 'Paid Bill', link: '/defaultlayout/paidbill'}))
+  })
 
 
   return (
     <Box style={{ height: 400, width: '100%' }}>
-        <Box my={{xs: 1, sm: 2}} fontWeight='bold' fontSize={{xs: 14, sm: 16, md: 16}}>Paid Bills</Box>
       <DataGrid
         rows={rows}
         columns={columns}
