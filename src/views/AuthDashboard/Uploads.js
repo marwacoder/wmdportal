@@ -2,6 +2,8 @@ import React from 'react';
 
 
 import { makeStyles,Button, Grid, Box, TextField, Paper} from '../../mui';
+import {useDispatch} from 'react-redux'
+import {updateBreadcrumbs} from '../../store/actions'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,15 +20,19 @@ const useStyles = makeStyles((theme) => ({
 export default function Uploads() {
  
     const classes = useStyles();
+
+    const dispatch = useDispatch()
   
-  
+    React.useEffect(()=> {
+      dispatch(updateBreadcrumbs({name: "Upload(s)", link: '/defaultlayout/uploads'}))
+    })
   // you can call this function anything
  
 
   return (
     
     
-      <Box  mt={{ xs: '-10%', md: '2%'}}  >
+      <Box    >
       <Paper elevation={0}>
         <form>
         <Box mx={5} py={3}>

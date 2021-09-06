@@ -92,7 +92,7 @@ export default function CustomizedDialogs(props) {
           <Box ml={2}>{toggleAuth === false ? "SignIn" : "Register"}</Box>
         </DialogTitle>
         <DialogContent dividers>
-                  {toggleAuth === false ? <Box width={300}><SignIn handleForgotPassword={handleForgotPassword} /></Box>:
+                  {toggleAuth === false || (success === true && setToggleAuth(false)) ? <Box width={300}><SignIn handleForgotPassword={handleForgotPassword} /></Box>:
                 <Box width={300}> <SignUp toggleAuth={toggleAuth} handleToggleAuthForm={handleToggleAuthForm}/> </Box>}
 
 

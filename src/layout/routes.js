@@ -7,14 +7,14 @@ import ContactUs from '../views/Dashboard/ContactUs'
 import Home from '../views/Dashboard/Home';
 import Downloads from '../views/Dashboard/Downloads';
 import NewInstrumentReg from '../views/AuthDashboard/NewInstrumentReg';
-import RegisteredInstrument from '../views/Tables'
+import RegisteredInstrument from '../views/Tables/RegisteredInstrument'
 import Uploads from '../views/AuthDashboard/Uploads'
 import Reports from '../views/AuthDashboard/Reports'
 import OutstandingBill from '../views/Tables/OutstandingBill'
 import PaidBill from '../views/Tables/PaidBill'
 import ApplyApproval from '../views/Tables/ApplyApproval'
 import ApplyInstVerification from '../views/Tables/ApplyInstVerification'
-
+import PeridicVer from '../views/Tables/PeridicVer'
 
 
 export const routes = [
@@ -40,7 +40,7 @@ export const defaultlayout = [
     { path: "/defaultlayout/applyapproval",  name: "ApplyApproval", component: ApplyApproval },
     { path: "/defaultlayout/applyinstverification",  name: "ApplyInstVerification", component: ApplyInstVerification },
     { path: "/defaultlayout/reports",  name: "Report", component: Reports },
-    { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: ApplyInstVerification },
+    { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: PeridicVer },
  
 ];
 

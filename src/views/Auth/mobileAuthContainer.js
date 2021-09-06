@@ -86,12 +86,13 @@ export default function CustomizedDialogs(props) {
 
 
   return (     
+    <Box>
      <Paper >
         <DialogTitle id="customized-dialog-title" onClose={handleCloseAuth} >
           <Box ml={2}>{toggleAuth === false ? "SignIn" : "Register"}</Box>
         </DialogTitle>
         <DialogContent dividers>
-                  {toggleAuth === false ? <SignIn handleForgotPassword={handleForgotPassword} />:
+                  {toggleAuth === false || (success === true && setToggleAuth(false)) ? <SignIn handleForgotPassword={handleForgotPassword} />:
                  <SignUp toggleAuth={toggleAuth} handleToggleAuthForm={handleToggleAuthForm}/> }
 
 
@@ -117,6 +118,6 @@ export default function CustomizedDialogs(props) {
                 />
                  
           </Paper>
-      
+          </Box>
   );
 }

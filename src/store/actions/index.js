@@ -5,6 +5,20 @@ import * as actionTypes from './actionTypes';
 
 
 
+export const updateBreadcrumbs = (payload) => {
+    return {
+    type: actionTypes.UPDATE_BREADCRUMBS,
+    payload
+    }
+};
+
+
+export const toggleBreadcrumbs = (payload) => {
+    return {
+    type: actionTypes.TOGGLE_BREADCRUMBS,
+    payload
+    }
+};
 
 
 
@@ -123,8 +137,7 @@ export const register = ({email, name, password}) => {
                 const token = resp.data.token;
                 localStorage.setItem('user-token', token);
                 setAuthToken(token)
-            },2000)
-          
+            },2000)          
         }).catch(err => {
            console.log(err.response.data.message,'error')
                 dispatch(registerFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
@@ -179,3 +192,267 @@ export const getCompany = ({id}) => {
       })
     };
 };
+
+
+//REGISTERED INSTRUMENT
+
+export const registerInstrumentStart = () => {
+    return {
+        type: actionTypes.ADD_INSTRUMENT_START
+    }
+}
+
+export const registerInstrumentSuccess = (payload) => {
+    return {
+        type: actionTypes.ADD_INSTRUMENT_SUCCESS,
+        payload
+    }
+}
+
+export const registerInstrumentFail = (payload) => {
+    return {
+        type: actionTypes.ADD_INSTRUMENT_FAIL,
+        payload
+    };
+};
+
+export const registerInstrumentRefresh = () => {
+    return {
+        type: actionTypes.ADD_INSTRUMENT_REFRESH,
+    };
+};
+
+
+
+
+export const registerInstrument = ({companyId,state,
+localGovt,
+city,
+geoZone,
+contactAddress,
+sector,
+instrument,
+instrumentType,
+unitMeasure,
+measurementCap,
+actualMeasurement,
+modelName,
+modelNumber,
+serialNumber,
+tagNumber,
+approvalCertificate,
+verificationCertificate}) => {
+ 
+    return (dispatch) => {
+        dispatch(registerInstrumentStart());
+        axios.post(`http://api.wmd.ng/v1/instrument/${companyId}`,{
+state,
+localGovt,
+city,
+geoZone,
+contactAddress,
+sector,
+instrument,
+instrumentType,
+unitMeasure,
+measurementCap,
+actualMeasurement,
+modelName,
+modelNumber,
+serialNumber,
+tagNumber,
+approvalCertificate,
+verificationCertificate
+        }).then(resp => {
+            console.log(resp,'resp')
+            setTimeout(() => {
+                dispatch(registerInstrumentSuccess(resp.data))
+                
+            },2000)          
+        }).catch(err => {
+           console.log(err.response.data.message,'error')
+                dispatch(registerInstrumentFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
+      })
+    };
+};
+
+
+//GET STATES
+
+export const getStateStart = () => {
+    return {
+        type: actionTypes.GET_STATE_START
+    }
+}
+
+export const getStateSuccess = (payload) => {
+    return {
+        type: actionTypes.GET_STATE_SUCCESS,
+        payload
+    }
+}
+
+export const getStateFail = (payload) => {
+    return {
+        type: actionTypes.GET_STATE_FAIL,
+        payload
+    };
+};
+
+export const getStateRefresh = () => {
+    return {
+        type: actionTypes.GET_STATE_REFRESH,
+    };
+};
+
+
+
+
+export const getStates = () => {
+ 
+    return (dispatch) => {
+        dispatch(getStateStart());
+        axios.get(`https://polling-unit-api.herokuapp.com/api/v1/polling-unit/state`).then(resp => {
+               setTimeout(()=> {
+                dispatch(getStateSuccess(resp.data))
+               },2000)
+        }).catch(err => {
+                dispatch(getStateFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
+      })
+    };
+};
+
+
+//GET STATES
+
+export const getLgasStart = () => {
+    return {
+        type: actionTypes.GET_LGA_START
+    }
+}
+
+export const getLgasSuccess = (payload) => {
+    return {
+        type: actionTypes.GET_LGA_SUCCESS,
+        payload
+    }
+}
+
+export const getLgasFail = (payload) => {
+    return {
+        type: actionTypes.GET_LGA_FAIL,
+        payload
+    };
+};
+
+export const getLgasRefresh = () => {
+    return {
+        type: actionTypes.GET_LGA_REFRESH,
+    };
+};
+
+
+
+
+export const getLgas = ({state}) => {
+    console.log(state,'from API')
+    return (dispatch) => {
+        dispatch(getLgasStart());
+        axios.get(`https://polling-unit-api.herokuapp.com/api/v1/polling-unit/lga?state=${state}`).then(resp => {
+                dispatch(getLgasSuccess(resp.data))
+        }).catch(err => {
+                dispatch(getLgasFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
+      })
+    };
+};
+
+
+
+export const getMeasurementStart = () => {
+    return {
+        type: actionTypes.GET_MEASUREMENT_START
+    }
+}
+
+export const getMeasurementSuccess = (payload) => {
+    return {
+        type: actionTypes.GET_MEASUREMENT_SUCCESS,
+        payload
+    }
+}
+
+export const getMeasurementFail = (payload) => {
+    return {
+        type: actionTypes.GET_MEASUREMENT_FAIL,
+        payload
+    };
+};
+
+export const getMeasurementRefresh = () => {
+    return {
+        type: actionTypes.GET_MEASUREMENT_REFRESH,
+    };
+};
+
+
+
+
+export const getMeasurement = () => {
+    return (dispatch) => {
+        dispatch(getMeasurementStart());
+        axios.get(`http://api.wmd.ng/v1/feetable/group`).then(resp => {
+                dispatch(getMeasurementSuccess(resp.data))
+        }).catch(err => {
+                dispatch(getMeasurementFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
+      })
+    };
+};
+
+export const getUnitMeasurementStart = () => {
+    return {
+        type: actionTypes.GET_UNIT_MEASUREMENT_START
+    }
+}
+
+export const getUnitMeasurementSuccess = (payload) => {
+    return {
+        type: actionTypes.GET_UNIT_MEASUREMENT_SUCCESS,
+        payload
+    }
+}
+
+export const getUnitMeasurementFail = (payload) => {
+    return {
+        type: actionTypes.GET_UNIT_MEASUREMENT_FAIL,
+        payload
+    };
+};
+
+export const getUnitMeasurementRefresh = () => {
+    return {
+        type: actionTypes.GET_UNIT_MEASUREMENT_REFRESH,
+    };
+};
+
+
+
+
+export const getUnitMeasurement = ({unit}) => {
+    console.log(unit,'unit')
+    return (dispatch) => {
+        dispatch(getUnitMeasurementStart());
+        axios.get(`http://api.wmd.ng/v1/feetable/group/${unit}`).then(resp => {
+                dispatch(getUnitMeasurementSuccess(resp.data))
+        }).catch(err => {
+                dispatch(getUnitMeasurementFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
+      })
+    };
+};
+
+
+// /
+
+// /
+// /
+
+// /

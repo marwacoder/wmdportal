@@ -5,7 +5,8 @@ import {
     FormControl, Paper
 } from '../../mui';
 
-
+import {useDispatch} from 'react-redux'
+import {updateBreadcrumbs} from '../../store/actions'
 
 
 
@@ -31,9 +32,15 @@ const  ContactUs =() =>{
 
   }
 
+  const dispatch = useDispatch()
+  
+  React.useEffect(()=> {
+    dispatch(updateBreadcrumbs({name: "Contact Us", link: '/dashboard/contactus'}))
+  })
+
 
   return (
-      <Box mx={{sm: '40%', xs: '5%', md: '30%'}} mt={{sm: '20%', xs: '15%', md: '12%'}} mb={10}>
+      <Box mx={{sm: '40%', xs: '5%', md: '30%'}} mt={{ md: '-2%'}}>
       <Paper>
       <Box m={2}>
           

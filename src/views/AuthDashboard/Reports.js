@@ -7,7 +7,8 @@ import {
 } from '@material-ui/pickers';
 import {MenuItem, Button, Grid, Box, TextField, Paper } from '../../mui';
 
-
+import {useDispatch} from 'react-redux'
+import {updateBreadcrumbs} from '../../store/actions'
   
   
   const instrument = [
@@ -58,20 +59,25 @@ export default function Reports() {
     const handleDateChange = (date) => {
       setSelectedDate(date);
     };
- 
+    const dispatch = useDispatch()
+  
+    React.useEffect(()=> {
+      dispatch(updateBreadcrumbs({name: "Report(s)", link: '/defaultlayout/reports'}))
+    })
 
   return (
     
-    <Box  mt={{ xs: '-10%', md: '2%'}}>
+    <Box  >
+
         <Paper elevation={0}>
             
         <form>
           <Box mx={5} py={1}>
-      <Grid container spacing={1} justifyContent='center' alignItems='center'>
-      <Grid item xs={12} sm={2}>
+      <Grid container spacing={1} justifyContent='flex-start' alignItems='center'>
+      <Grid item xs={12} sm={12} md={12}>
         <Box fontWeight='bold'>Report Filter</Box>
       </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={6} md={4}>
           <Box mt={3}>
             <TextField id="filename" size="small"  variant='standard' select  fullWidth>
             {instrument.map((option) => (
@@ -85,7 +91,7 @@ export default function Reports() {
             </TextField>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={6} md={4}>
             <Box mt={3}>
             <TextField id="filename" size="small"  variant='standard' select  fullWidth>
               {Array.isArray(instrumentReport) ? instrumentReport.map((option)=> (
@@ -97,7 +103,7 @@ export default function Reports() {
           
           </Grid>
 
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={6} md={2}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
           fullWidth
@@ -116,7 +122,7 @@ export default function Reports() {
         />
         </MuiPickersUtilsProvider>
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={6} md={2}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
           fullWidth
@@ -136,7 +142,7 @@ export default function Reports() {
         </MuiPickersUtilsProvider>
           </Grid>
           
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={12} md={2}>
           <Button variant="outlined" color="primary" component="span">
           GENERATE
         </Button>

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import Box from '@material-ui/core/Box'
+import {useDispatch} from 'react-redux'
+import {updateBreadcrumbs} from '../../store/actions'
 
 const columns = [
   { field: 'id', headerName: 'S/N', width: 120 },
@@ -71,6 +73,13 @@ const rows = [
 ];
 
 export default function DataTable() {
+
+  const dispatch = useDispatch()
+
+  React.useEffect(()=> {
+    dispatch(updateBreadcrumbs({name: "Registered Instrument", link: '/defaultlayout/registeredinstrument'}))
+  })
+
   return (
     <Box  style={{ height: 400, width: '100%' }}>
       <DataGrid

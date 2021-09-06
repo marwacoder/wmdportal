@@ -20,6 +20,8 @@ import {Box, List, MenuIcon, Collapse,  ListItemIcon, Typography,
     SwipeableDrawer, Hidden, ExitToApp} from '../mui'
 import {userLogout} from '../store/actions'
 
+import Breadcrumb from '../helpers/Breadcrumb'
+
 import coat from '../assets/Coat_of_arms_of_Nigeria.png'
 import ellipse from '../assets/Ellipse 20.png'
 
@@ -77,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(5),
+    padding: theme.spacing(3),
     marginTop: 20
   },
   drawerPaper: {
@@ -86,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
   },
   sidebarText: {
     color: 'white'
+  },
+  sidebarTextm: {
+    color: 'white',
+    fontFamily: 'Nexa',
+    fontSize: 14
   }
 
 }));
@@ -145,18 +152,23 @@ const {data} = useSelector(state => state.isAuthenticated)
   ]
 
 
+  
+
+
   const handleDrawerToggle = () => {
     setMobileOpen(mobileOpen=> !mobileOpen)
 }
 
   const handleClick = (item, index) => {
-
     if (item.children) {
+      
       openNest === index ?
           setOpenNest(null) :
           setOpenNest(index)
   } else {
       history.push(item.link);
+      handleDrawerToggle()
+      
   } 
   
       }
@@ -175,7 +187,7 @@ const {data} = useSelector(state => state.isAuthenticated)
         })}>
           
         <Toolbar>
-        <Hidden smUp>
+        <Hidden mdUp>
         <Box className={classes.sectionMobile}>
             <IconButton
               onClick={handleDrawerToggle}
@@ -189,7 +201,7 @@ const {data} = useSelector(state => state.isAuthenticated)
             </IconButton>
           </Box>
           </Hidden>
-          <Hidden xsDown>
+          <Hidden smDown>
           <Grid container justifyContent='center' alignItems='center' spacing={4}>
           
               <Grid item>
@@ -256,7 +268,7 @@ const {data} = useSelector(state => state.isAuthenticated)
         
       </AppBar>
      
-      <Hidden xsDown>
+      <Hidden smDown>
          <SwipeableDrawer
         variant="permanent"
         className={clsx(classes.drawerPaper, {
@@ -305,7 +317,7 @@ const {data} = useSelector(state => state.isAuthenticated)
         
       </SwipeableDrawer>
       </Hidden>
-      <Hidden smUp>
+      <Hidden mdUp>
               
               <SwipeableDrawer
                             onOpen={handleDrawerToggle}
@@ -329,12 +341,12 @@ const {data} = useSelector(state => state.isAuthenticated)
         <Grid> <img style={{width: 50, height: 50}}  src={ellipse} alt='ellipse'/></Grid>
         <Grid container alignItems='center' justifyContent='center' alignContent='center'>
             <Grid>
-               <Box mt={2} fontWeight='bold' color='white'   fontSize={10}>
+               <Box mt={2} fontWeight='bold' color='white'   fontSize={11}>
                FEDERAL MINISTRY OF INDUSTRY TRADE AND INVESTMENT
             </Box> 
             </Grid>
             <Grid>
-            <Box fontStyle='Nexa'  fontWeight='bold' color='white'  fontSize={10}>
+            <Box fontStyle='Nexa'  fontWeight='bold' color='white'  fontSize={11}>
             WEIGHTS AND MEASURES DEPARTMENT PORTAL
             </Box>
             </Grid>
@@ -348,7 +360,7 @@ const {data} = useSelector(state => state.isAuthenticated)
        return <>
        <ListItem button style={{ '&:focus': { outline: "none" } }} onClick={ item.name === 'Logout' ? onLogout : () => handleClick(item, index)} selected={location.pathname === item.link}  >
            <ListItemIcon  style={{ margin: 0, color: 'white' }}>{item.icon}</ListItemIcon>
-           <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
+           <ListItemText  style={{fontSize: 12}} primary={item.name} classes={{ primary: classes.sidebarTextm }} />
            {item.children ? <ListItemIcon className={classes.sidebarText}>{openNest === index ? <ExpandLess color='white'/> : <ExpandMore color='white'/>}</ListItemIcon> : null}
 
        </ListItem>
@@ -358,7 +370,7 @@ const {data} = useSelector(state => state.isAuthenticated)
                    item.children ? item.children.map((item, index) => (
                        <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
                            <ListItemIcon style={{ color: "#fff", margin: 0 }}>{item.icon}</ListItemIcon>
-                           {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
+                           {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarTextm }} />}
                        </ListItem>
                    ))
                        : null}
@@ -377,6 +389,10 @@ const {data} = useSelector(state => state.isAuthenticated)
                     </Hidden>
                     <main className={classes.content}>
         <div className={classes.toolbar} />
+       
+          <Box  mt={{ xs: '-3%',sm: '-3%', md: '3%'}} mb={{ xs: '2%',sm: '2%', md: '2%'}}>
+            <Breadcrumb/>
+          </Box>
       <Box  >
         <Switch>
                         {defaultlayout.map((route) => {
@@ -388,7 +404,7 @@ const {data} = useSelector(state => state.isAuthenticated)
                         })}
                     </Switch> 
                     </Box>
-                    <Box  width='100%'> <Footer/></Box>
+                    <Box  > <Footer/></Box>
                    
       </main>
     </div>

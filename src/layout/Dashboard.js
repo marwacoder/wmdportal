@@ -10,6 +10,8 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
+import Breadcrumb from '../helpers/Breadcrumb'
+
 import {Box, List, Menu, MenuIcon, Collapse,  useScrollTrigger,ListItemIcon,
     MenuItem, IconButton, Toolbar, AppBar, ExpandLess, ExpandMore,Fab, KeyboardArrowUpIcon,
     makeStyles, ListItem,Divider, Grid, ListItemText,Zoom,
@@ -152,7 +154,25 @@ const useStyles = makeStyles((theme) => ({
   },
   sidebarText: {
     color: 'white'
-  }
+  },
+  sidebarTextm: {
+    color: 'white',
+    fontFamily: 'Nexa',
+    fontSize: 14
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    marginTop: 20
+  },
 }));
 
 
@@ -254,6 +274,7 @@ const handleRegisteredInstrument = () => {
           setOpenNest(index)
   } else {
       history.push(item.link);
+      handleDrawerToggle()
   } 
   
       }
@@ -302,7 +323,7 @@ const handleRegisteredInstrument = () => {
            return <>
            <ListItem button className={"sidebarBtn"} style={{ '&:focus': { outline: "none" } }} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link} >
                <ListItemIcon style={{ margin: 0, color: 'white' }}>{item.icon}</ListItemIcon>
-               <ListItemText primary={item.name} classes={{ primary: classes.sidebarText }} />
+               <ListItemText primary={item.name} classes={{ primary: classes.sidebarTextm }} />
                {item.children ? <ListItemIcon className={classes.sidebarText}>{openNest === index ? <ExpandLess color='white'/> : <ExpandMore color='white'/>}</ListItemIcon> : null}           </ListItem>
            <Collapse key={item.name} in={openNest === index} timeout="auto" unmountOnExit>
                <List component="div" disablePadding>
@@ -310,7 +331,7 @@ const handleRegisteredInstrument = () => {
                        item.children ? item.children.map((item, index) => (
                            <ListItem key={item.name} button className={classes.nested} onClick={ () => handleClick(item, index)} selected={location.pathname === item.link}   >
                                <ListItemIcon style={{ margin: 0, color: 'white' }}>{item.icon}</ListItemIcon>
-                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarText }} />}
+                               {<ListItemText primary={item.name} key={index} classes={{ primary: classes.sidebarTextm }} />}
                            </ListItem>
                        ))
                        
@@ -353,7 +374,7 @@ const handleRegisteredInstrument = () => {
   return (
     <div >
       {authRedirect}
-      <Hidden xsDown>
+      <Hidden smDown>
       <AppBar color='white' position='fixed' >
           <Hidden xsDown>
         <Toolbar>
@@ -446,7 +467,7 @@ const handleRegisteredInstrument = () => {
       
       </Box>
       </Hidden>
-      <Hidden smUp>
+      <Hidden mdUp>
       <AppBar color="primary" position='fixed'>
         <Toolbar >
        
@@ -468,10 +489,11 @@ const handleRegisteredInstrument = () => {
       </Hidden>
       <Box id="back-to-top-anchor" />
 <div className={classes.sectionMobile}>
+
         <nav className={classes.drawer} aria-label="mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
            
-            <Hidden smUp>
+            <Hidden mdUp>
               
               <SwipeableDrawer
                             onOpen={handleDrawerToggle}
@@ -502,8 +524,15 @@ const handleRegisteredInstrument = () => {
           <RegisteredInstrument registeredInstrument={registeredInstrument} handleRegisteredInstrument={handleRegisteredInstrument}/>
           <SignIn auth={auth} handleCloseAuth={handleCloseAuth}/>
         </div>
-        <main>
-      <Box >
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+       
+          <Box  mt={{ xs: '-3%',sm: '-3%', md: '4%'}} mb={{ xs: '2%',sm: '2%', md: '2%'}}>
+            <Breadcrumb/>
+          </Box>
+      <Box>
+        
+        
       <Switch>
                         {routes.map((route) => {
                             return route.component ? (

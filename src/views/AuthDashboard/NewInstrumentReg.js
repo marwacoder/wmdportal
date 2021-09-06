@@ -2,12 +2,17 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import StepContent from '@material-ui/core/StepContent';
+import {useDispatch, useSelector} from 'react-redux'
 
 import {Box, Typography, Step, StepLabel, Stepper, Button, Paper} from '../../mui'
 
 import NewInstrumentLocation from '../AuthDashboard/NewInstrumentLocation'
 import InstrumentDetails from '../AuthDashboard/InstrumentDetails'
 import InstrumentStatus from '../AuthDashboard/InstrumentStatus'
+
+import {updateBreadcrumbs, getStates, getMeasurement, registerInstrument, registerInstrumentRefresh} from '../../store/actions'
+
+import Snackbars from '../../helpers/Snackbar/Snackbar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,27 +30,64 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getSteps() {
-  return ['Intrument Location', 'Instrument Details', 'Instrument Certification Status'];
-}
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <NewInstrumentLocation/>;
-    case 1:
-      return <InstrumentDetails/>;
-    case 2:
-      return <InstrumentStatus/>;
-    default:
-      return 'Unknown step';
-  }
-}
 
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const dispatch = useDispatch()
+  const { error, message, success} = useSelector(state => state.instrument || [])
+  const { data} = useSelector(state => state.isAuthenticated)
+
+ 
+
+  const [values, setValues] = React.useState({
+    state: "",
+    localGovt: '',
+    city: '',
+    geoZone: '',
+    contactAddress: '',
+    sector: '',
+    instrument: '',
+    instrumentType: '',
+    unitMeasure: '',
+    measurementCap: '',
+    actualMeasurement: '',
+    modelName: '',
+    modelNumber: '',
+    serialNumber: '',
+    tagNumber: '',
+    approvalCertificate: '',
+    verificationCertificate: ''
+  });
+
+
+  console.log(values,'values')
+   
+  const handleChange = prop => event => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+  
+
+  function getSteps() {
+    return ['Intrument Location', 'Instrument Details', 'Instrument Certification Status'];
+  }
+  
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <NewInstrumentLocation values={values} setValues={setValues} handleChange={handleChange}/>;
+      case 1:
+        return <InstrumentDetails values={values} setValues={setValues} handleChange={handleChange}/>;
+      case 2:
+        return <InstrumentStatus values={values} setValues={setValues} handleChange={handleChange}/>;
+      default:
+        return 'Unknown step';
+    }
+  }
+
+ 
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -59,8 +101,66 @@ export default function VerticalLinearStepper() {
     setActiveStep(0);
   };
 
+
+  const onHandleSnack = () => {
+    dispatch(registerInstrumentRefresh())
+}
+
+
+  React.useEffect(()=> {
+    dispatch(
+      updateBreadcrumbs({name: "New Instrument Registration", link: '/defaultlayout/newinstrument'}))
+    dispatch(getStates())
+    dispatch(getMeasurement())
+  },[])
+
+
+  const onSubmitHandler =()=> {
+    const {
+      state,
+      localGovt,
+      city,
+      geoZone,
+      contactAddress,
+      sector,
+      instrument,
+      instrumentType,
+      unitMeasure,
+      measurementCap,
+      actualMeasurement,
+      modelName,
+      modelNumber,
+      serialNumber,
+      tagNumber,
+      approvalCertificate,
+      verificationCertificate
+    }= values
+    dispatch(registerInstrument({
+      companyId: data._id,
+      state,
+localGovt,
+city,
+geoZone,
+contactAddress,
+sector,
+instrument,
+instrumentType,
+unitMeasure,
+measurementCap,
+actualMeasurement,
+modelName,
+modelNumber,
+serialNumber,
+tagNumber,
+approvalCertificate,
+verificationCertificate
+    }))
+  }
+
+  
   return (
-    <Box mt={{ xs: '-10%'}} className={classes.root}>
+    <Box   className={classes.root}>
+      <form>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
@@ -76,20 +176,29 @@ export default function VerticalLinearStepper() {
                   >
                     Back
                   </Button>
-                  <Button
+                  {activeStep === steps.length - 1 ? <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={onSubmitHandler}
+                    className={classes.button}
+                  >  <span style={{color: '#fff'}}>{'Register'}</span> 
+                    
+                  </Button>: null}
+                  {activeStep !== steps.length - 1 ? <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
-                  >  <span style={{color: '#fff'}}>{activeStep === steps.length - 1 ? 'Register' : 'Next'}</span> 
+                  >  <span style={{color: '#fff'}}>Next</span> 
                     
-                  </Button>
+                  </Button>: null}
                 </div>
               </div>
             </StepContent>
           </Step>
         ))}
       </Stepper>
+      </form>
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
           <Typography>All steps completed - you&apos;re finished</Typography>
@@ -98,6 +207,19 @@ export default function VerticalLinearStepper() {
           </Button>
         </Paper>
       )}
+
+          <Snackbars
+                    variant={'success'}
+                    handleClose={onHandleSnack}
+                    message={message}
+                    isOpen={success === true}
+            />
+                  <Snackbars
+                    variant={"error"}
+                    handleClose={onHandleSnack}
+                    message={message}
+                    isOpen={error === true}
+                />
     </Box>
   );
 }

@@ -73,9 +73,9 @@ function SwipeableTextMobileStepper() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-
+  
   return (
-    <Box className={classes.root} mt={{ xs: '15%'}}>
+    <Box className={classes.root} >
       <Grid container justifyContent='center' alignItems='center'>
         <Grid item sm={12} xs={12}>
      <Box >
@@ -107,17 +107,15 @@ function SwipeableTextMobileStepper() {
       }
       backButton={
         <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-         
-          
         </Button>
       }
     />
     </Box>
     </Grid>
-    <Hidden smUp>
+    <Hidden mdUp>
       <Grid item sm={12} xs={12}>
       
-      <Box mt={5}>
+      <Box mt={5} bgcolor='grey'>
         <AuthContainer/>
       </Box>
       
