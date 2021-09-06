@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import Box from '@material-ui/core/Box'
-import {useDispatch} from 'react-redux'
-import {updateBreadcrumbs} from '../../store/actions'
+import {useDispatch, useSelector} from 'react-redux'
+import {updateBreadcrumbs, getRegisteredInstrument} from '../../store/actions'
+
+
 
 const columns = [
-  { field: 'id', headerName: 'S/N', width: 120 },
+  { field: '_id', headerName: 'S/N', width: 120 },
   {
     field: 'instrument',
     headerName: 'INSTRUMENT',
@@ -13,26 +15,26 @@ const columns = [
     editable: true,
   },
   {
-    field: 'modelname',
+    field: 'modelName',
     headerName: 'MODEL NAME',
     width: 150,
     editable: true,
   },
   {
-    field: 'modelnumber',
+    field: 'modelNumber',
     headerName: 'MODEL N0.',
     type: 'number',
     width: 120,
     editable: true,
   },
   {
-    field: 'serialnumber',
+    field: 'serialNumber',
     headerName: 'SERIAL N0.',
     editable: true,
     width: 150
   },
     {
-        field: 'tagno',
+        field: 'tagNumber',
         headerName: 'TAG. N0.',
         description: 'This column has a value getter and is not sortable.',
         sortable: false,
@@ -52,20 +54,20 @@ const columns = [
                 sortable: false,
                 width: 120,
             },
-                {
-                    field: 'pac',
-                    headerName: 'PAC',
-                    description: 'This column has a value getter and is not sortable.',
-                    sortable: false,
-                    width: 100,
-                },
-                    {
-                        field: 'ivc',
-                        headerName: 'IVC',
-                        description: 'This column has a value getter and is not sortable.',
-                        sortable: false,
-                        width: 80
-  },
+  //               {
+  //                   field: 'pac',
+  //                   headerName: 'PAC',
+  //                   description: 'This column has a value getter and is not sortable.',
+  //                   sortable: false,
+  //                   width: 100,
+  //               },
+  //                   {
+  //                       field: 'ivc',
+  //                       headerName: 'IVC',
+  //                       description: 'This column has a value getter and is not sortable.',
+  //                       sortable: false,
+  //                       width: 80
+  // },
 ];
 
 const rows = [
@@ -73,21 +75,24 @@ const rows = [
 ];
 
 export default function DataTable() {
-
+  const {isLoading, instrument} = useSelector(state => state.instrument)
+  const { data} = useSelector(state => state.isAuthenticated)
   const dispatch = useDispatch()
 
   React.useEffect(()=> {
     dispatch(updateBreadcrumbs({name: "Registered Instrument", link: '/defaultlayout/registeredinstrument'}))
-  })
+    dispatch(getRegisteredInstrument({companyId: data._id}))
+  },[])
 
+  console.log(instrument,'jb')
   return (
     <Box  style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={rows}
+        rows={Array.isArray(instrument) ? instrument : [] }
         columns={columns}
         pageSize={5}
-        checkboxSelection
-        disableSelectionOnClick
+        loading={isLoading}
+        checkboxSelection= {false}
       />
     </Box>
   );

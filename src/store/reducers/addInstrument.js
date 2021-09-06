@@ -34,6 +34,29 @@ export const instrument = (state = initState, action) => {
             return {
                 
             }
+
+            case actionTypes.GET_REGISTERED_INSTRUMENT_START:
+            return {
+                isLoading: true
+            }
+        case actionTypes.GET_REGISTERED_INSTRUMENT_SUCCESS:
+            return {
+                isLoading: false,
+                instrument: action.payload.data,
+                message: action.payload.message,
+                success: true
+            }
+        case actionTypes.GET_REGISTERED_INSTRUMENT_FAIL:
+            return {
+                isLoading: false,
+                isLoggedIn: false,
+                error: true,
+                message: action.payload
+            }
+        case actionTypes.GET_REGISTERED_INSTRUMENT_REFRESH:
+            return {
+                
+            }
         default:
             return state;
             }
