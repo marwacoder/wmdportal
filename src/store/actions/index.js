@@ -277,6 +277,51 @@ verificationCertificate
 };
 
 
+
+export const getRegisteredInstrumentStart = () => {
+    return {
+        type: actionTypes.GET_REGISTERED_INSTRUMENT_START
+    }
+}
+
+export const getRegisteredInstrumentSuccess = (payload) => {
+    return {
+        type: actionTypes.GET_REGISTERED_INSTRUMENT_SUCCESS,
+        payload
+    }
+}
+
+export const getRegisteredInstrumentFail = (payload) => {
+    return {
+        type: actionTypes.GET_REGISTERED_INSTRUMENT_FAIL,
+        payload
+    };
+};
+
+export const getRegisteredInstrumentRefresh = () => {
+    return {
+        type: actionTypes.GET_REGISTERED_INSTRUMENT_REFRESH,
+    };
+};
+
+
+
+
+export const getRegisteredInstrument = ({companyId}) => {
+ 
+    return (dispatch) => {
+        dispatch(getRegisteredInstrumentStart());
+        axios.get(`http://api.wmd.ng/v1/instrument/${companyId}`,{
+        }).then(resp => {
+            setTimeout(() => {
+                dispatch(getRegisteredInstrumentSuccess(resp.data))
+            },2000)          
+        }).catch(err => {
+           console.log(err.response.data.message,'error')
+                dispatch(getRegisteredInstrumentFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
+      })
+    };
+};
 //GET STATES
 
 export const getStateStart = () => {

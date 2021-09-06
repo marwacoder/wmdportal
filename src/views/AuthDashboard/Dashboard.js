@@ -5,7 +5,7 @@ import {Box, Hidden} from '../../mui'
 export default function Dashboard() {
   return (
     <Box bgcolor='white'>
-      <Hidden xsDown>
+      <Hidden smDown>
        
             <Box className='centered'>
       <img style={{width: 300, height: 300, opacity: 0.5 }}  src={ellipse} alt='ellipse'/>
@@ -14,12 +14,13 @@ export default function Dashboard() {
 
       </Hidden>
        
-    <Hidden smUp>
-    <Box className='centered'>
+    <Hidden mdUp>
+    <Box className='centeredmobile'>
       <img style={{width: 200, height: 200, opacity: 0.5 }}  src={ellipse} alt='ellipse'/>
-      <Box color='red'>IT IS AN OFFENSE PURNISHABLE BY LAW IN THE FEDERAL REPUBLIC OF NIGERIA IF INSTRUMENTS USED FOR TRADE ARE NOT REGISTERED WITH THE WEIGHTS AND MEASURES DEPARTMENT</Box>
 
     </Box>
+    <Box fontSize={{xs: 12, sm: 12}} textAlign='center' left={0} fontWeight='bold' bottom={'10%'} position='fixed' color='red'>IT IS AN OFFENSE PURNISHABLE BY LAW IN THE FEDERAL REPUBLIC OF NIGERIA IF INSTRUMENTS USED FOR TRADE ARE NOT REGISTERED WITH THE WEIGHTS AND MEASURES DEPARTMENT</Box>
+
     </Hidden>
     </Box>
    

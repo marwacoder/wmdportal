@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Suspense} from 'react';
 import clsx from 'clsx'
 import {useDispatch, useSelector} from 'react-redux'
 import { Switch, Route, withRouter } from 'react-router-dom'
@@ -24,6 +24,8 @@ import Breadcrumb from '../helpers/Breadcrumb'
 
 import coat from '../assets/Coat_of_arms_of_Nigeria.png'
 import ellipse from '../assets/Ellipse 20.png'
+
+import Spinner from '../helpers/Spinner/Spinner'
 
 const drawerWidth = 380;
 
@@ -395,6 +397,7 @@ const {data} = useSelector(state => state.isAuthenticated)
           </Box>
       <Box  >
         <Switch>
+        <Suspense fallback= {<Spinner/>}>
                         {defaultlayout.map((route) => {
                             return route.component ? (
                                 <Route key={route.path} path={route.path} exact={route.exact} name={route.name} render={props => (
@@ -402,6 +405,7 @@ const {data} = useSelector(state => state.isAuthenticated)
                                 )} />
                             ) : (null);
                         })}
+                        </Suspense>
                     </Switch> 
                     </Box>
                     <Box  > <Footer/></Box>
