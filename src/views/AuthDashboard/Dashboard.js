@@ -21,7 +21,6 @@ export default function Dashboard() {
 
     </Box>
     </Hidden>
-    
     </Box>
    
   )

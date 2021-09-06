@@ -27,11 +27,13 @@ const GreenCheckbox = withStyles({
     },
   }));
 export default function Review(props) {
- 
+  const {values, setValues} = props
 
     const classes = useStyles();
   
   // you can call this function anything
+
+
  
 
   return (
@@ -47,6 +49,7 @@ export default function Review(props) {
         accept="image/*"
         className={classes.input}
         id="contained-button-file"
+        onChange={(e)=> setValues({...values, approvalCertificate: e.target.files[0] })}
         multiple
         type="file"
       />
@@ -66,6 +69,7 @@ export default function Review(props) {
         id="contained-button-file"
         multiple
         type="file"
+        onChange={(e)=> setValues({...values, verificationCertificate: e.target.files[0] })}
       />
       <label htmlFor="contained-button-file">
         <Button variant='outlined' color="primary" component="span">
