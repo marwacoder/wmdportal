@@ -7,7 +7,7 @@ import {updateBreadcrumbs, getRegisteredInstrument} from '../../store/actions'
 
 
 const columns = [
-  { field: '_id', headerName: 'S/N', width: 120 },
+  { field: 'id', headerName: 'S/N', width: 120 },
   {
     field: 'instrument',
     headerName: 'INSTRUMENT',
@@ -88,7 +88,7 @@ export default function DataTable() {
   return (
     <Box  style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={Array.isArray(instrument) ? instrument : [] }
+        rows={ rows }
         columns={columns}
         pageSize={5}
         loading={isLoading}
