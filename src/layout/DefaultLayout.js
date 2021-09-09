@@ -103,17 +103,17 @@ const useStyles = makeStyles((theme) => ({
 
 const authDashboard = [
   { name: 'HOME',icon: <DashboardIcon color='white'/>, link: '/defaultlayout/home'},
-    { name: 'New Instrument Registration', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon color='white'/> },
-    { name: 'Registered Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon color='white'/>  },
+    { name: 'New Instrument', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon color='white'/> },
+    { name: 'Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon color='white'/>  },
     { name: 'Uploads',link: '/defaultlayout/uploads', icon: <CloudUploadIcon color='white'/> },
     { name: 'Report',link: '/defaultlayout/reports', icon: <ReportIcon color='white'/>  },
     { name: 'Invoices' , icon: <ReceiptIcon color='white'/>, children: [
       { name: 'Outstanding Bill',link: '/defaultlayout/outstandingbill' },
       { name: 'Paid Bill',link: '/defaultlayout/paidbill' },
     ]},
-    { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon color='white'/> },
-    { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon color='white'/>  },
-    { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon color='white'/>  }
+    { name: 'Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon color='white'/> },
+    { name: 'Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon color='white'/>  },
+    { name: 'Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon color='white'/>  }
 
 
     

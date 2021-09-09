@@ -14,7 +14,7 @@ const columns = [
       editable: true,
     },
     {
-      field: 'modelname',
+      field: 'instrumentModelName',
       headerName: 'MODEL NAME',
       width: 150,
       editable: true,
@@ -70,8 +70,8 @@ const columns = [
 
 
 const rows = [
-    {id: 1, instrument: 'ATM Machine', modelnumber: 'NH 2700',modelname: 'hyosu',  serialnumber: '7647939', tagno:'33',sector: 'Banking', state:'Gombe' },
-    {id: 2, instrument: 'ATM Machine', modelnumber: 'NH 2700',modelname: 'hyosu', serialnumber: '7227939', tagno: '22',sector: 'Banking', state: 'Adamawa'}];
+    {id: 1, instrument: 'ATM Machine', modelnumber: 'NH 2700',instrumentModelName: 'hyosu',  serialnumber: '7647939', tagno:'33',sector: 'Banking', state:'Gombe' },
+    {id: 2, instrument: 'ATM Machine', modelnumber: 'NH 2700',instrumentModelName: 'hyosu', serialnumber: '7227939', tagno: '22',sector: 'Banking', state: 'Adamawa'}];
 
 export default function DataTable() {
 

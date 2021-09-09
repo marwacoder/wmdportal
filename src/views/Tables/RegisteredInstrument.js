@@ -15,7 +15,7 @@ const columns = [
     editable: true,
   },
   {
-    field: 'modelName',
+    field: 'instrumentModelName',
     headerName: 'MODEL NAME',
     width: 150,
     editable: true,
@@ -75,7 +75,7 @@ const rows = [
 ];
 
 export default function DataTable() {
-  const {isLoading, instrument} = useSelector(state => state.instrument)
+  const {isLoading, instrument} = useSelector(state => state.getInstrument)
   const { data} = useSelector(state => state.isAuthenticated)
   const dispatch = useDispatch()
 

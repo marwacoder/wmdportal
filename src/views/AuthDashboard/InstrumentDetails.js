@@ -2,7 +2,7 @@ import React from 'react';
 
 import {useDispatch, useSelector} from 'react-redux'
 import {  Grid, Box, TextField, MenuItem } from '../../mui';
-import {getUnitMeasurement} from '../../store/actions'
+import {getUnitMeasurement, getMeasurementCapacity} from '../../store/actions'
 
 
 
@@ -12,10 +12,15 @@ export default function Review(props) {
       const dispatch = useDispatch()
       const { measurement} = useSelector(state => state.measurement || [])
       const { unitmeasurement} = useSelector(state => state.unitmeasurement || [])
+      const { measurementcapacity} = useSelector(state => state.measurementCapacity || [])
       const {values,  handleChange} = props
 
-  
+      
+      const [category, setCategory] = React.useState('')
+
   // you can call this function anything
+
+  console.log(measurementcapacity, 'measurement')
  
 
   return (
@@ -32,28 +37,32 @@ export default function Review(props) {
         
         <Grid item xs={12} sm={6} >
         <TextField id="instrumentType" value={values.instrumentType} onChange={handleChange('instrumentType')} select variant="outlined" label='Instrument Type'  fullWidth>
-        {Array.isArray(measurement) ? measurement.map((item)=><MenuItem  onClick={()=>{ 
-              dispatch(getUnitMeasurement({unit: item.HeaderName}))
-              }}  value={item.HeaderName} key={item}>{item.HeaderName}</MenuItem>): null}
+        {Array.isArray(measurement) ? measurement.map((item)=><MenuItem  onClick={()=> {
+        dispatch(getUnitMeasurement({unit: item.HeaderName}))
+        setCategory(item.HeaderName)
+        }}
+        value={item.HeaderName} key={item}>{item.HeaderName}</MenuItem>): null}
+      
         </TextField>
               </Grid>
               <Grid item xs={12} sm={6}>
               <TextField id="unitMeasure" select value={values.unitMeasure}  onChange={handleChange('unitMeasure')} variant="outlined" label='Unit of Measurement'  fullWidth>
-        {Array.isArray(unitmeasurement) ? unitmeasurement.map((item)=><MenuItem  value={item.measureRange} key={item}>{item.measureRange}</MenuItem>): null}
+        {Array.isArray(unitmeasurement) ? unitmeasurement.map((item)=><MenuItem onClick={()=> dispatch(getMeasurementCapacity({category, subcategory: item.subheading}))}
+         value={item.subheading} key={item}>{item.subheading}</MenuItem>): null}
         </TextField>
         </Grid>
 
 
-        {/* <Grid item xs={12} sm={6}>
-              <TextField id="measurementCap" value={values.measurementCap} onChange={handleChange}  variant="outlined" label='Measurement Capacity'  fullWidth>
-
+        <Grid item xs={12} sm={6}>
+              <TextField id="measurementCap" value={values.measurementCap} select onChange={handleChange('measurementCap')}  variant="outlined" label='Measurement Capacity'  fullWidth>
+              {Array.isArray(measurementcapacity) ? measurementcapacity.map((item)=><MenuItem  value={item.measureRange} key={item}>{item.measureRange}</MenuItem>): null}
               </TextField>
-        </Grid> */}
+        </Grid>
         <Grid item xs={12} sm={6}>
               <TextField id="actualMeasurement" value={values.actualMeasurement} onChange={handleChange('actualMeasurement')} variant="outlined" label='Actual Measurement'  fullWidth/>
         </Grid>
         <Grid item xs={12} sm={6}>
-              <TextField id="modelName" value={values.modelName} onChange={handleChange('modelName')}    variant="outlined" label='Model Name'  fullWidth/>
+              <TextField id="instrumentModelName" value={values.instrumentModelName} onChange={handleChange('instrumentModelName')}    variant="outlined" label='Model Name'  fullWidth/>
         </Grid>
         <Grid item xs={12} sm={6}>
               <TextField id="modelNumber"  value={values.modelNumber} onChange={handleChange('modelNumber')} variant="outlined" label='Model Number'  fullWidth/>
