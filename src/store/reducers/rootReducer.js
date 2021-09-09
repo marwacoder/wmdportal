@@ -7,6 +7,8 @@ import pollingUnitLGA from './pollingUnitLGA'
 import measurement from './measurement'
 import unitmeasurement from './unitmeasurement'
 import instrument from './addInstrument'
+import measurementCapacity from './measurementCapacity'
+import getInstrument from './getInstrument'
 
 export const reducers = {
  isAuthenticated,
@@ -15,7 +17,9 @@ export const reducers = {
  pollingUnitLGA,
  measurement,
  unitmeasurement,
- instrument
+ instrument,
+ measurementCapacity,
+ getInstrument
 };
 
 

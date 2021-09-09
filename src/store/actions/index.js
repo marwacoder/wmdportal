@@ -236,7 +236,7 @@ instrumentType,
 unitMeasure,
 measurementCap,
 actualMeasurement,
-modelName,
+instrumentModelName,
 modelNumber,
 serialNumber,
 tagNumber,
@@ -257,7 +257,7 @@ instrumentType,
 unitMeasure,
 measurementCap,
 actualMeasurement,
-modelName,
+instrumentModelName,
 modelNumber,
 serialNumber,
 tagNumber,
@@ -494,6 +494,48 @@ export const getUnitMeasurement = ({unit}) => {
     };
 };
 
+
+
+
+export const getMeasurementCapStart = () => {
+    return {
+        type: actionTypes.GET_MEASUREMENT_CAPACITY_START
+    }
+}
+
+export const getMeasurementCapSuccess = (payload) => {
+    return {
+        type: actionTypes.GET_MEASUREMENT_CAPACITY_SUCCESS,
+        payload
+    }
+}
+
+export const getMeasurementCapFail = (payload) => {
+    return {
+        type: actionTypes.GET_MEASUREMENT_CAPACITY_FAIL,
+        payload
+    };
+};
+
+export const getMeasurementCapRefresh = () => {
+    return {
+        type: actionTypes.GET_MEASUREMENT_CAPACITY_REFRESH,
+    };
+};
+
+
+
+
+export const getMeasurementCapacity = ({category, subcategory}) => {
+    return (dispatch) => {
+        dispatch(getMeasurementCapStart());
+        axios.get(`http://api.wmd.ng/v1/feetable/group/${category}/${subcategory}`).then(resp => {
+                dispatch(getMeasurementCapSuccess(resp.data))
+        }).catch(err => {
+                dispatch(getMeasurementCapFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
+      })
+    };
+};
 
 // /
 
