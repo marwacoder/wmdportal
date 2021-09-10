@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import {Button, Box} from '../../mui'
+import {Button, Box, TextField, Grid} from '../../mui'
 
 import {useDispatch} from 'react-redux'
 import {updateBreadcrumbs} from '../../store/actions'
@@ -61,6 +61,18 @@ export default function DataTable() {
     dispatch(updateBreadcrumbs({name: "Invoice(s)", child: 'Outstanding Bill', link: '/defaultlayout/outstandingbill'}))
   })
   return (
+    <Box >
+      <Box m={2}>
+      <Grid container spacing={2} justifyContent='center' alignItems='center'>
+      <Grid item xs={12} sm={5}>
+      <TextField id="rrr" size='small' label="Remita Retreival Reference (RRR) No."  variant="outlined" fullWidth/>
+      </Grid>
+      <Grid item xs={12} sm={7}>
+        <Button variant="outlined"
+                    color="primary">Generate</Button>
+                       </Grid>
+      </Grid>
+      </Box>
     <Box  style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={rows}
@@ -69,6 +81,7 @@ export default function DataTable() {
         checkboxSelection
         disableSelectionOnClick
       />
+    </Box>
     </Box>
   );
 }

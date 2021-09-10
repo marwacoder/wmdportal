@@ -46,7 +46,7 @@ export default function Review(props) {
         </TextField>
               </Grid>
               <Grid item xs={12} sm={6}>
-              <TextField id="unitMeasure" select value={values.unitMeasure}  onChange={handleChange('unitMeasure')} variant="outlined" label='Unit of Measurement'  fullWidth>
+              <TextField id="unitMeasure" select value={values.unitMeasure}  onChange={handleChange('unitMeasure')} variant="outlined" label='Measurement Subcategory'  fullWidth>
         {Array.isArray(unitmeasurement) ? unitmeasurement.map((item)=><MenuItem onClick={()=> dispatch(getMeasurementCapacity({category, subcategory: item.subheading}))}
          value={item.subheading} key={item}>{item.subheading}</MenuItem>): null}
         </TextField>

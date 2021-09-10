@@ -40,7 +40,14 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
   menuButton: {
     marginRight: 36,
   },
@@ -103,17 +110,17 @@ const useStyles = makeStyles((theme) => ({
 
 const authDashboard = [
   { name: 'HOME',icon: <DashboardIcon color='white'/>, link: '/defaultlayout/home'},
-    { name: 'New Instrument', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon color='white'/> },
-    { name: 'Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon color='white'/>  },
+    { name: 'New Instrument Registration', link: '/defaultlayout/newinstrument', icon: <AddCircleIcon color='white'/> },
+    { name: 'Registered Instrument(s)',link: '/defaultlayout/registeredinstrument', icon: <CloudUploadIcon color='white'/>  },
     { name: 'Uploads',link: '/defaultlayout/uploads', icon: <CloudUploadIcon color='white'/> },
     { name: 'Report',link: '/defaultlayout/reports', icon: <ReportIcon color='white'/>  },
     { name: 'Invoices' , icon: <ReceiptIcon color='white'/>, children: [
       { name: 'Outstanding Bill',link: '/defaultlayout/outstandingbill' },
       { name: 'Paid Bill',link: '/defaultlayout/paidbill' },
     ]},
-    { name: 'Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon color='white'/> },
-    { name: 'Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon color='white'/>  },
-    { name: 'Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon color='white'/>  }
+    { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon color='white'/> },
+    { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon color='white'/>  },
+    { name: 'Apply for Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon color='white'/>  }
 
 
     
@@ -147,6 +154,7 @@ const {data} = useSelector(state => state.isAuthenticated)
       { name: 'Apply for Pattern Approval Certificate',link: '/defaultlayout/applyapproval' , icon: <CheckCircleIcon color='white'/> },
       { name: 'Apply for Instrument Verification',link: '/defaultlayout/applyinstverification', icon: <CloudUploadIcon color='white'/>  },
       { name: 'Periodic Instrument Verification',link: '/defaultlayout/periodicinstrumentv', icon: <TimelineIcon color='white'/>  },
+      { name: 'Company Profile',link: '/defaultlayout/profile', icon: <AccountCircle color='white'/>},
       { name: 'Logout',icon: <ExitToApp color='white'/>}
   
   
@@ -208,7 +216,7 @@ const {data} = useSelector(state => state.isAuthenticated)
           
               <Grid item>
               <Box my={2}>
-                  <img style={{width: 60,  height: 60}} src={coat} alt='coat'/>
+                  <img style={{width: 70,  height: 70}} src={coat} alt='coat'/>
               </Box>
                    
               </Grid>
@@ -223,49 +231,11 @@ const {data} = useSelector(state => state.isAuthenticated)
           </Box>
               </Grid>
               <Grid item>
-                  <img style={{width: 60,  height: 60}} src={ellipse} alt='ellipse'/>
+                  <img style={{width: 70,  height: 70}} src={ellipse} alt='ellipse'/>
               </Grid>
               
           </Grid>
-          <Box pr={5}> 
-            <Grid container justifyContent='space-around' alignItems='center' spacing={2}>
-            <Grid item sm={6}>
-                <Typography noWrap={true}>{data.name|| 'Company'}</Typography>
-              </Grid>
-              <Grid item sm={3}>
-                <Box>
-                <Tooltip title="Profile">
-        <IconButton
-        
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                
-                color="inherit"
-              >
-                <AccountCircle style={{color: 'white'}}/>
-              </IconButton>
-              </Tooltip>
-                </Box>
-              </Grid>
-              <Grid item sm={3}>
-                <Box>
-                <Tooltip title="Logout">
-            <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={onLogout}
-                color="inherit"
-              >
-                <ExitToApp style={{color: 'white'}}/>
-              </IconButton>
-              </Tooltip>
-                </Box>
-              </Grid>
-            </Grid>    
-        </Box> 
-        </Hidden>   
+           </Hidden>   
         </Toolbar>
         
       </AppBar>
@@ -391,8 +361,56 @@ const {data} = useSelector(state => state.isAuthenticated)
                     </Hidden>
                     <main className={classes.content}>
         <div className={classes.toolbar} />
+        <Hidden smDown>
+        <AppBar elevation={0}  style={{marginTop: 108}} position="fixed" color='white'
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        
+      })}>
+      <Toolbar>
+      
+      <Grid container justifyContent='center' alignItems='center' spacing={1}>
+        <Grid item md={10}>
+          <Box fontWeight='bold' color='primary' flexWrap={true} fontSize={20}>Welcome! back <Box component='span' >  {data.name|| 'Company'}</Box></Box>
+        </Grid>
+      
+        <Grid item md={1}>
+           <Tooltip title="Profile">
+        <IconButton
+        onClick={()=> history.push('/defaultlayout/profile')}
+          edge="end"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                
+                color="inherit"
+              >
+                <AccountCircle color='primary' />
+              </IconButton>
+              </Tooltip>
+        </Grid>
+        <Grid item md={1}>
+        <Tooltip title="Logout">
+            <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={onLogout}
+                color="inherit"
+              >
+                <ExitToApp color='primary'/>
+              </IconButton>
+              </Tooltip>
+        </Grid>
+      </Grid>
+     
+
+  
        
-          <Box  mt={{ xs: '-3%',sm: '-3%', md: '3%'}} mb={{ xs: '2%',sm: '2%', md: '2%'}}>
+      </Toolbar>
+        </AppBar>
+        </Hidden>
+          <Box  mt={{ xs: '-3%',sm: '-3%', md: '10%'}} mb={{ xs: '2%',sm: '2%', md: '2%'}}>
             <Breadcrumb/>
           </Box>
       <Box  >
