@@ -124,7 +124,7 @@ export default function VerticalLinearStepper() {
                     color="primary"
                     onClick={onSubmitHandler}
                     className={classes.button}
-                  >  <span style={{color: '#fff'}}>{'Register'}</span> 
+                  >  <span style={{color: '#fff'}}>{'Update'}</span> 
                     
                   </Button>: null}
                   {activeStep !== steps.length - 1 ? <Button
