@@ -10,6 +10,7 @@ import NewInstrumentReg from '../views/AuthDashboard/NewInstrumentReg';
 import RegisteredInstrument from '../views/Tables/RegisteredInstrument'
 import Uploads from '../views/AuthDashboard/Uploads'
 import Reports from '../views/AuthDashboard/Reports'
+import Profile from '../views/AuthDashboard/Profile'
 import OutstandingBill from '../views/Tables/OutstandingBill'
 import PaidBill from '../views/Tables/PaidBill'
 import ApplyApproval from '../views/Tables/ApplyApproval'
@@ -41,7 +42,7 @@ export const defaultlayout = [
     { path: "/defaultlayout/applyinstverification",  name: "ApplyInstVerification", component: ApplyInstVerification },
     { path: "/defaultlayout/reports",  name: "Report", component: Reports },
     { path: "/defaultlayout/periodicinstrumentv",  name: "Periodic", component: PeridicVer },
- 
+    { path: "/defaultlayout/profile",  name: "Profile", component: Profile },
 ];
 
  

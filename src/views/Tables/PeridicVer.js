@@ -80,14 +80,14 @@ export default function DataTable() {
   const dispatch = useDispatch()
   
   React.useEffect(()=> {
-    dispatch(updateBreadcrumbs({name: "Apply for Instrument Verification",  link: '/defaultlayout/periodicinstrumentv'}))
+    dispatch(updateBreadcrumbs({name: "Apply for Periodic Instrument Verification",  link: '/defaultlayout/periodicinstrumentv'}))
   })
 
   return (
     <Box>
            
 
-       <Box >
+       <Box mb={2}>
            <Grid container justifyContent='center' alignItems='center' spacing={2}>
             <Grid item xs={12} sm={12}>
             <Box fontWeight='bold'>Instrument Filter</Box>
@@ -103,15 +103,15 @@ export default function DataTable() {
             </Grid>
            </Grid>
        </Box>
+       <Box style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={rows}
         columns={columns}
-       
-          loading
         pageSize={5}
         checkboxSelection
         disableSelectionOnClick
       />
+    </Box>
     </Box>
   );
 }

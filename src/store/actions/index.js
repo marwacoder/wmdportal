@@ -317,7 +317,6 @@ export const getRegisteredInstrument = ({companyId}) => {
                 dispatch(getRegisteredInstrumentSuccess(resp.data))
             },2000)          
         }).catch(err => {
-           console.log(err.response.data.message,'error')
                 dispatch(getRegisteredInstrumentFail(err.response !== undefined ? err.response.data.message : 'Network Failed')) 
       })
     };
