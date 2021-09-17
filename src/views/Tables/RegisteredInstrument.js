@@ -7,7 +7,7 @@ import {updateBreadcrumbs, getRegisteredInstrument} from '../../store/actions'
 
 
 const columns = [
-  { field: 'id', headerName: 'S/N', width: 120 },
+  { field: 'sn', headerName: 'S/N', width: 120 },
   {
     field: 'instrument',
     headerName: 'INSTRUMENT',
@@ -15,7 +15,7 @@ const columns = [
     editable: true,
   },
   {
-    field: 'instrumentModelName',
+    field: 'modelName',
     headerName: 'MODEL NAME',
     width: 150,
     editable: true,
@@ -70,9 +70,7 @@ const columns = [
   // },
 ];
 
-const rows = [
-  
-];
+
 
 export default function DataTable() {
   const {isLoading, instrument} = useSelector(state => state.getInstrument)
@@ -81,14 +79,19 @@ export default function DataTable() {
 
   React.useEffect(()=> {
     dispatch(updateBreadcrumbs({name: "Registered Instrument", link: '/defaultlayout/registeredinstrument'}))
-    dispatch(getRegisteredInstrument({companyId: data._id}))
+    dispatch(getRegisteredInstrument())
   },[])
+  let sn = 1
+  const rows = instrument ? instrument.map((row)=> {
+    const {_id, ...rest} = row;
+    return {id: _id, sn: sn ++, ...rest};
+  }): null
+  console.log(instrument,'instrument')
 
-  console.log(instrument,'jb')
   return (
     <Box  style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={ rows }
+        rows={ rows ? rows : [] }
         columns={columns}
         pageSize={5}
         loading={isLoading}

@@ -26,7 +26,6 @@ export const getInstrument = (state = initState, action) => {
         case actionTypes.GET_REGISTERED_INSTRUMENT_FAIL:
             return {
                 isLoading: false,
-                isLoggedIn: false,
                 error: true,
                 message: action.payload
             }

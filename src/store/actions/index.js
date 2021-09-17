@@ -307,11 +307,11 @@ export const getRegisteredInstrumentRefresh = () => {
 
 
 
-export const getRegisteredInstrument = ({companyId}) => {
+export const getRegisteredInstrument = () => {
  
     return (dispatch) => {
         dispatch(getRegisteredInstrumentStart());
-        axios.get(`http://api.wmd.ng/v1/instrument/${companyId}`,{
+        axios.get(`http://api.wmd.ng/v1/instrument/`,{
         }).then(resp => {
             setTimeout(() => {
                 dispatch(getRegisteredInstrumentSuccess(resp.data))
