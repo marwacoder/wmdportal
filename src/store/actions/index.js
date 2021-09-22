@@ -245,7 +245,7 @@ verificationCertificate}) => {
  
     return (dispatch) => {
         dispatch(registerInstrumentStart());
-        axios.post(`http://api.wmd.ng/v1/instrument/${companyId}`,{
+        axios.post(`http://api.wmd.ng/v1/instrument`,{
 state,
 localGovt,
 city,
