@@ -15,7 +15,7 @@ const columns = [
     editable: true,
   },
   {
-    field: 'modelName',
+    field: 'instrumentModelName',
     headerName: 'MODEL NAME',
     width: 150,
     editable: true,
