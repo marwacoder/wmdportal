@@ -327,7 +327,6 @@ export const getRegisteredInstrument = () => {
     axios
       .get(`http://api.wmd.ng/v1/instrument/`, {})
       .then((resp) => {
-        console.log("RegisteredInstrument:" , resp.data)
         setTimeout(() => {
           dispatch(getRegisteredInstrumentSuccess(resp.data));
         }, 2000);
