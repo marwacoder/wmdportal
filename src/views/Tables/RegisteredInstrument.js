@@ -73,7 +73,7 @@ const columns = [
 
 
 export default function DataTable() {
-  const {isLoading, instrument} = useSelector(state => state.getInstrument)
+  
   const { data} = useSelector(state => state.isAuthenticated)
   const dispatch = useDispatch()
 
@@ -81,8 +81,10 @@ export default function DataTable() {
     dispatch(updateBreadcrumbs({name: "Registered Instrument", link: '/defaultlayout/registeredinstrument'}))
     dispatch(getRegisteredInstrument())
   },[])
+  const {isLoading, instrument} = useSelector(state => state.getInstrument)
+  console.log("instrument:", instrument)
   let sn = 1
-  const rows = instrument ? instrument.map((row)=> {
+  const rows = instrument ? instrument?.map((row)=> {
     const {_id, ...rest} = row;
     return {id: _id, sn: sn ++, ...rest};
   }): null
