@@ -228,29 +228,30 @@ export const registerInstrumentRefresh = () => {
   };
 };
 
-export const registerInstrument = ({
-  companyId,
-  state,
-  localGovt,
-  city,
-  geoZone,
-  contactAddress,
-  sector,
-  instrument,
-  instrumentType,
-  unitMeasure,
-  measurementCap,
-  actualMeasurement,
-  instrumentModelName,
-  modelNumber,
-  serialNumber,
-  tagNumber,
-  approvalCertificate,
-  verificationCertificate, additional,
-  amount,
-  maxFee,
-  minFee,
-}) => {
+export const registerInstrument = (
+  {
+    companyId,
+    state,
+    localGovt,
+    city,
+    geoZone,
+    contactAddress,
+    sector,
+    instrument,
+    instrumentType,
+    unitMeasure,
+    measurementCap,
+    actualMeasurement,
+    instrumentModelName,
+    modelNumber,
+    serialNumber,
+    tagNumber,
+    approvalCertificate,
+    verificationCertificate,
+  },
+  filteredMeasurementCapacity
+) => {
+  
   return (dispatch) => {
     dispatch(registerInstrumentStart());
     axios
@@ -271,10 +272,12 @@ export const registerInstrument = ({
         serialNumber,
         tagNumber,
         approvalCertificate,
-        verificationCertificate, additional,
-        amount,
-        maxFee,
-        minFee,
+        verificationCertificate,
+        additional: filteredMeasurementCapacity[0].additional,
+        amount: filteredMeasurementCapacity[0].amount,
+        maxFee: filteredMeasurementCapacity[0].maxFee,
+        minFee: filteredMeasurementCapacity[0].minFee,
+        sumPrice: filteredMeasurementCapacity[0].sumPrice,
       })
       .then((resp) => {
         console.log(resp, "resp");
