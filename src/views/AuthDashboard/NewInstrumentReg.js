@@ -47,10 +47,14 @@ const useStyles = makeStyles((theme) => ({
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [range, setRange] = React.useState({});
   const steps = getSteps();
   const dispatch = useDispatch();
   const { error, message, success } = useSelector(
     (state) => state.instrument || []
+  );
+  const { measurementcapacity } = useSelector(
+    (state) => state.measurementCapacity || []
   );
   const { data } = useSelector((state) => state.isAuthenticated);
 
@@ -73,13 +77,9 @@ export default function VerticalLinearStepper() {
     approvalCertificate: "",
     verificationCertificate: "",
     // Add three more field
-    additional: "",
-    amount: "",
-    maxFee: "",
-    minFee: "",
   });
 
-  console.log(values, "values");
+  console.log(values, "values-");
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -170,36 +170,38 @@ export default function VerticalLinearStepper() {
       tagNumber,
       approvalCertificate,
       verificationCertificate,
-      additional,
-      amount,
-      maxFee,
-      minFee,
     } = values;
+    dispatch(getMeasurement());
+    const filteredMeasurementCapacity = measurementcapacity?.length
+      ? measurementcapacity?.filter(
+          (data) => data.measureRange === values.measurementCap
+        )
+      : null;
+
     dispatch(
-      registerInstrument({
-        companyId: data._id,
-        state,
-        localGovt,
-        city,
-        geoZone,
-        contactAddress,
-        sector,
-        instrument,
-        instrumentType,
-        unitMeasure,
-        measurementCap,
-        actualMeasurement,
-        instrumentModelName,
-        modelNumber,
-        serialNumber,
-        tagNumber,
-        approvalCertificate,
-        verificationCertificate,
-        additional,
-        amount,
-        maxFee,
-        minFee,
-      })
+      registerInstrument(
+        {
+          companyId: data._id,
+          state,
+          localGovt,
+          city,
+          geoZone,
+          contactAddress,
+          sector,
+          instrument,
+          instrumentType,
+          unitMeasure,
+          measurementCap,
+          actualMeasurement,
+          instrumentModelName,
+          modelNumber,
+          serialNumber,
+          tagNumber,
+          approvalCertificate,
+          verificationCertificate,
+        },
+        filteredMeasurementCapacity
+      )
     );
   };
 
