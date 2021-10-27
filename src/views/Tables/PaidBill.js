@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Box} from '../../mui'
 import {useDispatch} from 'react-redux'
-import {updateBreadcrumbs} from '../../store/actions'
+import {updateBreadcrumbs, getBills} from '../../store/actions'
 
 const columns = [
     { field: 'id', headerName: 'S/N', width: 120 },
