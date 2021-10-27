@@ -345,6 +345,57 @@ export const getRegisteredInstrument = () => {
       });
   };
 };
+
+// Get bills
+export const getBillsStart = () => {
+  return {
+    type: actionTypes.GET_BILLS_START,
+  };
+};
+
+export const getBillsSuccess = (payload) => {
+  return {
+    type: actionTypes.GET_BILLS_SUCCESS,
+    payload,
+  };
+};
+
+export const getBillsFail = (payload) => {
+  return {
+    type: actionTypes.GET_BILLS_FAIL,
+    payload,
+  };
+};
+
+export const getBillsRefresh = () => {
+  return {
+    type: actionTypes.GET_BILLS_REFRESH,
+  };
+};
+
+export const getBills = () => {
+  return (dispatch) => {
+    dispatch(getBillsStart());
+    axios
+      .get(`http://api.wmd.ng/v1/bills/`, {})
+      .then((resp) => {
+        setTimeout(() => {
+          dispatch(getBillsSuccess(resp.data));
+        }, 2000);
+      })
+      .catch((err) => {
+        dispatch(
+          getBillsFail(
+            err.response !== undefined
+              ? err.response.data.message
+              : "Network Failed"
+          )
+        );
+      });
+  };
+};
+
+
 //GET STATES
 
 export const getStateStart = () => {
