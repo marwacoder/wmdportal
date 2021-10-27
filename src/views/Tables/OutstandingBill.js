@@ -61,6 +61,12 @@ export default function DataTable() {
     dispatch(updateBreadcrumbs({name: "Invoice(s)", child: 'Outstanding Bill', link: '/defaultlayout/outstandingbill'}))
     dispatch(getBills())
   })
+const {isLoading, bills} = useSelector(state => state.getBills)
+  let sn = 1
+  const rows = bills?.length ? bills?.map((row)=> {
+    const {_id, ...rest} = row;
+    return {id: _id, sn: sn ++, ...rest};
+  }): null
   return (
     <Box >
       <Box m={2}>
