@@ -1,15 +1,15 @@
 import * as React from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import { Button, Box, TextField, Grid } from "../../mui";
-
 import { useDispatch } from "react-redux";
-import { updateBreadcrumbs } from "../../store/actions";
+import { updateBreadcrumbs, getBills } from "../../store/actions";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
+import {format}  from "date-fns"
 const columns = [
   { field: "id", headerName: "S/N", width: 120 },
   {
-    field: "date",
+    field: "createdAt",
     headerName: "Date",
     width: 150,
   },
@@ -25,12 +25,13 @@ const columns = [
     width: 150,
   },
   {
-    field: "paystatus",
+    field: "status",
     headerName: "PAYMENT STATUS",
+    // renderCell:(row)=> row["status"] === false? "Unpaid":row["status"] ===true?"Paid":"",
     width: 220,
   },
   {
-    field: "transactId",
+    field: "transactionId",
     headerName: "TRANSACTION ID",
     description: "This column has a value getter and is not sortable.",
     sortable: false,
@@ -54,11 +55,18 @@ export default function DataTable() {
   const dispatch = useDispatch();
   const [invoice, setInvoice] = React.useState([]);
 
+  // const rows = [
+  //   {
+  //     id: 1,
+  //     date: "03/04/2021",
+  //     amount: "27,500.00",
+  //     purpose: "Instrument Annual Licencing Fee",
+  //     paystatus: "Pending",
+  //     transactId: "56377256",
+  //   },
+  // ];
   React.useEffect(() => {
-    axios
-      .get("http://api.wmd.ng/v1/bills")
-      .then((response) => setInvoice(response.data))
-      .catch((err) => alert(err));
+    dispatch(getBills());
     dispatch(
       updateBreadcrumbs({
         name: "Invoice(s)",
@@ -66,18 +74,18 @@ export default function DataTable() {
         link: "/defaultlayout/outstandingbill",
       })
     );
-  });
-  const rows = [
-    {
-      id: 1,
-      date: "03/04/2021",
-      amount: "27,500.00",
-      purpose: "Instrument Annual Licencing Fee",
-      paystatus: "Pending",
-      transactId: "56377256",
-    },
-  ];
-
+    
+  }, []);
+  const { isLoading, bills } = useSelector((state) => state.getBills);
+  let sn = 1;
+  console.log("Bills:", bills);
+  const rows = bills?.length
+    ? bills?.map((row) => {
+        const { _id, ...rest } = row;
+        return { id: _id, sn: sn++, ...rest };
+      })
+    : null;
+  console.log("rows:", rows);
   return (
     <Box>
       <Box m={2}>
@@ -100,9 +108,10 @@ export default function DataTable() {
       </Box>
       <Box style={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={invoice}
+          rows={rows||[]}
           columns={columns}
           pageSize={5}
+          loading={isLoading}
           checkboxSelection
           disableSelectionOnClick
         />
