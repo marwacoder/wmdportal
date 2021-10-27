@@ -5,13 +5,19 @@ import { useDispatch } from "react-redux";
 import { updateBreadcrumbs, getBills } from "../../store/actions";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import {format}  from "date-fns"
+import { format } from "date-fns";
+
+const formatDate = (date) => {
+  const newDate = format(new Date(date), "dd/mm/yyyy");
+  return newDate;
+};
 const columns = [
   { field: "id", headerName: "S/N", width: 120 },
   {
     field: "createdAt",
     headerName: "Date",
     width: 150,
+    renderCell: (params) => <strong>{formatDate(params.value)}</strong>,
   },
   {
     field: "amount",
@@ -27,7 +33,7 @@ const columns = [
   {
     field: "status",
     headerName: "PAYMENT STATUS",
-    // renderCell:(row)=> row["status"] === false? "Unpaid":row["status"] ===true?"Paid":"",
+    renderCell: (row) => (row.value === false ? "Unpaid" : "Paid"),
     width: 220,
   },
   {
@@ -74,7 +80,6 @@ export default function DataTable() {
         link: "/defaultlayout/outstandingbill",
       })
     );
-    
   }, []);
   const { isLoading, bills } = useSelector((state) => state.getBills);
   let sn = 1;
@@ -108,7 +113,7 @@ export default function DataTable() {
       </Box>
       <Box style={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={rows||[]}
+          rows={rows || []}
           columns={columns}
           pageSize={5}
           loading={isLoading}
