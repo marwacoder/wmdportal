@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 
 const initState = {
-    instrument: {},
+    bills: {},
     error: false,
     message: null,
     isLoading: false,
@@ -10,35 +10,32 @@ const initState = {
 }
 
 
-export const instrument = (state = initState, action) => {
+export const getInstrument = (state = initState, action) => {
     switch (action.type) {
-        case actionTypes.ADD_INSTRUMENT_START:
+            case actionTypes.GET_BILLS_START:
             return {
                 isLoading: true
             }
-        case actionTypes.ADD_INSTRUMENT_SUCCESS:
+        case actionTypes.GET_BILLS_SUCCESS:
             return {
                 isLoading: false,
-                instrument: { ...state.instrument, ...action.payload.data },
+                instrument: action.payload.data,
                 message: action.payload.message,
                 success: true
             }
-        case actionTypes.ADD_INSTRUMENT_FAIL:
+        case actionTypes.GET_BILLS_FAIL:
             return {
                 isLoading: false,
-                isLoggedIn: false,
                 error: true,
                 message: action.payload
             }
-        case actionTypes.ADD_INSTRUMENT_REFRESH:
+        case actionTypes.GET_BILLS_REFRESH:
             return {
                 
             }
-
-            
         default:
             return state;
             }
 }
 
-export default instrument;
+export default getBills;
