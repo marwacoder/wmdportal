@@ -9,6 +9,7 @@ import unitmeasurement from './unitmeasurement'
 import instrument from './addInstrument'
 import measurementCapacity from './measurementCapacity'
 import getInstrument from './getInstrument'
+import getBills from './getBills'
 
 export const reducers = {
  isAuthenticated,
@@ -19,7 +20,8 @@ export const reducers = {
  unitmeasurement,
  instrument,
  measurementCapacity,
- getInstrument
+ getInstrument,
+ getBills
 };
 
 

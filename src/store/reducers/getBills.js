@@ -1,34 +1,37 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initState = {
-  data: {},
+  bills: {},
   error: false,
   message: null,
   isLoading: false,
+  success: false,
 };
 
-export const company = (state = initState, action) => {
+export const getBills = (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.GET_COMPANY_START:
+    case actionTypes.GET_BILLS_START:
       return {
         isLoading: true,
       };
-    case actionTypes.GET_COMPANY_SUCCESS:
+    case actionTypes.GET_BILLS_SUCCESS:
       return {
         isLoading: false,
-        data: { ...state.data, ...action.payload.data },
+        bills: action.payload.data,
+        message: action.payload.message,
+        success: true,
       };
-    case actionTypes.GET_COMPANY_FAIL:
+    case actionTypes.GET_BILLS_FAIL:
       return {
         isLoading: false,
         error: true,
         message: action.payload,
       };
-    case actionTypes.GET_COMPANY_REFRESH:
+    case actionTypes.GET_BILLS_REFRESH:
       return {};
     default:
       return state;
   }
 };
 
-export default company;
+export default getBills;

@@ -372,7 +372,7 @@ const handleRegisteredInstrument = () => {
    </StyledMenu>
     );
   return (
-    <div >
+    <div>
       {authRedirect}
       <Hidden smDown>
       <AppBar color='white' position='fixed' >
