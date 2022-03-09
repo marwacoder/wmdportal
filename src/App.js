@@ -100,6 +100,7 @@ function App() {
         from="/"
         to="/dashboard/home"
             />    
+            
             <Suspense fallback= {<Spinner/>}>
           <Route path='/dashboard' component= {Dashboard} key='Dashboard'/>
           <Route path='/defaultlayout' component= {DefaultLayout} key='DefaultLayout'/>

@@ -13,15 +13,14 @@ export default function Review(props) {
       const { measurement} = useSelector(state => state.measurement || [])
       const { unitmeasurement} = useSelector(state => state.unitmeasurement || [])
       const { measurementcapacity} = useSelector(state => state.measurementCapacity || [])
-      const {values,  handleChange} = props
+      const {values, setValues, handleChange} = props
 
       
       const [category, setCategory] = React.useState('')
+      const [fee, setFee] = React.useState(null)
 
   // you can call this function anything
 
-  console.log(measurementcapacity, 'measurement')
- 
 
   return (
     <Box  >
@@ -55,7 +54,7 @@ export default function Review(props) {
 
         <Grid item xs={12} sm={6}>
               <TextField id="measurementCap" value={values.measurementCap} select onChange={handleChange('measurementCap')}  variant="outlined" label='Measurement Capacity'  fullWidth>
-              {Array.isArray(measurementcapacity) ? measurementcapacity.map((item)=><MenuItem  value={item.measureRange} key={item}>{item.measureRange}</MenuItem>): null}
+              {Array.isArray(measurementcapacity) ? measurementcapacity.map((item)=><MenuItem onClick={()=> setValues({...values, amount: item.amount, minFee: item.minFee, maxFee: item.maxFee})} value={item.measureRange} key={item}>{item.measureRange}</MenuItem>): null}
               </TextField>
         </Grid>
         <Grid item xs={12} sm={6}>

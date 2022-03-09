@@ -241,7 +241,11 @@ modelNumber,
 serialNumber,
 tagNumber,
 approvalCertificate,
-verificationCertificate}) => {
+verificationCertificate,
+amount,
+minFee,
+maxFee
+}) => {
  
     return (dispatch) => {
         dispatch(registerInstrumentStart());
@@ -262,7 +266,10 @@ modelNumber,
 serialNumber,
 tagNumber,
 approvalCertificate,
-verificationCertificate
+verificationCertificate,
+amount,
+minFee,
+maxFee
         }).then(resp => {
             console.log(resp,'resp')
             setTimeout(() => {

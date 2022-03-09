@@ -59,7 +59,10 @@ export default function VerticalLinearStepper() {
     serialNumber: '',
     tagNumber: '',
     approvalCertificate: '',
-    verificationCertificate: ''
+    verificationCertificate: '',
+    amount: 0,
+    minFee: 0,
+    maxFee: 0
   });
 
 

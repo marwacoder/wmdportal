@@ -15,7 +15,7 @@ const columns = [
     editable: true,
   },
   {
-    field: 'modelName',
+    field: 'instrumentModelName',
     headerName: 'MODEL NAME',
     width: 150,
     editable: true,
@@ -82,16 +82,16 @@ export default function DataTable() {
     dispatch(getRegisteredInstrument())
   },[])
   let sn = 1
-  const rows = instrument ? instrument.map((row)=> {
-    const {_id, ...rest} = row;
-    return {id: _id, sn: sn ++, ...rest};
-  }): null
+  // const rows = instrument ? instrument.map((row)=> {
+  //   const {_id, ...rest} = row;
+  //   return {id: _id, sn: sn ++, ...rest};
+  // }): null
   console.log(instrument,'instrument')
 
   return (
     <Box  style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={ rows ? rows : [] }
+        rows={ [] }
         columns={columns}
         pageSize={5}
         loading={isLoading}
